@@ -50,7 +50,7 @@ int loader_load_list_by_tokens(char *output, jsmntok_t *tokens) {
 }
 
 int loader_load() {
-  FILE *fp = fopen("data/list.dat", "r");
+  FILE *fp = fopen("data/tiles_list.dat", "r");
   if (!fp)
     return FALSE;
 

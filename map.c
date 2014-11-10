@@ -77,7 +77,7 @@ void map_load() {
     fclose(fp);
     map_set_map();
   }
-  if ((fp = fopen("data/map.dat", "r")) != NULL) {
+  if ((fp = fopen("data/map_terrain.dat", "r")) != NULL) {
     int row = 0, col = 0;
     char chunk[1024];
     char *chunk_part;
@@ -107,7 +107,7 @@ void map_save() {
     fputs(c, fp);
     fclose(fp);
   }
-  if ((fp = fopen("data/map.dat", "w")) != NULL) {
+  if ((fp = fopen("data/map_terrain.dat", "w")) != NULL) {
     int row, col;
     for (row = 0; row < map_rows; row++) {
       for (col = 0; col < map_cols; col++) {
