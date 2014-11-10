@@ -1,4 +1,4 @@
-#define TILES_MAX 4
+#define TILES_MAX 5
 #define TILES_SIZE 64
 
 struct st_tile {

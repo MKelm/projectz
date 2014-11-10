@@ -7,7 +7,7 @@ SDL_Surface* tile_image;
 
 char folder[128] = "resources";
 char tile_names[TILES_MAX][128] = {
-  "grass", "dirt", "water", "rock"
+  "grass", "sand", "dirt", "water", "rock"
 };
 
 SDL_Surface *tiles_load_img(char *file_name) {
