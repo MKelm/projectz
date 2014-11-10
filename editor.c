@@ -103,6 +103,7 @@ void handle_map_event() {
     if (event.button.button == SDL_BUTTON_RIGHT)
       rightMouseButtonDown = TRUE;
     else if (event.button.button == SDL_BUTTON_LEFT) {
+      leftMouseButtonDown = TRUE;
       map_select_tile(event.button.x, event.button.y, list_get_selected_item());
     }
   }
@@ -110,11 +111,15 @@ void handle_map_event() {
     if (event.button.button == SDL_BUTTON_RIGHT) {
       rightMouseButtonDown = FALSE;
       map_move_reset();
+    } else if (event.button.button == SDL_BUTTON_LEFT) {
+      leftMouseButtonDown = FALSE;
     }
   }
   if (event.type == SDL_MOUSEMOTION) {
     if (rightMouseButtonDown == TRUE) {
       map_move(event.button.x, event.button.y);
+    } else if (leftMouseButtonDown == TRUE) {
+      map_select_tile(event.button.x, event.button.y, list_get_selected_item());
     }
   }
   if (event.type == SDL_KEYDOWN) {
