@@ -142,7 +142,6 @@ void handle_list_event() {
       list_select_entry_item(event.button.y);
     }
   }
-
   if (event.type == SDL_MOUSEBUTTONUP) {
     if (event.button.button == SDL_BUTTON_WHEELUP) {
       list_change_offset(TRUE, 10.f);
@@ -152,11 +151,17 @@ void handle_list_event() {
       leftMouseButtonDown = FALSE;
     }
   }
-
   if (event.type == SDL_MOUSEMOTION) {
     if (list_set_scrollbar_active(event.motion.x, event.motion.y) == TRUE &&
         leftMouseButtonDown == TRUE) {
       list_move_scrollbar_slider(event.button.y);
+    }
+  }
+  if (event.type == SDL_KEYDOWN) {
+    switch (event.key.keysym.sym) {
+      case SDLK_1: list_clean_up(); list_init(TILE_LIST_TILES); break;
+      case SDLK_2: list_clean_up(); list_init(TILE_LIST_ITEMS); break;
+      default: ;
     }
   }
 }

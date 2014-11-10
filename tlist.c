@@ -48,7 +48,9 @@ SDL_Surface *list_load_image(char *filename) {
   return optimizedImage;
 }
 
-void list_init() {
+void list_init(int list_mode) {
+  loader_set_file_mode(list_mode);
+
   list_title_font = TTF_OpenFont(font_file, 18);
   list_text_font = TTF_OpenFont(font_file, 16);
 

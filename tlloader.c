@@ -10,6 +10,15 @@
 struct st_loader_list_entry loader_list[LIST_MAX_ENTRIES];
 int loader_list_length = 0;
 
+char files[2][128] = {
+  "data/tiles_list.dat", "data/items_list.dat"
+};
+int file_mode = TILE_LIST_TILES;
+
+void loader_set_file_mode(int mode) {
+  file_mode = mode;
+}
+
 void loader_load_json_token(char* input, char *token, jsmntok_t *tokens, int token_idx) {
   strncpy(token, "", LOADER_CHUNK_LENGTH);
   strncpy(token, input + tokens[token_idx].start,
@@ -50,7 +59,7 @@ int loader_load_list_by_tokens(char *output, jsmntok_t *tokens) {
 }
 
 int loader_load() {
-  FILE *fp = fopen("data/tiles_list.dat", "r");
+  FILE *fp = fopen(files[file_mode], "r");
   if (!fp)
     return FALSE;
 

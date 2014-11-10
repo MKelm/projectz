@@ -14,6 +14,11 @@ struct st_list_options {
   float length_y;
 };
 
+enum {
+  TILE_LIST_TILES,
+  TILE_LIST_ITEMS
+};
+
 void list_init();
 int list_get_selected_item();
 void list_change_offset(int up, float val_y);
