@@ -10,8 +10,8 @@
 SDL_Surface *screen;
 SDL_Surface *message;
 
-int screen_width = 640;
-int screen_height = 480;
+int screen_width = 800;
+int screen_height = 600;
 int screen_bpp = 32;
 
 char window_title_str[256] = "Project Z - Editor";
@@ -122,7 +122,7 @@ void handle_map_event() {
       case SDLK_g: map_toggle_grid(); break;
       case SDLK_PLUS: map_resize(1); set_footer_message(); break;
       case SDLK_MINUS: map_resize(-1); set_footer_message(); break;
-      case SDLK_l: map_load(); break;
+      case SDLK_l: map_load(); set_footer_message(); break;
       case SDLK_s: map_save(); break;
       default: ;
     }
@@ -185,11 +185,13 @@ int main(int argc, char* args[]) {
       if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
           case SDLK_TAB: toggle_mode(); break;
+          case SDLK_ESCAPE: quit = TRUE; map_save(); break;
           default: ;
         }
       }
       if (event.type == SDL_QUIT) {
         quit = TRUE;
+        map_save();
       }
     }
 

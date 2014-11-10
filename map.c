@@ -41,7 +41,7 @@ void map_set_map() {
   int row, col;
   for (row = 0; row < map_rows; row++) {
     for (col = 0; col < map_cols; col++) {
-      map[row][col] = -1;
+      map[row][col] = 0;
     }
   }
 
@@ -53,6 +53,8 @@ void map_init() {
 
   map_set_map();
   map_move_reset();
+
+  map_load();
 }
 
 void map_load() {
@@ -112,7 +114,7 @@ void map_save() {
         sprintf(
           c, "%s%d%s",
           map[row][col] < 10 ? "0" : "",
-          map[row][col],
+          map[row][col] < 0 ? 0 : map[row][col],
           col + 1 < map_cols ? " " : ""
         );
         fputs(c, fp);
