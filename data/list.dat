@@ -1,18 +1,6 @@
 [
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, vel id nisl expetendis an.", "null" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, autem corpora ne mel ex.", "null" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, autem corpora ne mel ex.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, autem corpora ne mel ex.", "null" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, agam iuvaret perpetua no pri.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, vis vocent consequat argumentum id.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, et impetus deterruisset mei viderer.", "null" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, has vero sanctus gubergren et.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, vel id nisl expetendis an.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, autem corpora ne mel ex.", "null" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, autem corpora ne mel ex.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, autem corpora ne mel ex.", "null" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, agam iuvaret perpetua no pri.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, vis vocent consequat argumentum id.", "list_image.png" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, et impetus deterruisset mei viderer.", "null" ],
-  [ "Lorem ipsum.", "Lorem ipsum dolor sit amet, has vero sanctus gubergren et.", "list_image.png" ]
+  [ "Grass", "...", "grass_32.png" ],
+  [ "Dirt", "...", "dirt_32.png" ],
+  [ "Water", "...", "water_32.png" ],
+  [ "Rock", "....", "rock_32.png" ]
 ]
