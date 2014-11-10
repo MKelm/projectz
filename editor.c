@@ -123,6 +123,7 @@ void handle_map_event() {
       case SDLK_PLUS: map_resize(1); set_footer_message(); break;
       case SDLK_MINUS: map_resize(-1); set_footer_message(); break;
       case SDLK_l: map_load(); break;
+      case SDLK_s: map_save(); break;
       default: ;
     }
   }

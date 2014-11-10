@@ -77,6 +77,30 @@ void map_load() {
   }
 }
 
+void map_save() {
+  FILE *fp;
+  if ((fp = fopen("data/map.dat", "w")) != NULL) {
+    int row, col;
+    char c[3];
+    for (row = 0; row < map_rows; row++) {
+      for (col = 0; col < map_cols; col++) {
+        sprintf(
+          c, "%s%d%s",
+          map[row][col] < 10 ? "0" : "",
+          map[row][col],
+          col + 1 < map_cols ? " " : ""
+        );
+        fputs(c, fp);
+      }
+      if (row + 1 < map_rows) {
+        sprintf(c, "\n");
+        fputs(c, fp);
+      }
+    }
+    fclose(fp);
+  }
+}
+
 void map_resize(int direction) {
   if (direction == 1) {
     map_rows++;
