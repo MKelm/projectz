@@ -12,7 +12,6 @@ int map_rows = 4;
 int map_cols = 4;
 int **map;
 int map_set = FALSE;
-int map_loaded = FALSE;
 int map_show_grid = TRUE;
 
 struct st_map_tile_selection {
@@ -75,7 +74,6 @@ void map_load() {
       row++;
     }
     fclose(fp);
-    map_loaded = TRUE;
   }
 }
 
@@ -95,22 +93,20 @@ void map_toggle_grid() {
 }
 
 void map_show() {
-  if (map_loaded == TRUE) {
-    SDL_Rect offset;
-    int row, col, x, y;
-    y = map_rect.y;
-    for (row = 0; row < map_rows; row++) {
-      x = map_rect.x;
-      for (col = 0; col < map_cols; col++) {
-        offset.x = x;
-        offset.y = y;
-        if (map[row][col] > -1) {
-          SDL_BlitSurface(tiles[map[row][col]].tile, NULL, screen, &offset);
-        }
-        x += TILES_SIZE;
+  SDL_Rect offset;
+  int row, col, x, y;
+  y = map_rect.y;
+  for (row = 0; row < map_rows; row++) {
+    x = map_rect.x;
+    for (col = 0; col < map_cols; col++) {
+      offset.x = x;
+      offset.y = y;
+      if (map[row][col] > -1) {
+        SDL_BlitSurface(tiles[map[row][col]].tile, NULL, screen, &offset);
       }
-      y += TILES_SIZE;
+      x += TILES_SIZE;
     }
+    y += TILES_SIZE;
   }
 
   if (map_show_grid == TRUE) {
@@ -154,11 +150,18 @@ void map_show() {
   }
 }
 
-void map_select_tile(int screen_x, int screen_y) {
+void map_set_tile(int col, int row, int tile_id) {
+  if (tile_id > -1)
+    map[row][col] = tile_id;
+}
+
+void map_select_tile(int screen_x, int screen_y, int tile_id) {
   map_tile_selection.col = -1 * (map_rect.x - screen_x) / TILES_SIZE;
   map_tile_selection.row = -1 * (map_rect.y - screen_y) / TILES_SIZE;
   if (map_tile_selection.col >= map_cols || map_tile_selection.row >= map_rows)
     map_tile_selection_reset();
+  else
+    map_set_tile(map_tile_selection.col, map_tile_selection.row, tile_id);
 }
 
 void map_tile_selection_reset() {

@@ -79,6 +79,10 @@ void list_init() {
   list_calc_scrollbar();
 }
 
+int list_get_selected_item() {
+  return list_options.selected_item;
+}
+
 void list_change_offset(int up, float val_y) {
   if (up == TRUE) {
     if (list_options.offset_y + val_y <= 0)

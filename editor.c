@@ -102,8 +102,9 @@ void handle_map_event() {
   if (event.type == SDL_MOUSEBUTTONDOWN) {
     if (event.button.button == SDL_BUTTON_RIGHT)
       rightMouseButtonDown = TRUE;
-    else if (event.button.button == SDL_BUTTON_LEFT)
-      map_select_tile(event.button.x, event.button.y);
+    else if (event.button.button == SDL_BUTTON_LEFT) {
+      map_select_tile(event.button.x, event.button.y, list_get_selected_item());
+    }
   }
   if (event.type == SDL_MOUSEBUTTONUP) {
     if (event.button.button == SDL_BUTTON_RIGHT) {
