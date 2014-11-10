@@ -8,8 +8,8 @@
 extern SDL_Surface *screen;
 extern struct st_tile tiles[TILES_MAX];
 
-int map_rows = 4;
-int map_cols = 4;
+int map_rows = 1;
+int map_cols = 1;
 int **map;
 int map_set = FALSE;
 int map_show_grid = TRUE;
@@ -57,11 +57,29 @@ void map_init() {
 
 void map_load() {
   FILE *fp;
+  if ((fp = fopen("data/map_size.dat", "r")) != NULL) {
+    int i = 0;
+    char chunk[1024];
+    char *chunk_part;
+    while (fgets(chunk, 1024, fp) != NULL) {
+      chunk_part = strtok(chunk, " ");
+      while (chunk_part != NULL) {
+        if (i == 0)
+          map_cols = atoi(chunk_part);
+        else
+          map_rows = atoi(chunk_part);
+        chunk_part = strtok(NULL, " ");
+        i++;
+      }
+    }
+    fclose(fp);
+    map_set_map();
+  }
   if ((fp = fopen("data/map.dat", "r")) != NULL) {
     int row = 0, col = 0;
     char chunk[1024];
     char *chunk_part;
-    while(fgets(chunk, 1024, fp) != NULL) {
+    while (fgets(chunk, 1024, fp) != NULL) {
       col = 0;
       chunk_part = strtok(chunk, " ");
       while (chunk_part != NULL) {
@@ -79,9 +97,16 @@ void map_load() {
 
 void map_save() {
   FILE *fp;
+  char c[3];
+  if ((fp = fopen("data/map_size.dat", "w")) != NULL) {
+    sprintf(c, "%s%d ", map_cols < 10 ? "0" : "", map_cols);
+    fputs(c, fp);
+    sprintf(c, "%s%d", map_rows < 10 ? "0" : "", map_rows);
+    fputs(c, fp);
+    fclose(fp);
+  }
   if ((fp = fopen("data/map.dat", "w")) != NULL) {
     int row, col;
-    char c[3];
     for (row = 0; row < map_rows; row++) {
       for (col = 0; col < map_cols; col++) {
         sprintf(
