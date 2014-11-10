@@ -41,7 +41,7 @@ int init() {
   }
 
   screen = SDL_SetVideoMode(
-    screen_width, screen_height, screen_bpp, SDL_SWSURFACE
+    screen_width, screen_height, screen_bpp, SDL_SWSURFACE | SDL_RESIZABLE
   );
   if (screen == NULL) {
     return FALSE;
@@ -193,6 +193,13 @@ int main(int argc, char* args[]) {
           case SDLK_ESCAPE: quit = TRUE; map_save(); break;
           default: ;
         }
+      }
+      if(event.type == SDL_VIDEORESIZE) {
+        screen_width = event.resize.w;
+        screen_height = event.resize.h;
+        screen = SDL_SetVideoMode(
+          screen_width, screen_height, screen_bpp, SDL_SWSURFACE | SDL_RESIZABLE
+        );
       }
       if (event.type == SDL_QUIT) {
         quit = TRUE;
