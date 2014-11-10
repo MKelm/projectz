@@ -6,6 +6,8 @@
 #define TRUE 1
 
 extern SDL_Surface *screen;
+extern int screen_width;
+extern int screen_height;
 extern struct st_tile tiles[TILES_MAX];
 
 int map_rows = 1;
@@ -152,7 +154,9 @@ void map_show() {
     for (col = 0; col < map_cols; col++) {
       offset.x = x;
       offset.y = y;
-      if (map[row][col] > -1) {
+      if (offset.x + TILES_SIZE > 0 && offset.y + TILES_SIZE > 0 &&
+          offset.x < screen_width && offset.y < screen_height &&
+          map[row][col] > -1) {
         SDL_BlitSurface(tiles[map[row][col]].tile, NULL, screen, &offset);
       }
       x += TILES_SIZE;
@@ -165,28 +169,36 @@ void map_show() {
     y = map_rect.y;
     for (row = 0; row < map_rows; row++) {
       x = map_rect.x;
-      lineRGBA(
-        screen, x, y, x + map_rect.w, y,
-        255, 255, 255, 255
-      );
+      if (y > 0 && y < screen_height) {
+        lineRGBA(
+          screen, x, y, x + map_rect.w, y,
+          255, 255, 255, 255
+        );
+      }
       for (col = 0; col < map_cols; col++) {
+        if (x > 0 && x < screen_width) {
+          lineRGBA(
+            screen, x, y, x, y + map_rect.h - row * TILES_SIZE,
+            255, 255, 255, 255
+          );
+        }
+        x += TILES_SIZE;
+      }
+      if (x > 0 && x < screen_width) {
         lineRGBA(
           screen, x, y, x, y + map_rect.h - row * TILES_SIZE,
           255, 255, 255, 255
         );
-        x += TILES_SIZE;
       }
-      lineRGBA(
-        screen, x, y, x, y + map_rect.h - row * TILES_SIZE,
-        255, 255, 255, 255
-      );
       y += TILES_SIZE;
     }
     x = map_rect.x;
-    lineRGBA(
-      screen, x, y, x + map_rect.w, y,
-      255, 255, 255, 255
-    );
+    if (y > 0 && y < screen_height) {
+      lineRGBA(
+        screen, x, y, x + map_rect.w, y,
+        255, 255, 255, 255
+      );
+    }
   }
 
   if (map_tile_selection.col > -1 && map_tile_selection.row > -1) {
