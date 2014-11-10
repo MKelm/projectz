@@ -15,7 +15,7 @@ int screen_height = 480;
 int screen_bpp = 32;
 
 char window_title_str[256] = "Project Z - Editor";
-char window_footer_str[256] = "developed on CubieTruck";
+char window_footer_str[256];
 
 char font_file[128] = "resources/beyourself.ttf";
 TTF_Font *font = NULL;
@@ -25,6 +25,9 @@ int font_size = 24;
 SDL_Event event;
 int leftMouseButtonDown = FALSE;
 int rightMouseButtonDown = FALSE;
+
+extern int map_rows;
+extern int map_cols;
 
 enum {
   MODE_MAP,
@@ -62,6 +65,16 @@ int load_files() {
     return FALSE;
   }
 
+  return TRUE;
+}
+
+int set_footer_message() {
+  SDL_FreeSurface(message);
+  sprintf(window_footer_str, "%d/%d", map_cols, map_rows);
+  message = TTF_RenderText_Solid(font, window_footer_str, font_color);
+  if (message == NULL) {
+    return FALSE;
+  }
   return TRUE;
 }
 
@@ -106,8 +119,8 @@ void handle_map_event() {
   if (event.type == SDL_KEYDOWN) {
     switch (event.key.keysym.sym) {
       case SDLK_g: map_toggle_grid(); break;
-      case SDLK_PLUS: map_resize(1); break;
-      case SDLK_MINUS: map_resize(-1); break;
+      case SDLK_PLUS: map_resize(1); set_footer_message(); break;
+      case SDLK_MINUS: map_resize(-1); set_footer_message(); break;
       case SDLK_l: map_load(); break;
       default: ;
     }
@@ -153,10 +166,8 @@ int main(int argc, char* args[]) {
     return 1;
   }
 
-  message = TTF_RenderText_Solid(font, window_footer_str, font_color);
-  if (message == NULL) {
+  if (set_footer_message() == FALSE)
     return 1;
-  }
 
   Uint32 frameStart = 0;
   int quit = FALSE;
@@ -184,15 +195,13 @@ int main(int argc, char* args[]) {
 
     if (mode == MODE_MAP) {
       map_show();
+      apply_surface(
+        screen_width - message->w, screen_height - message->h, message, screen
+      );
     } else {
       list_show();
       list_scrollbar_show();
     }
-
-    apply_surface(
-      screen_width - message->w, screen_height - message->h, message, screen
-    );
-
     if (SDL_Flip(screen) == -1) {
       return 1;
     }
