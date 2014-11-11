@@ -13,7 +13,7 @@ int loader_list_length = 0;
 char files[2][128] = {
   "data/tiles_list.dat", "data/items_list.dat"
 };
-int file_mode = TILE_LIST_TILES;
+int file_mode = TILE_LIST_TERRAIN;
 
 void loader_set_file_mode(int mode) {
   file_mode = mode;

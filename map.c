@@ -9,12 +9,22 @@ extern SDL_Surface *screen;
 extern int screen_width;
 extern int screen_height;
 extern struct st_tile tiles_terrain[TILES_TERRAIN_MAX];
+extern struct st_tile tiles_items[TILES_ITEMS_MAX];
 
 int map_rows = 1;
 int map_cols = 1;
-int **map;
+int **map_terrain;
+int **map_items;
 int map_set = FALSE;
 int map_show_grid = TRUE;
+
+enum {
+  IS_FILE_TERRAIN,
+  IS_FILE_ITEMS
+};
+char map_file_terrain[128] = "data/map_terrain.dat";
+char map_file_items[128] = "data/map_items.dat";
+char map_file_size[128] = "data/map_size.dat";
 
 struct st_map_tile_selection {
   int row;
@@ -26,7 +36,8 @@ SDL_Rect map_move_rect;
 
 void map_set_map() {
   if (map_set == TRUE) {
-    free(map);
+    free(map_terrain);
+    free(map_items);
   }
 
   map_rect.x = 0;
@@ -36,14 +47,18 @@ void map_set_map() {
   map_tile_selection_reset();
 
   int i;
-  map = (int **) malloc(map_rows * sizeof(int *));
-  for (i = 0; i < map_rows; i++)
-    map[i] = (int *) malloc(map_cols * sizeof(int));
+  map_terrain = (int **) malloc(map_rows * sizeof(int *));
+  map_items = (int **) malloc(map_rows * sizeof(int *));
+  for (i = 0; i < map_rows; i++) {
+    map_terrain[i] = (int *) malloc(map_cols * sizeof(int));
+    map_items[i] = (int *) malloc(map_cols * sizeof(int));
+  }
 
   int row, col;
   for (row = 0; row < map_rows; row++) {
     for (col = 0; col < map_cols; col++) {
-      map[row][col] = 0;
+      map_terrain[row][col] = 0;
+      map_items[row][col] = 0;
     }
   }
 
@@ -59,9 +74,35 @@ void map_init() {
   map_load();
 }
 
+void map_load_file(int file_type) {
+  FILE *fp;
+  fp = fopen((file_type == IS_FILE_TERRAIN) ? map_file_terrain : map_file_items, "r");
+  if (fp != NULL) {
+    int row = 0, col = 0;
+    char chunk[1024];
+    char *chunk_part;
+    while (fgets(chunk, 1024, fp) != NULL) {
+      col = 0;
+      chunk_part = strtok(chunk, " ");
+      while (chunk_part != NULL) {
+        if (col < map_cols && row < map_rows) {
+          if (file_type == IS_FILE_TERRAIN)
+            map_terrain[row][col] = atoi(chunk_part);
+          else
+            map_items[row][col] = atoi(chunk_part);
+        }
+        chunk_part = strtok(NULL, " ");
+        col++;
+      }
+      row++;
+    }
+    fclose(fp);
+  }
+}
+
 void map_load() {
   FILE *fp;
-  if ((fp = fopen("data/map_size.dat", "r")) != NULL) {
+  if ((fp = fopen(map_file_size, "r")) != NULL) {
     int i = 0;
     char chunk[1024];
     char *chunk_part;
@@ -79,46 +120,32 @@ void map_load() {
     fclose(fp);
     map_set_map();
   }
-  if ((fp = fopen("data/map_terrain.dat", "r")) != NULL) {
-    int row = 0, col = 0;
-    char chunk[1024];
-    char *chunk_part;
-    while (fgets(chunk, 1024, fp) != NULL) {
-      col = 0;
-      chunk_part = strtok(chunk, " ");
-      while (chunk_part != NULL) {
-        if (col < map_cols && row < map_rows) {
-          map[row][col] = atoi(chunk_part);
-        }
-        chunk_part = strtok(NULL, " ");
-        col++;
-      }
-      row++;
-    }
-    fclose(fp);
-  }
+  map_load_file(IS_FILE_TERRAIN);
+  map_load_file(IS_FILE_ITEMS);
 }
 
-void map_save() {
+void map_save_file(int file_type) {
   FILE *fp;
   char c[3];
-  if ((fp = fopen("data/map_size.dat", "w")) != NULL) {
-    sprintf(c, "%s%d ", map_cols < 10 ? "0" : "", map_cols);
-    fputs(c, fp);
-    sprintf(c, "%s%d", map_rows < 10 ? "0" : "", map_rows);
-    fputs(c, fp);
-    fclose(fp);
-  }
-  if ((fp = fopen("data/map_terrain.dat", "w")) != NULL) {
+  fp = fopen((file_type == IS_FILE_TERRAIN) ? map_file_terrain : map_file_items, "w");
+  if (fp != NULL) {
     int row, col;
     for (row = 0; row < map_rows; row++) {
       for (col = 0; col < map_cols; col++) {
-        sprintf(
-          c, "%s%d%s",
-          map[row][col] < 10 ? "0" : "",
-          map[row][col] < 0 ? 0 : map[row][col],
-          col + 1 < map_cols ? " " : ""
-        );
+        if (file_type == IS_FILE_TERRAIN)
+          sprintf(
+            c, "%s%d%s",
+            map_terrain[row][col] < 10 ? "0" : "",
+            map_terrain[row][col] < 0 ? 0 : map_terrain[row][col],
+            col + 1 < map_cols ? " " : ""
+          );
+        else
+          sprintf(
+            c, "%s%d%s",
+            map_items[row][col] < 10 ? "0" : "",
+            map_items[row][col] < 0 ? 0 : map_items[row][col],
+            col + 1 < map_cols ? " " : ""
+          );
         fputs(c, fp);
       }
       if (row + 1 < map_rows) {
@@ -128,6 +155,20 @@ void map_save() {
     }
     fclose(fp);
   }
+}
+
+void map_save() {
+  FILE *fp;
+  char c[3];
+  if ((fp = fopen(map_file_size, "w")) != NULL) {
+    sprintf(c, "%s%d ", map_cols < 10 ? "0" : "", map_cols);
+    fputs(c, fp);
+    sprintf(c, "%s%d", map_rows < 10 ? "0" : "", map_rows);
+    fputs(c, fp);
+    fclose(fp);
+  }
+  map_save_file(IS_FILE_TERRAIN);
+  map_save_file(IS_FILE_ITEMS);
 }
 
 void map_resize(int direction) {
@@ -156,8 +197,11 @@ void map_show() {
       offset.y = y;
       if (offset.x + TILES_SIZE > 0 && offset.y + TILES_SIZE > 0 &&
           offset.x < screen_width && offset.y < screen_height &&
-          map[row][col] > -1) {
-        SDL_BlitSurface(tiles_terrain[map[row][col]].tile, NULL, screen, &offset);
+          map_terrain[row][col] > -1 && map_terrain[row][col] < TILES_TERRAIN_MAX) {
+        SDL_BlitSurface(tiles_terrain[map_terrain[row][col]].tile, NULL, screen, &offset);
+        if (map_items[row][col] > 0 && map_items[row][col] < TILES_ITEMS_MAX) {
+          SDL_BlitSurface(tiles_items[map_items[row][col]].tile, NULL, screen, &offset);
+        }
       }
       x += TILES_SIZE;
     }
@@ -213,18 +257,24 @@ void map_show() {
   }
 }
 
-void map_set_tile(int col, int row, int tile_id) {
-  if (tile_id > -1)
-    map[row][col] = tile_id;
+void map_set_tile(int tile_id, int tile_is_terrain) {
+  if (tile_id > -1) {
+    if (tile_is_terrain == TRUE) {
+      map_terrain[map_tile_selection.row][map_tile_selection.col] = tile_id;
+    } else {
+      map_items[map_tile_selection.row][map_tile_selection.col] = tile_id;
+    }
+  }
 }
 
-void map_select_tile(int screen_x, int screen_y, int tile_id) {
+int map_select_tile(int screen_x, int screen_y) {
   map_tile_selection.col = -1 * (map_rect.x - screen_x) / TILES_SIZE;
   map_tile_selection.row = -1 * (map_rect.y - screen_y) / TILES_SIZE;
-  if (map_tile_selection.col >= map_cols || map_tile_selection.row >= map_rows)
+  if (map_tile_selection.col >= map_cols || map_tile_selection.row >= map_rows) {
     map_tile_selection_reset();
-  else
-    map_set_tile(map_tile_selection.col, map_tile_selection.row, tile_id);
+    return FALSE;
+  }
+  return TRUE;
 }
 
 void map_tile_selection_reset() {
@@ -248,5 +298,6 @@ void map_move_reset() {
 
 void map_clean_up() {
   tiles_clean_up();
-  free(map);
+  free(map_terrain);
+  free(map_items);
 }

@@ -1,4 +1,5 @@
 [
+  [ "Empty", "...", "null" ],
   [ "Trees", "...", "trees_32.png" ],
   [ "Rocks", "...", "rocks_32.png" ],
   [ "Fishes", "...", "fishes_32.png" ]

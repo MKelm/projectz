@@ -55,7 +55,7 @@ int init() {
   SDL_WM_SetCaption(window_title_str, NULL);
 
   map_init();
-  list_init();
+  list_init(TILE_LIST_TERRAIN);
 
   return TRUE;
 }
@@ -105,7 +105,9 @@ void handle_map_event() {
       rightMouseButtonDown = TRUE;
     else if (event.button.button == SDL_BUTTON_LEFT) {
       leftMouseButtonDown = TRUE;
-      map_select_tile(event.button.x, event.button.y, list_get_selected_item());
+      if (map_select_tile(event.button.x, event.button.y) == TRUE) {
+        map_set_tile(list_get_selected_item(), list_get_mode() == TILE_LIST_TERRAIN);
+      }
       screen_update = TRUE;
     }
   }
@@ -123,7 +125,9 @@ void handle_map_event() {
       map_move(event.button.x, event.button.y);
       screen_update = TRUE;
     } else if (leftMouseButtonDown == TRUE) {
-      map_select_tile(event.button.x, event.button.y, list_get_selected_item());
+      if (map_select_tile(event.button.x, event.button.y) == TRUE) {
+        map_set_tile(list_get_selected_item(), list_get_mode() == TILE_LIST_TERRAIN);
+      }
       screen_update = TRUE;
     }
   }
@@ -169,7 +173,7 @@ void handle_list_event() {
   }
   if (event.type == SDL_KEYDOWN) {
     switch (event.key.keysym.sym) {
-      case SDLK_1: list_clean_up(); list_init(TILE_LIST_TILES); break;
+      case SDLK_1: list_clean_up(); list_init(TILE_LIST_TERRAIN); break;
       case SDLK_2: list_clean_up(); list_init(TILE_LIST_ITEMS); break;
       default: ;
     }

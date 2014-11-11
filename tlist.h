@@ -15,11 +15,12 @@ struct st_list_options {
 };
 
 enum {
-  TILE_LIST_TILES,
+  TILE_LIST_TERRAIN,
   TILE_LIST_ITEMS
 };
 
-void list_init();
+void list_init(int mode);
+int list_get_mode();
 int list_get_selected_item();
 void list_change_offset(int up, float val_y);
 void list_show();

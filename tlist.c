@@ -10,6 +10,7 @@ extern int screen_height;
 extern SDL_Surface *screen;
 extern char font_file[128];
 
+int list_mode;
 struct st_list_options list_options;
 struct st_list_entry list[LIST_MAX_ENTRIES];
 extern struct st_loader_list_entry loader_list[LIST_MAX_ENTRIES];
@@ -48,8 +49,9 @@ SDL_Surface *list_load_image(char *filename) {
   return optimizedImage;
 }
 
-void list_init(int list_mode) {
-  loader_set_file_mode(list_mode);
+void list_init(int mode) {
+  list_mode = mode;
+  loader_set_file_mode(mode);
 
   list_title_font = TTF_OpenFont(font_file, 18);
   list_text_font = TTF_OpenFont(font_file, 16);
@@ -79,6 +81,10 @@ void list_init(int list_mode) {
     (list[i-1].title->h + title_margin_bottom + list[i-1].text->h + text_margin_bottom);
 
   list_calc_scrollbar();
+}
+
+int list_get_mode() {
+  return list_mode;
 }
 
 int list_get_selected_item() {
