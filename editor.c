@@ -13,6 +13,7 @@ SDL_Surface *message;
 int screen_width = 800;
 int screen_height = 600;
 int screen_bpp = 32;
+int screen_update = TRUE;
 
 char window_title_str[256] = "Project Z - Editor";
 char window_footer_str[256];
@@ -105,12 +106,14 @@ void handle_map_event() {
     else if (event.button.button == SDL_BUTTON_LEFT) {
       leftMouseButtonDown = TRUE;
       map_select_tile(event.button.x, event.button.y, list_get_selected_item());
+      screen_update = TRUE;
     }
   }
   if (event.type == SDL_MOUSEBUTTONUP) {
     if (event.button.button == SDL_BUTTON_RIGHT) {
       rightMouseButtonDown = FALSE;
       map_move_reset();
+      screen_update = TRUE;
     } else if (event.button.button == SDL_BUTTON_LEFT) {
       leftMouseButtonDown = FALSE;
     }
@@ -118,8 +121,10 @@ void handle_map_event() {
   if (event.type == SDL_MOUSEMOTION) {
     if (rightMouseButtonDown == TRUE) {
       map_move(event.button.x, event.button.y);
+      screen_update = TRUE;
     } else if (leftMouseButtonDown == TRUE) {
       map_select_tile(event.button.x, event.button.y, list_get_selected_item());
+      screen_update = TRUE;
     }
   }
   if (event.type == SDL_KEYDOWN) {
@@ -131,6 +136,7 @@ void handle_map_event() {
       case SDLK_s: map_save(); break;
       default: ;
     }
+    screen_update = TRUE;
   }
 }
 
@@ -140,13 +146,16 @@ void handle_list_event() {
     leftMouseButtonDown = TRUE;
     if (list_is_scrollbar_active() == FALSE) {
       list_select_entry_item(event.button.y);
+      screen_update = TRUE;
     }
   }
   if (event.type == SDL_MOUSEBUTTONUP) {
     if (event.button.button == SDL_BUTTON_WHEELUP) {
       list_change_offset(TRUE, 10.f);
+      screen_update = TRUE;
     } else if (event.button.button == SDL_BUTTON_WHEELDOWN) {
       list_change_offset(FALSE, 10.f);
+      screen_update = TRUE;
     } else {
       leftMouseButtonDown = FALSE;
     }
@@ -155,6 +164,7 @@ void handle_list_event() {
     if (list_set_scrollbar_active(event.motion.x, event.motion.y) == TRUE &&
         leftMouseButtonDown == TRUE) {
       list_move_scrollbar_slider(event.button.y);
+      screen_update = TRUE;
     }
   }
   if (event.type == SDL_KEYDOWN) {
@@ -163,6 +173,7 @@ void handle_list_event() {
       case SDLK_2: list_clean_up(); list_init(TILE_LIST_ITEMS); break;
       default: ;
     }
+    screen_update = TRUE;
   }
 }
 
@@ -171,13 +182,10 @@ void toggle_mode() {
 }
 
 int main(int argc, char* args[]) {
-  if (init() == FALSE) {
+  if (init() == FALSE)
     return 1;
-  }
-  if (load_files() == FALSE) {
+  if (load_files() == FALSE)
     return 1;
-  }
-
   if (set_footer_message() == FALSE)
     return 1;
 
@@ -198,13 +206,15 @@ int main(int argc, char* args[]) {
           case SDLK_ESCAPE: quit = TRUE; map_save(); break;
           default: ;
         }
+        screen_update = TRUE;
       }
-      if(event.type == SDL_VIDEORESIZE) {
+      if (event.type == SDL_VIDEORESIZE) {
         screen_width = event.resize.w;
         screen_height = event.resize.h;
         screen = SDL_SetVideoMode(
           screen_width, screen_height, screen_bpp, SDL_SWSURFACE | SDL_RESIZABLE
         );
+        screen_update = TRUE;
       }
       if (event.type == SDL_QUIT) {
         quit = TRUE;
@@ -212,19 +222,21 @@ int main(int argc, char* args[]) {
       }
     }
 
-    SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format, 0, 0, 0));
+    if (screen_update == TRUE) {
+      SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format, 0, 0, 0));
 
-    if (mode == MODE_MAP) {
-      map_show();
-      apply_surface(
-        screen_width - message->w, screen_height - message->h, message, screen
-      );
-    } else {
-      list_show();
-      list_scrollbar_show();
-    }
-    if (SDL_Flip(screen) == -1) {
-      return 1;
+      if (mode == MODE_MAP) {
+        map_show();
+        apply_surface(
+          screen_width - message->w, screen_height - message->h, message, screen
+        );
+      } else {
+        list_show();
+        list_scrollbar_show();
+      }
+      if (SDL_Flip(screen) == -1)
+        return 1;
+      screen_update = FALSE;
     }
 
     if ((SDL_GetTicks() - frameStart) < (1000 / FPS)) {
