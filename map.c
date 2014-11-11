@@ -8,7 +8,7 @@
 extern SDL_Surface *screen;
 extern int screen_width;
 extern int screen_height;
-extern struct st_tile tiles[TILES_MAX];
+extern struct st_tile tiles_terrain[TILES_TERRAIN_MAX];
 
 int map_rows = 1;
 int map_cols = 1;
@@ -157,7 +157,7 @@ void map_show() {
       if (offset.x + TILES_SIZE > 0 && offset.y + TILES_SIZE > 0 &&
           offset.x < screen_width && offset.y < screen_height &&
           map[row][col] > -1) {
-        SDL_BlitSurface(tiles[map[row][col]].tile, NULL, screen, &offset);
+        SDL_BlitSurface(tiles_terrain[map[row][col]].tile, NULL, screen, &offset);
       }
       x += TILES_SIZE;
     }
