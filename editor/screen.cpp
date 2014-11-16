@@ -1,7 +1,7 @@
 #include "global.hpp"
 #include "screen.hpp"
 
-Screen::Screen(int s_width, int s_height, int s_bpp, int s_mode) {
+Screen::Screen(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   width = s_width;
   height = s_height;
   bpp = s_bpp;
@@ -39,7 +39,7 @@ Screen::Screen(int s_width, int s_height, int s_bpp, int s_mode) {
   SDL_Delay(2000); // todo remove later
 }
 
-void Screen::applySurface(int x, int y, SDL_Surface* source) {
+void Screen::applySurface(Uint16 x, Uint16 y, SDL_Surface* source) {
   SDL_Rect offset;
   offset.x = x;
   offset.y = y;

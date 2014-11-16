@@ -6,7 +6,7 @@ class ScreenText {
     string text;
     SDL_Surface *surface;
     TTF_Font *font;
-    int fontSize;
+    Uint8 fontSize;
     string fontFile;
     struct stFontColor {
       Uint8 r;

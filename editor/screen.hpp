@@ -4,17 +4,17 @@
 #include "screen/text.hpp"
 
 class Screen {
-    int width;
-    int height;
-    int bpp;
-    int mode;
+    Uint16 width;
+    Uint16 height;
+    Uint8 bpp;
+    Uint8 mode;
     bool doUpdate;
     SDL_Surface *surface;
     ScreenText headerText;
     ScreenText footerText;
   public:
-    Screen(int, int, int, int);
-    void applySurface(int, int, SDL_Surface*);
+    Screen(Uint16, Uint16, Uint8, Uint8);
+    void applySurface(Uint16, Uint16, SDL_Surface*);
     void update();
     void quit();
 };
