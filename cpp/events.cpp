@@ -92,7 +92,7 @@ Uint8 Events::handle(Uint8 mode, Uint8 subMode) {
         if (subMode == SUB_MODE_EDITOR_MAP) {
           eventSignal = handleEditorMap();
         } else if (subMode == SUB_MODE_EDITOR_LIST) {
-          //eventSignal = handleEditorList();
+          eventSignal = handleEditorList();
         }
         break;
       case MODE_GAME:
