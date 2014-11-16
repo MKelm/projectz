@@ -1,8 +1,9 @@
 #include "main.hpp"
 
-Main::Main(Uint8 m_maxFPS, Uint8 m_mode) {
+Main::Main(Uint8 m_maxFPS, Uint8 m_mode, Uint8 m_subMode) {
   maxFPS = m_maxFPS;
   mode = m_mode;
+  subMode = m_subMode;
   screen.init(640, 480, 32, mode);
 }
 
@@ -12,7 +13,7 @@ void Main::loop() {
   while (quit == false) {
     frameStart = SDL_GetTicks();
 
-    Uint8 eventSignal = events.handle(mode, MODE_EDITOR_MAP);
+    Uint8 eventSignal = events.handle(mode, subMode);
     if (eventSignal == EVENT_QUIT) {
       quit = true;
     }

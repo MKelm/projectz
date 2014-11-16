@@ -8,10 +8,11 @@
 class Main {
     Uint8 maxFPS;
     Uint8 mode;
+    Uint8 subMode;
     Screen screen;
     Events events;
   public:
-    Main(Uint8, Uint8);
+    Main(Uint8, Uint8, Uint8);
     void loop();
     void quit();
 };

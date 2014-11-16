@@ -20,9 +20,13 @@ using namespace std;
 
 enum {
   MODE_EDITOR,
-  MODE_EDITOR_MAP,
-  MODE_EDITOR_LIST,
   MODE_GAME
+};
+
+enum {
+  SUB_MODE_EDITOR_MAP,
+  SUB_MODE_EDITOR_LIST,
+  SUB_MODE_GAME_MENU
 };
 
 #endif
