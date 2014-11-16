@@ -69,7 +69,7 @@ void list_init(int mode) {
     if (strcmp(loader_list[i].image, "null") == 0) {
       list[i].image = NULL;
     } else {
-      char file[256] = "resources/";
+      char file[256] = "images/";
       strcat(file, loader_list[i].image);
       list[i].image = list_load_image(file);
     }

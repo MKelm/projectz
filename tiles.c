@@ -4,7 +4,7 @@
 struct st_tile tiles_terrain[TILES_TERRAIN_MAX];
 struct st_tile tiles_items[TILES_ITEMS_MAX];
 
-char folder[128] = "resources";
+char folder[128] = "images";
 char tiles_terrain_names[TILES_TERRAIN_MAX][128] = {
   "grass", "sand", "dirt", "water", "rock"
 };

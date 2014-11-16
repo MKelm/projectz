@@ -15,7 +15,7 @@ int screen_update = TRUE;
 char window_title_str[256] = "Project Z - Editor";
 char window_footer_str[256];
 
-char font_file[128] = "resources/beyourself.ttf";
+char font_file[128] = "fonts/beyourself.ttf";
 TTF_Font *font = NULL;
 SDL_Color font_color = { 255, 255, 255 };
 int font_size = 24;
