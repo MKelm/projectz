@@ -12,7 +12,7 @@ void Main::loop() {
   while (quit == false) {
     frameStart = SDL_GetTicks();
 
-    Uint8 eventSignal = events.handle(mode);
+    Uint8 eventSignal = events.handle(mode, MODE_EDITOR_MAP);
     if (eventSignal == EVENT_QUIT) {
       quit = true;
     }

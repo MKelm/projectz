@@ -3,6 +3,7 @@
 
 // cpp components
 #include <string>
+#include <iostream>
 using namespace std;
 
 // sdl components
@@ -17,7 +18,11 @@ using namespace std;
 #define FALSE 0
 #define TRUE 1
 
-#define MODE_EDITOR 0
-#define MODE_GAME 1
+enum {
+  MODE_EDITOR,
+  MODE_EDITOR_MAP,
+  MODE_EDITOR_LIST,
+  MODE_GAME
+};
 
 #endif
