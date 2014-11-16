@@ -197,6 +197,8 @@ void map_show() {
           map_terrain[row][col] > -1 && map_terrain[row][col] < TILES_TERRAIN_MAX) {
         SDL_BlitSurface(tiles_terrain[map_terrain[row][col]].tile, NULL, screen, &offset);
         if (map_items[row][col] > 0 && map_items[row][col] < TILES_ITEMS_MAX) {
+          offset.x = x;
+          offset.y = y;
           SDL_BlitSurface(tiles_items[map_items[row][col]].tile, NULL, screen, &offset);
         }
       }
