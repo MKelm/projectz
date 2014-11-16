@@ -7,13 +7,16 @@ class Screen {
     int width;
     int height;
     int bpp;
-    bool update;
+    int mode;
+    bool doUpdate;
     SDL_Surface *surface;
     ScreenText headerText;
     ScreenText footerText;
   public:
     Screen(int, int, int, int);
-    ~Screen();
+    void applySurface(int, int, SDL_Surface*);
+    void update();
+    void quit();
 };
 
 #endif
