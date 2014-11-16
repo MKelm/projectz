@@ -1,14 +1,18 @@
 # Makefile for project z editor
 ARCH := $(shell uname -m)
 GCC = g++
-CFLAGS = -Wall -ggdb -std=c++0x
+#CFLAGS = -Wall -ggdb -std=c++0x
+CFLAGS =
 LDFLAGS = -lSDL -lSDL_image -lSDL_gfx -lSDL_ttf
 
-editor : editor.o main.o screen.o screen/text.o ../jsmn/jsmn.o
-	$(GCC) editor.o main.o screen.o screen/text.o ../jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
+editor : editor.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o
+	$(GCC) editor.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
 
-game : game.o main.o screen.o screen/text.o ../jsmn/jsmn.o
-	$(GCC) game.o main.o screen.o screen/text.o ../jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
+game : game.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o
+	$(GCC) game.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
+
+events.o : events.cpp global.hpp events.hpp
+	$(GCC) $(CFLAGS) -c events.cpp
 
 editor.o : editor.cpp global.hpp main.hpp
 	$(GCC) $(CFLAGS) -c editor.cpp

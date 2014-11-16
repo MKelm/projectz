@@ -3,10 +3,13 @@
 
 #include "global.hpp"
 #include "screen.hpp"
+#include "events.hpp"
 
 class Main {
     Uint8 maxFPS;
+    Uint8 mode;
     Screen screen;
+    Events events;
   public:
     Main(Uint8, Uint8);
     void loop();
