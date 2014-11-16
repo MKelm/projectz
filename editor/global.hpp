@@ -18,4 +18,7 @@ using namespace std;
 #define FALSE 0
 #define TRUE 1
 
+#define MODE_EDITOR 0
+#define MODE_GAME 1
+
 #endif

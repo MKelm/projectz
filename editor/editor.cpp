@@ -4,6 +4,5 @@
 #define FPS 15
 
 int main(int argc, char* args[]) {
-  Screen screen(640, 480, 32, "Project Z - Editor");
-  SDL_Delay(2000);
+  Screen screen(640, 480, 32, MODE_EDITOR);
 }
