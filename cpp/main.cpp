@@ -14,6 +14,10 @@ void Main::loop() {
     frameStart = SDL_GetTicks();
 
     Uint8 eventSignal = events.handle(mode, subMode);
+    if (eventSignal == EVENT_EDITOR_TOGGLE_SUB_MODE) {
+      subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
+        SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
+    }
     if (eventSignal == EVENT_QUIT) {
       quit = true;
     }

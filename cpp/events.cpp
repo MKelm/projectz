@@ -16,6 +16,7 @@ Uint8 Events::handleEditorMap() {
       case SDLK_MINUS: return EVENT_EDITOR_MAP_DECREASE_SIZE; break;
       case SDLK_l: return EVENT_EDITOR_MAP_LOAD; break;
       case SDLK_s: return EVENT_EDITOR_MAP_SAVE; break;
+      case SDLK_TAB: return EVENT_EDITOR_TOGGLE_SUB_MODE; break;
       default: ;
     }
   }
@@ -56,6 +57,7 @@ Uint8 Events::handleEditorList() {
     switch (event.key.keysym.sym) {
       case SDLK_1: return EVENT_EDITOR_LIST_SWITCH_TERRAIN; break;
       case SDLK_2: return EVENT_EDITOR_LIST_SWITCH_ITEMS; break;
+      case SDLK_TAB: return EVENT_EDITOR_TOGGLE_SUB_MODE; break;
       default: ;
     }
   }

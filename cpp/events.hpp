@@ -6,6 +6,7 @@
 enum {
   EVENT_NONE, // general events
   EVENT_QUIT,
+  EVENT_EDITOR_TOGGLE_SUB_MODE, // editor events
   EVENT_EDITOR_MAP_TOGGLE_GRID, // editor map events
   EVENT_EDITOR_MAP_INCREASE_SIZE,
   EVENT_EDITOR_MAP_DECREASE_SIZE,
