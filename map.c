@@ -2,9 +2,6 @@
 #include "map.h"
 #include "tiles.h"
 
-#define FALSE 0
-#define TRUE 1
-
 extern SDL_Surface *screen;
 extern int screen_width;
 extern int screen_height;

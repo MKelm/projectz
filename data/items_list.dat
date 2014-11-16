@@ -2,5 +2,8 @@
   [ "Empty", "...", "null" ],
   [ "Trees", "...", "trees_32.png" ],
   [ "Rocks", "...", "rocks_32.png" ],
-  [ "Fishes", "...", "fishes_32.png" ]
+  [ "Fishes", "...", "fishes_32.png" ],
+  [ "Gold", "...", "gold_32.png" ],
+  [ "Coal", "...", "coal_32.png" ],
+  [ "Iron ore", "...", "ironore_32.png" ]
 ]

@@ -2,9 +2,6 @@
 #include "tlist.h"
 #include "tlloader.h"
 
-#define FALSE 0
-#define TRUE 1
-
 #define LOADER_CHUNK_LENGTH 1024
 
 struct st_loader_list_entry loader_list[LIST_MAX_ENTRIES];

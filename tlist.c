@@ -2,9 +2,6 @@
 #include "tlist.h"
 #include "tlloader.h"
 
-#define FALSE 0
-#define TRUE 1
-
 extern int screen_width;
 extern int screen_height;
 extern SDL_Surface *screen;

@@ -9,7 +9,7 @@ char tiles_terrain_names[TILES_TERRAIN_MAX][128] = {
   "grass", "sand", "dirt", "water", "rock"
 };
 char tiles_items_names[TILES_ITEMS_MAX][128] = {
-  "empty", "trees", "rocks", "fishes"
+  "empty", "trees", "rocks", "fishes", "gold", "coal", "ironore"
 };
 
 SDL_Surface *tiles_load_img(char *file_name) {

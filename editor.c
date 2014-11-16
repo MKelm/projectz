@@ -2,9 +2,6 @@
 #include "map.h"
 #include "tlist.h"
 
-#define FALSE 0
-#define TRUE 1
-
 #define FPS 15
 
 SDL_Surface *screen;
