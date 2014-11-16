@@ -2,9 +2,6 @@
 #define _INCLUDE_GLOBAL_HPP
 
 // cpp components
-#ifdef DEBUG
-#include <iostream>
-#endif
 #include <string>
 using namespace std;
 

@@ -1,12 +1,11 @@
-#include "global.hpp"
 #include "screen.hpp"
 
-Screen::Screen(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
+void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   width = s_width;
   height = s_height;
   bpp = s_bpp;
   mode = s_mode;
-  doUpdate = true;
+  maxFPS = 15;
 
   string header = "Project Z";
   string footer = "";
@@ -32,11 +31,6 @@ Screen::Screen(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   headerText.initTTF();
   headerText.set(header);
   footerText.set(footer);
-
-  if (doUpdate == true)
-    update();
-
-  SDL_Delay(2000); // todo remove later
 }
 
 void Screen::applySurface(Uint16 x, Uint16 y, SDL_Surface* source) {
@@ -56,7 +50,6 @@ void Screen::update() {
     footerText.getSurface()
   );
   SDL_Flip(surface);
-  doUpdate = false;
 }
 
 void Screen::quit() {

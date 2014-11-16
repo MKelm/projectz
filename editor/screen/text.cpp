@@ -1,4 +1,3 @@
-#include "../global.hpp"
 #include "text.hpp"
 
 bool ScreenText::hasTTF = false;

@@ -1,9 +1,8 @@
 #include "global.hpp"
-#include "screen.hpp"
-
-#define FPS 15
+#include "main.hpp"
 
 int main(int argc, char* args[]) {
-  Screen screen(640, 480, 32, MODE_EDITOR);
-  screen.quit();
+  Main main(15, MODE_EDITOR);
+  main.loop();
+  main.quit();
 }

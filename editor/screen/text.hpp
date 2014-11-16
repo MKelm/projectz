@@ -1,6 +1,8 @@
 #ifndef _INCLUDE_SCREEN_TEXT_HPP
 #define _INCLUDE_SCREEN_TEXT_HPP
 
+#include "../global.hpp"
+
 class ScreenText {
     static bool hasTTF;
     string text;
