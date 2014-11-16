@@ -16,12 +16,16 @@ void ScreenText::initTTF() {
   if (ScreenText::hasTTF != true) {
     TTF_Init();
     ScreenText::hasTTF = true;
-    cout << "Set SDL_TTF" << endl;
+    #ifdef DEBUG
+      cout << "Set SDL_TTF" << endl;
+    #endif
   }
 }
 
 void ScreenText::set(string t_text) {
-  cout << "Open font" << endl;
+  #ifdef DEBUG
+    cout << "Open font" << endl;
+  #endif
   font = TTF_OpenFont(fontFile.c_str(), fontSize);
   text = t_text;
   SDL_Color tmpFontColor = { fontColor.r, fontColor.g, fontColor.b, fontColor.a };
@@ -42,7 +46,9 @@ SDL_Surface *ScreenText::getSurface() {
 
 void ScreenText::unset() {
   text = "";
-  cout << "Close font" << endl;
+  #ifdef DEBUG
+    cout << "Close font" << endl;
+  #endif
   SDL_FreeSurface(surface);
   TTF_CloseFont(font);
 }
@@ -51,6 +57,8 @@ void ScreenText::quitTTF() {
   if (ScreenText::hasTTF == true) {
     TTF_Quit();
     ScreenText::hasTTF = false;
-    cout << "Unset SDL_TTF" << endl;
+    #ifdef DEBUG
+      cout << "Unset SDL_TTF" << endl;
+    #endif
   }
 }

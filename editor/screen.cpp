@@ -15,10 +15,14 @@ Screen::Screen(int s_width, int s_height, int s_bpp, int s_mode) {
     footer = "0/0";
   }
 
-  cout << "Set SDL" << endl;
+  #ifdef DEBUG
+    cout << "Set SDL" << endl;
+  #endif
   SDL_Init(SDL_INIT_EVERYTHING);
 
-  cout << "Set Screen" << endl;
+  #ifdef DEBUG
+    cout << "Set Screen" << endl;
+  #endif
   // SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE
   surface = SDL_SetVideoMode(
     width, height, bpp, SDL_SWSURFACE | SDL_RESIZABLE
@@ -59,6 +63,8 @@ void Screen::quit() {
   headerText.unset();
   footerText.unset();
   headerText.quitTTF();
-  cout << "Unset SDL" << endl;
+  #ifdef DEBUG
+    cout << "Unset SDL" << endl;
+  #endif
   SDL_Quit();
 }
