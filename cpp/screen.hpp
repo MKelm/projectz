@@ -9,7 +9,6 @@ class Screen {
     Uint16 height;
     Uint8 bpp;
     Uint8 mode;
-    Uint8 maxFPS;
     SDL_Surface *surface;
     ScreenText headerText;
     ScreenText footerText;

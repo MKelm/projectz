@@ -5,10 +5,9 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   height = s_height;
   bpp = s_bpp;
   mode = s_mode;
-  maxFPS = 15;
 
   string header = "Project Z";
-  string footer = "";
+  string footer = "idx.CodeLab 2014";
   if (mode == MODE_EDITOR) {
     header = header + " - Editor";
     footer = "0/0";
