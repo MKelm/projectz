@@ -6,6 +6,7 @@
 enum {
   EVENT_NONE, // general events
   EVENT_QUIT,
+  EVENT_RESIZE,
   EVENT_EDITOR_TOGGLE_SUB_MODE, // editor events
   EVENT_EDITOR_MAP_TOGGLE_GRID, // editor map events
   EVENT_EDITOR_MAP_INCREASE_SIZE,
@@ -27,11 +28,15 @@ class Events {
     SDL_Event event;
     bool rMouseBtn;
     bool lMouseBtn;
-    Uint16 posX;
-    Uint16 posY;
+    Uint16 lastPosX;
+    Uint16 lastPosY;
+    Uint16 lastWidth;
+    Uint16 lastHeight;
   public:
-    Uint16 getPosX();
-    Uint16 getPosY();
+    Uint16 getLastPosX();
+    Uint16 getLastPosY();
+    Uint16 getLastWidth();
+    Uint16 getLastHeight();
     Uint8 handle(Uint8, Uint8);
     Uint8 handleEditorMap();
     Uint8 handleEditorList();

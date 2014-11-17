@@ -14,6 +14,7 @@ class Screen {
     ScreenText footerText;
   public:
     void init(Uint16, Uint16, Uint8, Uint8);
+    void resize(Uint16 s_width, Uint16 s_height);
     void applySurface(Uint16, Uint16, SDL_Surface*);
     void update();
     void loop();

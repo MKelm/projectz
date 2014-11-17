@@ -18,6 +18,9 @@ void Main::loop() {
       subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
         SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
     }
+    if (eventSignal == EVENT_RESIZE) {
+      screen.resize(events.getLastWidth(), events.getLastHeight());
+    }
     if (eventSignal == EVENT_QUIT) {
       quit = true;
     }

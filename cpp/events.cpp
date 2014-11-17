@@ -1,11 +1,19 @@
 #include "events.hpp"
 
-Uint16 Events::getPosX() {
-  return posX;
+Uint16 Events::getLastPosX() {
+  return lastPosX;
 }
 
-Uint16 Events::getPosY() {
-  return posY;
+Uint16 Events::getLastPosY() {
+  return lastPosY;
+}
+
+Uint16 Events::getLastWidth() {
+  return lastWidth;
+}
+
+Uint16 Events::getLastHeight() {
+  return lastHeight;
 }
 
 Uint8 Events::handleEditorMap() {
@@ -25,19 +33,19 @@ Uint8 Events::handleEditorMap() {
       rMouseBtn = true;
     else if (event.button.button == SDL_BUTTON_LEFT) {
       lMouseBtn = true;
-      posX = event.button.x;
-      posY = event.button.y;
+      lastPosX = event.button.x;
+      lastPosY = event.button.y;
       return EVENT_EDITOR_MAP_FIELD_SELECTION;
     }
   }
   if (event.type == SDL_MOUSEMOTION) {
     if (lMouseBtn == true) {
-      posX = event.button.x;
-      posY = event.button.y;
+      lastPosX = event.button.x;
+      lastPosY = event.button.y;
       return EVENT_EDITOR_MAP_FIELD_SELECTION;
     } else if (rMouseBtn == true) {
-      posX = event.button.x;
-      posY = event.button.y;
+      lastPosX = event.button.x;
+      lastPosY = event.button.y;
       return EVENT_EDITOR_MAP_MOVE_START;
     }
   }
@@ -64,13 +72,13 @@ Uint8 Events::handleEditorList() {
   if (event.type == SDL_MOUSEBUTTONDOWN &&
       event.button.button == SDL_BUTTON_LEFT) {
     lMouseBtn = true;
-    posX = event.button.x;
-    posY = event.button.y;
+    lastPosX = event.button.x;
+    lastPosY = event.button.y;
     return EVENT_EDITOR_LIST_SELECT_ENTRY;
   }
   if (event.type == SDL_MOUSEMOTION && lMouseBtn == true) {
-    posX = event.motion.x;
-    posY = event.motion.y;
+    lastPosX = event.motion.x;
+    lastPosY = event.motion.y;
     return EVENT_EDITOR_LIST_MOVE_SLIDER;
   }
   if (event.type == SDL_MOUSEBUTTONUP) {
@@ -107,6 +115,11 @@ Uint8 Events::handle(Uint8 mode, Uint8 subMode) {
         case SDLK_ESCAPE: eventSignal = EVENT_QUIT; break;
         default: ;
       }
+    }
+    if (event.type == SDL_VIDEORESIZE) {
+      lastWidth = event.resize.w;
+      lastHeight = event.resize.h;
+      eventSignal = EVENT_RESIZE;
     }
     if (event.type == SDL_QUIT) {
       eventSignal = EVENT_QUIT;

@@ -1,8 +1,6 @@
 #include "screen.hpp"
 
 void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
-  width = s_width;
-  height = s_height;
   bpp = s_bpp;
   mode = s_mode;
 
@@ -21,15 +19,22 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   #ifdef DEBUG
     cout << "Set Screen" << endl;
   #endif
-  // SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE
-  surface = SDL_SetVideoMode(
-    width, height, bpp, SDL_SWSURFACE | SDL_RESIZABLE
-  );
+
+  resize(s_width, s_height);
   SDL_WM_SetCaption(header.c_str(), NULL);
 
   headerText.initTTF();
   headerText.set(header);
   footerText.set(footer);
+}
+
+void Screen::resize(Uint16 s_width, Uint16 s_height) {
+  width = s_width;
+  height = s_height;
+  // SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE
+  surface = SDL_SetVideoMode(
+    width, height, bpp, SDL_SWSURFACE | SDL_RESIZABLE
+  );
 }
 
 void Screen::applySurface(Uint16 x, Uint16 y, SDL_Surface* source) {
