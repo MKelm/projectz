@@ -6,7 +6,6 @@
 
 class Json {
   string file;
-  Uint8 mode;
   Uint16 chunkLength;
   string json;
   jsmntok_t *tokens;

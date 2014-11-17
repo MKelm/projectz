@@ -56,5 +56,6 @@ int Json::save() {
 }
 
 void Json::unload() {
+  json = "";
   free(tokens);
 }

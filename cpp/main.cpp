@@ -4,9 +4,12 @@ Main::Main(Uint8 m_maxFPS, Uint8 m_mode, Uint8 m_subMode) {
   maxFPS = m_maxFPS;
   mode = m_mode;
   subMode = m_subMode;
-  screen.init(640, 480, 32, mode);
+
   map.set();
   map.load();
+
+  screen.init(640, 480, 32, mode);
+  screen.initMap(map);
 }
 
 void Main::loop() {

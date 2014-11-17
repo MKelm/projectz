@@ -5,11 +5,11 @@ GCC = g++
 CFLAGS = -std=c++0x
 LDFLAGS = -lSDL -lSDL_image -lSDL_gfx -lSDL_ttf
 
-editor : editor.o map.o main.o json.o events.o screen.o screen/text.o ../jsmn/jsmn.o
-	$(GCC) editor.o map.o main.o json.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
+editor : editor.o map.o main.o json.o events.o screen.o screen/text.o screen/map.o ../jsmn/jsmn.o
+	$(GCC) editor.o map.o main.o json.o events.o screen.o screen/text.o screen/map.o ../jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
 
-game : game.o main.o map.o json.o events.o screen.o screen/text.o ../jsmn/jsmn.o
-	$(GCC) game.o main.o map.o json.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
+game : game.o main.o map.o json.o events.o screen.o screen/text.o screen/map.o ../jsmn/jsmn.o
+	$(GCC) game.o main.o map.o json.o events.o screen.o screen/text.o screen/map.o ../jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
 
 map.o : map.cpp global.hpp map.hpp json.hpp
 	$(GCC) $(CFLAGS) -c map.cpp
@@ -29,10 +29,13 @@ game.o : game.cpp global.hpp main.hpp
 main.o : main.cpp global.hpp main.hpp screen.hpp
 	$(GCC) $(CFLAGS) -c main.cpp
 
-screen.o : screen.cpp global.hpp screen.hpp screen/text.hpp
+screen.o : screen.cpp global.hpp screen.hpp screen/text.hpp screen/map.hpp
 	$(GCC) $(CFLAGS) -c screen.cpp
 
-screen/text.o : screen/text.cpp global.hpp screen/text.hpp
+screen/map.o : screen/map.cpp global.hpp screen.hpp screen/map.hpp
+	$(GCC) $(CFLAGS) -c screen/map.cpp -o screen/map.o
+
+screen/text.o : screen/text.cpp global.hpp map.hpp screen/text.hpp
 	$(GCC) $(CFLAGS) -c screen/text.cpp -o screen/text.o
 
 clean :

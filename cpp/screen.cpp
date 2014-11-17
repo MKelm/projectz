@@ -28,6 +28,10 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   footerText.set(footer);
 }
 
+void Screen::initMap(Map& p_map) {
+  screenMap.init(p_map);
+}
+
 void Screen::resize(Uint16 s_width, Uint16 s_height) {
   width = s_width;
   height = s_height;
@@ -57,6 +61,7 @@ void Screen::update() {
 }
 
 void Screen::quit() {
+  screenMap.unset();
   headerText.unset();
   footerText.unset();
   headerText.quitTTF();

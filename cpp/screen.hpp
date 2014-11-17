@@ -3,6 +3,7 @@
 
 #include "global.hpp"
 #include "screen/text.hpp"
+#include "screen/map.hpp"
 
 class Screen {
     Uint16 width;
@@ -12,12 +13,13 @@ class Screen {
     SDL_Surface *surface;
     ScreenText headerText;
     ScreenText footerText;
+    ScreenMap screenMap;
   public:
     void init(Uint16, Uint16, Uint8, Uint8);
+    void initMap(Map&);
     void resize(Uint16 s_width, Uint16 s_height);
     void applySurface(Uint16, Uint16, SDL_Surface*);
     void update();
-    void loop();
     void quit();
 };
 

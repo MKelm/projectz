@@ -90,6 +90,24 @@ void Map::save() {
 }
 
 void Map::set() {
+  terrainNamesCount = 5;
+  terrainNames = new string[terrainNamesCount];
+  terrainNames[0] = "grass";
+  terrainNames[1] = "sand";
+  terrainNames[2] = "dirt";
+  terrainNames[3] = "water";
+  terrainNames[4] = "rock";
+
+  itemNamesCount = 7;
+  itemNames = new string[itemNamesCount];
+  itemNames[0] = "empty";
+  itemNames[1] = "trees";
+  itemNames[2] = "rocks";
+  itemNames[3] = "fishes";
+  itemNames[4] = "gold";
+  itemNames[5] = "coal";
+  itemNames[6] = "ironore";
+
   int i;
   terrain = (Uint16 **) malloc(rows * sizeof(Uint16 *));
   items = (Uint16 **) malloc(rows * sizeof(Uint16 *));
@@ -108,6 +126,22 @@ void Map::set() {
       resources[row][col] = -1;
     }
   }
+}
+
+string Map::getTerrainName(int index) {
+  return terrainNames[index];
+}
+
+Uint16 Map::getTerrainNamesCount() {
+  return terrainNamesCount;
+}
+
+string Map::getItemName(int index) {
+  return terrainNames[index];
+}
+
+Uint16 Map::getItemNamesCount() {
+  return terrainNamesCount;
 }
 
 void Map::unset() {
