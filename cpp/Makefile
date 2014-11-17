@@ -2,7 +2,7 @@
 ARCH := $(shell uname -m)
 GCC = g++
 #CFLAGS = -Wall -ggdb -std=c++0x
-CFLAGS =
+CFLAGS = -std=c++0x
 LDFLAGS = -lSDL -lSDL_image -lSDL_gfx -lSDL_ttf
 
 editor : editor.o map.o main.o json/loader.o events.o screen.o screen/text.o ../jsmn/jsmn.o

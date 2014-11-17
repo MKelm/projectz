@@ -54,6 +54,39 @@ void Map::load() {
   loader.unset();
 }
 
+void Map::save() {
+  string json = "{ \n\"cols\" : " + to_string(columns) +
+    ", \n\"rows\" : " + to_string(rows) +", \n";
+
+  int typeIdx = 0;
+  string types[3] = { "terrain", "items", "resources" };
+
+  for (typeIdx = 0; typeIdx < 3; typeIdx++) {
+    json += "\"" + types[typeIdx] + "\" : [ \n";
+    int row, col;
+    for (row = 0; row < rows; row++) {
+      json += " [ ";
+      for (col = 0; col < columns; col++) {
+        if (types[typeIdx] == "terrain")
+          json += to_string(terrain[row][col]);
+        else if (types[typeIdx] == "items")
+          json += to_string(items[row][col]);
+        else if (types[typeIdx] == "resources")
+          json += to_string(resources[row][col]);
+
+        json += (col + 1 < columns) ? ", " : "";
+      }
+      json += " ]";
+      json += (row + 1 < rows) ? ", \n" : " \n";
+    }
+    json += " ]";
+    json += (typeIdx + 1 < 3) ? ", \n" : " \n";
+  }
+
+  json += "}\n";
+  cout << json << endl;
+}
+
 void Map::set() {
   int i;
   terrain = (Uint16 **) malloc(rows * sizeof(Uint16 *));

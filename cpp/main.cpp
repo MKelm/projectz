@@ -35,6 +35,7 @@ void Main::loop() {
 }
 
 void Main::quit() {
+  map.save();
   map.unset();
   screen.quit();
 }

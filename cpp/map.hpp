@@ -14,6 +14,7 @@ class Map {
 public:
   Map();
   void load();
+  void save();
   void set();
   void unset();
 };
