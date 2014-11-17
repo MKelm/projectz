@@ -15,6 +15,7 @@ public:
   int set();
   string getToken(unsigned int);
   unsigned int getTokenType(unsigned int);
+  unsigned int getTokenSize(unsigned int);
   string getJson();
   jsmntok_t *getTokens();
   void unset();

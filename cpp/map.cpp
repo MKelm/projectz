@@ -8,12 +8,47 @@ Map::Map() {
 
 void Map::load() {
   JsonLoader loader(file);
-  int i = loader.set();
-  if (i > 0) {
-    unsigned int type = loader.getTokenType(0);
-    string token = loader.getToken(0);
-    if (loader.getTokenType(0) == JSMN_OBJECT) {
-      cout << "token with type " << token << " - " << type << endl;
+  int r = loader.set();
+  if (r > 0) {
+    int i = 0, j, j_max, k, k_max, l, l_max;
+    string token;
+    string fieldsType;
+
+    if (loader.getTokenType(i) == JSMN_OBJECT) {
+      j_max = loader.getTokenSize(i);
+      for (j = 0; j < j_max; j++) {
+        i++;
+        if (loader.getTokenType(i) == JSMN_STRING) {
+          token = loader.getToken(i);
+          if (token == "cols") {
+            columns = atoi(loader.getToken(i+1).c_str());
+          } else if (token == "rows") {
+            rows = atoi(loader.getToken(i+1).c_str());
+          } else if (token == "terrain" || token == "items" || token == "resources") {
+            i++;
+            if (loader.getTokenType(i) == JSMN_ARRAY) {
+              fieldsType = token;
+              k_max = loader.getTokenSize(i);
+              for (k = 0; k < k_max; k++) {
+                i++;
+                if (loader.getTokenType(i) == JSMN_ARRAY) {
+                  l_max = loader.getTokenSize(i);
+                  for (l = 0; l < l_max; l++) {
+                    i++;
+                    if (fieldsType == "terrain")
+                      terrain[k][l] = atoi(loader.getToken(i).c_str());
+                    else if (fieldsType == "items")
+                      items[k][l] = atoi(loader.getToken(i).c_str());
+                    else if (fieldsType == "resources")
+                      resources[k][l] = atoi(loader.getToken(i).c_str());
+                  }
+                }
+              }
+            }
+            i--;
+          }
+        }
+      }
     }
   }
   loader.unset();

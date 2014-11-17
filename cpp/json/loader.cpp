@@ -38,6 +38,10 @@ unsigned int JsonLoader::getTokenType(unsigned int index) {
   return tokens[index].type;
 }
 
+unsigned int JsonLoader::getTokenSize(unsigned int index) {
+  return tokens[index].size;
+}
+
 string JsonLoader::getJson() {
   return json;
 }
