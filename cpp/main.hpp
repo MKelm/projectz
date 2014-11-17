@@ -4,6 +4,7 @@
 #include "global.hpp"
 #include "screen.hpp"
 #include "events.hpp"
+#include "map.hpp"
 
 class Main {
     Uint8 maxFPS;
@@ -11,6 +12,7 @@ class Main {
     Uint8 subMode;
     Screen screen;
     Events events;
+    Map map;
   public:
     Main(Uint8, Uint8, Uint8);
     void loop();

@@ -5,11 +5,17 @@ GCC = g++
 CFLAGS =
 LDFLAGS = -lSDL -lSDL_image -lSDL_gfx -lSDL_ttf
 
-editor : editor.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o
-	$(GCC) editor.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
+editor : editor.o map.o main.o json/loader.o events.o screen.o screen/text.o ../jsmn/jsmn.o
+	$(GCC) editor.o map.o main.o json/loader.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
 
-game : game.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o
-	$(GCC) game.o main.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
+game : game.o main.o map.o json/loader.o events.o screen.o screen/text.o ../jsmn/jsmn.o
+	$(GCC) game.o main.o map.o json/loader.o events.o screen.o screen/text.o ../jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
+
+map.o : map.cpp global.hpp map.hpp json/loader.hpp
+	$(GCC) $(CFLAGS) -c map.cpp
+
+json/loader.o : json/loader.cpp global.hpp json/loader.hpp
+	$(GCC) $(CFLAGS) -c json/loader.cpp -o json/loader.o
 
 events.o : events.cpp global.hpp events.hpp
 	$(GCC) $(CFLAGS) -c events.cpp
