@@ -2,7 +2,7 @@
 #define _INCLUDE_MAP_HPP
 
 #include "global.hpp"
-#include "json/loader.hpp"
+#include "json.hpp"
 
 class Map {
   string file;

@@ -1,24 +1,24 @@
-#ifndef _INCLUDE_JSON_LOADER_HPP
-#define _INCLUDE_JSON_LOADER_HPP
+#ifndef _INCLUDE_JSON_HPP
+#define _INCLUDE_JSON_HPP
 
-#include "../global.hpp"
+#include "global.hpp"
 #include <cstring>
 
-class JsonLoader {
+class Json {
   string file;
   Uint8 mode;
   Uint16 chunkLength;
   string json;
   jsmntok_t *tokens;
 public:
-  JsonLoader(string);
-  int set();
+  Json(string);
+  int load();
   string getToken(unsigned int);
   unsigned int getTokenType(unsigned int);
   unsigned int getTokenSize(unsigned int);
-  string getJson();
-  jsmntok_t *getTokens();
-  void unset();
+  void set(string);
+  int save();
+  void unload();
 };
 
 #endif

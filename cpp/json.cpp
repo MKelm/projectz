@@ -1,14 +1,14 @@
-#include "loader.hpp"
+#include "json.hpp"
 
-JsonLoader::JsonLoader(string p_file) {
+Json::Json(string p_file) {
   chunkLength = 1024;
   file = p_file;
 }
 
-int JsonLoader::set() {
+int Json::load() {
   FILE *fp = fopen(file.c_str(), "r");
   if (!fp)
-    return FALSE;
+    return 0;
 
   fseek(fp, 0L, SEEK_END);
   unsigned int f_size = ftell(fp);
@@ -30,26 +30,31 @@ int JsonLoader::set() {
   return jsmn_parse(&p, json.c_str(), strlen(json.c_str()), tokens, f_size/3);
 }
 
-string JsonLoader::getToken(unsigned int index) {
+string Json::getToken(unsigned int index) {
   return json.substr(tokens[index].start, tokens[index].end - tokens[index].start);
 }
 
-unsigned int JsonLoader::getTokenType(unsigned int index) {
+unsigned int Json::getTokenType(unsigned int index) {
   return tokens[index].type;
 }
 
-unsigned int JsonLoader::getTokenSize(unsigned int index) {
+unsigned int Json::getTokenSize(unsigned int index) {
   return tokens[index].size;
 }
 
-string JsonLoader::getJson() {
-  return json;
+void Json::set(string p_json) {
+  json = p_json;
 }
 
-jsmntok_t *JsonLoader::getTokens() {
-  return tokens;
+int Json::save() {
+  FILE *fp = fopen(file.c_str(), "w");
+  if (!fp)
+    return 0;
+  fputs(json.c_str(), fp);
+  fclose(fp);
+  return 1;
 }
 
-void JsonLoader::unset() {
+void Json::unload() {
   free(tokens);
 }

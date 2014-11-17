@@ -7,40 +7,40 @@ Map::Map() {
 }
 
 void Map::load() {
-  JsonLoader loader(file);
-  int r = loader.set();
+  Json json(file);
+  int r = json.load();
   if (r > 0) {
     int i = 0, j, j_max, k, k_max, l, l_max;
     string token;
     string fieldsType;
 
-    if (loader.getTokenType(i) == JSMN_OBJECT) {
-      j_max = loader.getTokenSize(i);
+    if (json.getTokenType(i) == JSMN_OBJECT) {
+      j_max = json.getTokenSize(i);
       for (j = 0; j < j_max; j++) {
         i++;
-        if (loader.getTokenType(i) == JSMN_STRING) {
-          token = loader.getToken(i);
+        if (json.getTokenType(i) == JSMN_STRING) {
+          token = json.getToken(i);
           if (token == "cols") {
-            columns = atoi(loader.getToken(i+1).c_str());
+            columns = atoi(json.getToken(i+1).c_str());
           } else if (token == "rows") {
-            rows = atoi(loader.getToken(i+1).c_str());
+            rows = atoi(json.getToken(i+1).c_str());
           } else if (token == "terrain" || token == "items" || token == "resources") {
             i++;
-            if (loader.getTokenType(i) == JSMN_ARRAY) {
+            if (json.getTokenType(i) == JSMN_ARRAY) {
               fieldsType = token;
-              k_max = loader.getTokenSize(i);
+              k_max = json.getTokenSize(i);
               for (k = 0; k < k_max; k++) {
                 i++;
-                if (loader.getTokenType(i) == JSMN_ARRAY) {
-                  l_max = loader.getTokenSize(i);
+                if (json.getTokenType(i) == JSMN_ARRAY) {
+                  l_max = json.getTokenSize(i);
                   for (l = 0; l < l_max; l++) {
                     i++;
                     if (fieldsType == "terrain")
-                      terrain[k][l] = atoi(loader.getToken(i).c_str());
+                      terrain[k][l] = atoi(json.getToken(i).c_str());
                     else if (fieldsType == "items")
-                      items[k][l] = atoi(loader.getToken(i).c_str());
+                      items[k][l] = atoi(json.getToken(i).c_str());
                     else if (fieldsType == "resources")
-                      resources[k][l] = atoi(loader.getToken(i).c_str());
+                      resources[k][l] = atoi(json.getToken(i).c_str());
                   }
                 }
               }
@@ -51,40 +51,42 @@ void Map::load() {
       }
     }
   }
-  loader.unset();
+  json.unload();
 }
 
 void Map::save() {
-  string json = "{ \n\"cols\" : " + to_string(columns) +
+  string jsonStr = "{ \n\"cols\" : " + to_string(columns) +
     ", \n\"rows\" : " + to_string(rows) +", \n";
 
   int typeIdx = 0;
   string types[3] = { "terrain", "items", "resources" };
 
   for (typeIdx = 0; typeIdx < 3; typeIdx++) {
-    json += "\"" + types[typeIdx] + "\" : [ \n";
+    jsonStr += "\"" + types[typeIdx] + "\" : [ \n";
     int row, col;
     for (row = 0; row < rows; row++) {
-      json += " [ ";
+      jsonStr += " [ ";
       for (col = 0; col < columns; col++) {
         if (types[typeIdx] == "terrain")
-          json += to_string(terrain[row][col]);
+          jsonStr += to_string(terrain[row][col]);
         else if (types[typeIdx] == "items")
-          json += to_string(items[row][col]);
+          jsonStr += to_string(items[row][col]);
         else if (types[typeIdx] == "resources")
-          json += to_string(resources[row][col]);
+          jsonStr += to_string(resources[row][col]);
 
-        json += (col + 1 < columns) ? ", " : "";
+        jsonStr += (col + 1 < columns) ? ", " : "";
       }
-      json += " ]";
-      json += (row + 1 < rows) ? ", \n" : " \n";
+      jsonStr += " ]";
+      jsonStr += (row + 1 < rows) ? ", \n" : " \n";
     }
-    json += " ]";
-    json += (typeIdx + 1 < 3) ? ", \n" : " \n";
+    jsonStr += " ]";
+    jsonStr += (typeIdx + 1 < 3) ? ", \n" : " \n";
   }
+  jsonStr += "}\n";
 
-  json += "}\n";
-  cout << json << endl;
+  Json json(file);
+  json.set(jsonStr);
+  json.save();
 }
 
 void Map::set() {
