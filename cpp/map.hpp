@@ -17,6 +17,8 @@ class Map {
   string *itemNames;
 public:
   Map();
+  void increaseSize(Uint8);
+  void decreaseSize(Uint8);
   void load();
   void save();
   void set();

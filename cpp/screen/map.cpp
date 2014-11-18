@@ -1,21 +1,16 @@
 #include "map.hpp"
 
-void ScreenMap::init(Map& p_map) {
+void ScreenMap::init(Map *p_map) {
   map = p_map;
   hasGrid = true;
-  rows = map.getRows();
-  columns = map.getRows();
   imageSize = 64;
-  rect.y = 0;
-  rect.x = 0;
-  rect.w = rows * imageSize;
-  rect.h = columns * imageSize;
+  updateSize();
 
   resetFieldSelection();
   resetMove();
 
-  Uint16 terrainNamesCount = map.getTerrainNamesCount();
-  Uint16 itemNamesCount = map.getItemNamesCount();
+  Uint16 terrainNamesCount = map->getTerrainNamesCount();
+  Uint16 itemNamesCount = map->getItemNamesCount();
 
   terrainSurfaces = new SDL_Surface*[terrainNamesCount];
   itemSurfaces = new SDL_Surface*[itemNamesCount];
@@ -25,7 +20,7 @@ void ScreenMap::init(Map& p_map) {
     char file[256];
     sprintf(
       file, "../%s/%s_%d.png",
-      imagesFolder.c_str(), map.getTerrainName(i).c_str(), imageSize
+      imagesFolder.c_str(), map->getTerrainName(i).c_str(), imageSize
     );
     terrainSurfaces[i] = loadImage(file);
   }
@@ -33,14 +28,26 @@ void ScreenMap::init(Map& p_map) {
     char file[256];
     sprintf(
       file, "../%s/%s_%d.png",
-      imagesFolder.c_str(), map.getItemName(i).c_str(), imageSize
+      imagesFolder.c_str(), map->getItemName(i).c_str(), imageSize
     );
     itemSurfaces[i] = loadImage(file);
   }
 }
 
+void ScreenMap::updateSize() {
+  rows = map->getRows();
+  columns = map->getColumns();
+  rect.y = 0;
+  rect.x = 0;
+  rect.w = rows * imageSize;
+  rect.h = columns * imageSize;
+}
+
 string ScreenMap::getSizeString() {
-  return to_string(map.getColumns()) + "/" + to_string(map.getRows());
+  #ifdef DEBUG
+    cout << "screen map rows/cols " << map->getRows() << "/" << map->getColumns() << endl;
+  #endif
+  return to_string(map->getColumns()) + "/" + to_string(map->getRows());
 }
 
 void ScreenMap::toggleGrid() {

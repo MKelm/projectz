@@ -9,7 +9,7 @@ Main::Main(Uint8 m_maxFPS, Uint8 m_mode, Uint8 m_subMode) {
   map.load();
 
   screen.init(640, 480, 32, mode);
-  screen.initMap(map);
+  screen.initMap(&map);
 
   events.init();
 }
@@ -39,10 +39,16 @@ void Main::loop() {
         screen.map.toggleGrid();
         break;
       case EVENT_EDITOR_MAP_INCREASE_SIZE:
-        // todo ...
+        map.increaseSize(1);
+        screen.map.resetFieldSelection();
+        screen.map.updateSize();
+        screen.updateFooterText();
         break;
       case EVENT_EDITOR_MAP_DECREASE_SIZE:
-        // todo ...
+        map.decreaseSize(1);
+        screen.map.resetFieldSelection();
+        screen.map.updateSize();
+        screen.updateFooterText();
         break;
       case EVENT_EDITOR_MAP_FIELD_SELECTION:
         screen.map.selectField(events.getLastPosX(), events.getLastPosY());

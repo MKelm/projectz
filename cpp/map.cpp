@@ -6,6 +6,22 @@ Map::Map() {
   columns = 12;
 }
 
+void Map::increaseSize(Uint8 value) {
+  rows += value;
+  columns += value;
+  #ifdef DEBUG
+    cout << "map rows/cols " << rows << "/" << columns << endl;
+  #endif
+}
+
+void Map::decreaseSize(Uint8 value) {
+  rows -= value;
+  columns -= value;
+  #ifdef DEBUG
+    cout << "map rows/cols " << rows << "/" << columns << endl;
+  #endif
+}
+
 void Map::load() {
   Json json(file);
   int r = json.load();

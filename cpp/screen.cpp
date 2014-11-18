@@ -28,7 +28,7 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   footerText.set(footer);
 }
 
-void Screen::initMap(Map& p_map) {
+void Screen::initMap(Map *p_map) {
   map.init(p_map);
   map.set(surface);
   updateFooterText();

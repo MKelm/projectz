@@ -6,7 +6,7 @@
 #include "../map.hpp"
 
 class ScreenMap: public Surface {
-  Map map;
+  Map *map;
   bool hasGrid;
   SDL_Rect rect;
   SDL_Rect moveRect;
@@ -21,7 +21,8 @@ class ScreenMap: public Surface {
     int row;
   } fieldSelection;
 public:
-  void init(Map&);
+  void init(Map *);
+  void updateSize();
   string getSizeString();
   void toggleGrid();
   void resetMove();
