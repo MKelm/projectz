@@ -17,6 +17,7 @@ class Screen: public Surface {
     ScreenMap map;
     void init(Uint16, Uint16, Uint8, Uint8);
     void initMap(Map&);
+    void updateFooterText();
     void resize(Uint16 s_width, Uint16 s_height);
     void update();
     void quit();

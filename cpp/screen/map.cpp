@@ -39,6 +39,10 @@ void ScreenMap::init(Map& p_map) {
   }
 }
 
+string ScreenMap::getSizeString() {
+  return to_string(map.getColumns()) + "/" + to_string(map.getRows());
+}
+
 void ScreenMap::toggleGrid() {
   hasGrid = (hasGrid == true) ? false : true;
 }

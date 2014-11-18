@@ -22,6 +22,7 @@ class ScreenMap: public Surface {
   } fieldSelection;
 public:
   void init(Map&);
+  string getSizeString();
   void toggleGrid();
   void resetMove();
   void moveSet(Uint16, Uint16);

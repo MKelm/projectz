@@ -6,6 +6,7 @@
 
 class ScreenText: public Surface {
     static bool hasTTF;
+    bool hasText;
     string text;
     TTF_Font *font;
     Uint8 fontSize;

@@ -9,6 +9,7 @@ ScreenText::ScreenText() {
   fontColor.g = 255;
   fontColor.b = 255;
   fontColor.a = 255;
+  hasText = false;
 }
 
 void ScreenText::initTTF() {
@@ -22,6 +23,8 @@ void ScreenText::initTTF() {
 }
 
 void ScreenText::set(string t_text) {
+  if (hasText == true)
+    unset();
   #ifdef DEBUG
     cout << "Open font" << endl;
   #endif
@@ -29,6 +32,7 @@ void ScreenText::set(string t_text) {
   text = t_text;
   SDL_Color tmpFontColor = { fontColor.r, fontColor.g, fontColor.b, fontColor.a };
   surface = TTF_RenderText_Solid(font, text.c_str(), tmpFontColor);
+  hasText = true;
 }
 
 void ScreenText::unset() {
@@ -38,6 +42,7 @@ void ScreenText::unset() {
   #endif
   Surface::unset();
   TTF_CloseFont(font);
+  hasText = false;
 }
 
 void ScreenText::quitTTF() {

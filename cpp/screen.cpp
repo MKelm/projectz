@@ -31,6 +31,13 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
 void Screen::initMap(Map& p_map) {
   map.init(p_map);
   map.set(surface);
+  updateFooterText();
+}
+
+void Screen::updateFooterText() {
+  if (mode == MODE_EDITOR) {
+    footerText.set(map.getSizeString());
+  }
 }
 
 void Screen::resize(Uint16 s_width, Uint16 s_height) {
