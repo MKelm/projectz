@@ -30,6 +30,7 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
 
 void Screen::initMap(Map& p_map) {
   screenMap.init(p_map);
+  screenMap.set(surface);
 }
 
 void Screen::resize(Uint16 s_width, Uint16 s_height) {
@@ -45,6 +46,7 @@ void Screen::update() {
   SDL_FillRect(
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)
   );
+  screenMap.showGrid();
   apply(0, 0, headerText.get());
   apply(
     width - footerText.getWidth(), height - footerText.getHeight(),

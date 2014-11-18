@@ -128,6 +128,14 @@ void Map::set() {
   }
 }
 
+Uint16 Map::getColumns() {
+  return columns;
+}
+
+Uint16 Map::getRows() {
+  return rows;
+}
+
 string Map::getTerrainName(int index) {
   return terrainNames[index];
 }

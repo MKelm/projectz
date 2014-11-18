@@ -21,6 +21,8 @@ public:
   void save();
   void set();
   void unset();
+  Uint16 getColumns();
+  Uint16 getRows();
   Uint16 getTerrainNamesCount();
   string getTerrainName(int);
   Uint16 getItemNamesCount();
