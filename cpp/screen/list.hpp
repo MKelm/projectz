@@ -12,13 +12,13 @@ enum {
 
 #define LIST_MAX_ENTRIES 1024
 
-struct stListEntry {
+struct stScreenListEntry {
   ScreenText title;
   ScreenText text;
   SDL_Surface *image;
 };
 
-struct stListOptions {
+struct stScreenListOptions {
   Uint16 length;
   Uint16 selectetIdx;
   float offsetX;
@@ -36,8 +36,8 @@ class ScreenList: public Surface {
     Uint8 imageMarginRight;
     Uint8 titleMarginBottom;
     Uint8 textMarginBottom;
-    stListEntry *entries;
-    stListOptions options;
+    stScreenListEntry *entries;
+    stScreenListOptions options;
   public:
     void init(Uint8);
     void show();

@@ -24,7 +24,7 @@ void ScreenList::init(Uint8 pMode) {
   listEntries[3] = "water";
   listEntries[4] = "rock";
 
-  entries = new stListEntry[options.length];
+  entries = new stScreenListEntry[options.length];
   int i;
   string imageFile;
   for (i = 0; i < options.length; i++) {

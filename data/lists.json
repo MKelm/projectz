@@ -1,0 +1,22 @@
+{
+  "length" : {
+    "terrain" : 5,
+    "items" : 7
+  },
+  "terrain" : [
+    [ "grass", "Grass", "..." ],
+    [ "sand", "Sand", "..." ],
+    [ "dirt", "Dirt", "..." ],
+    [ "water", "Water", "..." ],
+    [ "rock", "Rock", "..." ],
+  ],
+  "items" : [
+    [ "empty", "Empty", "..." ],
+    [ "trees", "Trees", "..." ],
+    [ "rocks", "Rocks", "..." ],
+    [ "fishes", "Fishes", "..." ],
+    [ "gold", "Gold", "..." ],
+    [ "coal", "Coal", "..." ],
+    [ "ironore", "Iron ore", "..." ],
+  ]
+}

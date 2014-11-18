@@ -5,6 +5,7 @@
 #include "screen.hpp"
 #include "event/handler.hpp"
 #include "map.hpp"
+#include "lists.hpp"
 
 class Main {
     bool hasQuitStatus;
@@ -15,6 +16,7 @@ class Main {
     Screen screen;
     EventHandler eventHandler;
     Map map;
+    Lists lists;
   public:
     Main(Uint8, Uint8, Uint8);
     void handleGeneralEventSignal(Uint8);

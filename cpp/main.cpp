@@ -10,6 +10,8 @@ Main::Main(Uint8 pMaxFPS, Uint8 pMode, Uint8 pSubMode) {
   map.set();
   map.load();
 
+  lists.load();
+
   screen.init(640, 480, 32, mode, subMode);
   screen.initMap(&map);
 
@@ -102,5 +104,6 @@ void Main::loop() {
 void Main::quit() {
   map.save();
   map.unset();
+  lists.unset();
   screen.quit();
 }
