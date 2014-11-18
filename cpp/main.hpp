@@ -17,7 +17,8 @@ class Main {
     Map map;
   public:
     Main(Uint8, Uint8, Uint8);
-    void handleEditorEvents();
+    void handleGeneralEventSignal(Uint8);
+    void handleEditorEventSignal(Uint8);
     void loop();
     void quit();
 };

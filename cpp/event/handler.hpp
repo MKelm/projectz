@@ -33,7 +33,7 @@ class EventHandler {
     Uint16 lastWidth;
     Uint16 lastHeight;
   public:
-    void init(SDL_Event *pEvent);
+    void init(SDL_Event *);
     Uint16 getLastPosX();
     Uint16 getLastPosY();
     Uint16 getLastWidth();
