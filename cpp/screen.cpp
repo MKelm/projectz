@@ -45,10 +45,10 @@ void Screen::update() {
   SDL_FillRect(
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)
   );
-  applySurface(0, 0, headerText.getSurface());
-  applySurface(
+  apply(0, 0, headerText.get());
+  apply(
     width - footerText.getWidth(), height - footerText.getHeight(),
-    footerText.getSurface()
+    footerText.get()
   );
   SDL_Flip(surface);
 }

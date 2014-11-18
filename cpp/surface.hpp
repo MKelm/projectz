@@ -9,8 +9,9 @@ class Surface {
   public:
     int getWidth();
     int getHeight();
-    SDL_Surface *getSurface();
-    void applySurface(Uint16, Uint16, SDL_Surface*);
+    void apply(Uint16, Uint16, SDL_Surface*);
+    void set(SDL_Surface*);
+    SDL_Surface *get();
     void unset();
 };
 

@@ -8,11 +8,15 @@ int Surface::getHeight() {
   return surface->h;
 }
 
-SDL_Surface *Surface::getSurface() {
+void Surface::set(SDL_Surface *p_surface) {
+  surface = p_surface;
+}
+
+SDL_Surface *Surface::get() {
   return surface;
 }
 
-void Surface::applySurface(Uint16 x, Uint16 y, SDL_Surface* source) {
+void Surface::apply(Uint16 x, Uint16 y, SDL_Surface* source) {
   SDL_Rect offset;
   offset.x = x;
   offset.y = y;
