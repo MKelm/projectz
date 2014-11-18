@@ -157,7 +157,6 @@ Uint16 Map::getField(Uint16 row, Uint16 column, string type) {
     return resources[row][column];
 }
 
-
 Uint16 Map::getColumns() {
   return columns;
 }

@@ -10,6 +10,7 @@ class Main {
     Uint8 maxFPS;
     Uint8 mode;
     Uint8 subMode;
+    SDL_Event event;
     Screen screen;
     Events events;
     Map map;

@@ -17,48 +17,51 @@ Main::Main(Uint8 m_maxFPS, Uint8 m_mode, Uint8 m_subMode) {
 void Main::loop() {
   Uint32 frameStart = 0;
   bool quit = false;
+  events.set(&event);
   while (quit == false) {
     frameStart = SDL_GetTicks();
 
-    Uint8 eventSignal = events.handle(mode, subMode);
-    switch (eventSignal) {
-      // general
-      case EVENT_RESIZE:
-        screen.resize(events.getLastWidth(), events.getLastHeight());
-        break;
-      case EVENT_QUIT:
-        quit = true;
-        break;
-      // editor
-      case EVENT_EDITOR_TOGGLE_SUB_MODE:
-        subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
-          SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
-        break;
-      // editor map
-      case EVENT_EDITOR_MAP_TOGGLE_GRID:
-        screen.map.toggleGrid();
-        break;
-      case EVENT_EDITOR_MAP_INCREASE_SIZE:
-        map.increaseSize(1);
-        screen.map.resetFieldSelection();
-        screen.map.updateSize();
-        screen.updateFooterText();
-        break;
-      case EVENT_EDITOR_MAP_DECREASE_SIZE:
-        map.decreaseSize(1);
-        screen.map.resetFieldSelection();
-        screen.map.updateSize();
-        screen.updateFooterText();
-        break;
-      case EVENT_EDITOR_MAP_FIELD_SELECTION:
-        screen.map.selectField(events.getLastPosX(), events.getLastPosY());
-        break;
-      case EVENT_EDITOR_MAP_MOVE_START:
-        screen.map.moveSet(events.getLastPosX(), events.getLastPosY());
-        break;
-      case EVENT_EDITOR_MAP_MOVE_END:
-        screen.map.resetMove();
-        break;
+    while (SDL_PollEvent(&event)) {
+      Uint8 eventSignal = events.handle(mode, subMode);
+      switch (eventSignal) {
+        // general
+        case EVENT_RESIZE:
+          screen.resize(events.getLastWidth(), events.getLastHeight());
+          break;
+        case EVENT_QUIT:
+          quit = true;
+          break;
+        // editor
+        case EVENT_EDITOR_TOGGLE_SUB_MODE:
+          subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
+            SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
+          break;
+        // editor map
+        case EVENT_EDITOR_MAP_TOGGLE_GRID:
+          screen.map.toggleGrid();
+          break;
+        case EVENT_EDITOR_MAP_INCREASE_SIZE:
+          map.increaseSize(1);
+          screen.map.resetFieldSelection();
+          screen.map.updateSize();
+          screen.updateFooterText();
+          break;
+        case EVENT_EDITOR_MAP_DECREASE_SIZE:
+          map.decreaseSize(1);
+          screen.map.resetFieldSelection();
+          screen.map.updateSize();
+          screen.updateFooterText();
+          break;
+        case EVENT_EDITOR_MAP_FIELD_SELECTION:
+          screen.map.selectField(events.getLastPosX(), events.getLastPosY());
+          break;
+        case EVENT_EDITOR_MAP_MOVE_START:
+          screen.map.moveSet(events.getLastPosX(), events.getLastPosY());
+          break;
+        case EVENT_EDITOR_MAP_MOVE_END:
+          screen.map.resetMove();
+          break;
+      }
     }
 
     screen.update();

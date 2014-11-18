@@ -24,8 +24,10 @@ enum {
   EVENT_EDITOR_LIST_WHEELDOWN
 };
 
+#define EVENTS_MAX_SIGNALS 10
+
 class Events {
-    SDL_Event event;
+    SDL_Event *event;
     bool rMouseBtn;
     bool lMouseBtn;
     Uint16 lastPosX;
@@ -34,6 +36,7 @@ class Events {
     Uint16 lastHeight;
   public:
     void init();
+    void set(SDL_Event *pEvent);
     Uint16 getLastPosX();
     Uint16 getLastPosY();
     Uint16 getLastWidth();
