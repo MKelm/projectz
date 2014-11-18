@@ -1,7 +1,7 @@
-#ifndef _INCLUDE_EVENTS_HPP
-#define _INCLUDE_EVENTS_HPP
+#ifndef _INCLUDE_EVENT_HANDLER_HPP
+#define _INCLUDE_EVENT_HANDLER_HPP
 
-#include "global.hpp"
+#include "../global.hpp"
 
 enum {
   EVENT_NONE, // general events
@@ -24,9 +24,7 @@ enum {
   EVENT_EDITOR_LIST_WHEELDOWN
 };
 
-#define EVENTS_MAX_SIGNALS 10
-
-class Events {
+class EventHandler {
     SDL_Event *event;
     bool rMouseBtn;
     bool lMouseBtn;
@@ -40,9 +38,9 @@ class Events {
     Uint16 getLastPosY();
     Uint16 getLastWidth();
     Uint16 getLastHeight();
-    Uint8 handle(Uint8, Uint8);
-    Uint8 handleEditorMap();
-    Uint8 handleEditorList();
+    Uint8 getSignal(Uint8, Uint8);
+    Uint8 getEditorMapSignal();
+    Uint8 getEditorListSignal();
 };
 
 #endif

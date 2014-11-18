@@ -1,6 +1,6 @@
-#include "events.hpp"
+#include "handler.hpp"
 
-void Events::init(SDL_Event *pEvent) {
+void EventHandler::init(SDL_Event *pEvent) {
   rMouseBtn = false;
   lMouseBtn = false;
   lastPosX = 0;
@@ -8,23 +8,23 @@ void Events::init(SDL_Event *pEvent) {
   event = pEvent;
 }
 
-Uint16 Events::getLastPosX() {
+Uint16 EventHandler::getLastPosX() {
   return lastPosX;
 }
 
-Uint16 Events::getLastPosY() {
+Uint16 EventHandler::getLastPosY() {
   return lastPosY;
 }
 
-Uint16 Events::getLastWidth() {
+Uint16 EventHandler::getLastWidth() {
   return lastWidth;
 }
 
-Uint16 Events::getLastHeight() {
+Uint16 EventHandler::getLastHeight() {
   return lastHeight;
 }
 
-Uint8 Events::handleEditorMap() {
+Uint8 EventHandler::getEditorMapSignal() {
   if (event->type == SDL_KEYDOWN) {
     switch (event->key.keysym.sym) {
       case SDLK_g: return EVENT_EDITOR_MAP_TOGGLE_GRID; break;
@@ -68,7 +68,7 @@ Uint8 Events::handleEditorMap() {
   return EVENT_NONE;
 }
 
-Uint8 Events::handleEditorList() {
+Uint8 EventHandler::getEditorListSignal() {
   if (event->type == SDL_KEYDOWN) {
     switch (event->key.keysym.sym) {
       case SDLK_1: return EVENT_EDITOR_LIST_SWITCH_TERRAIN; break;
@@ -101,7 +101,7 @@ Uint8 Events::handleEditorList() {
   return EVENT_NONE;
 }
 
-Uint8 Events::handle(Uint8 mode, Uint8 subMode) {
+Uint8 EventHandler::getSignal(Uint8 mode, Uint8 subMode) {
   lastPosX = 0;
   lastPosY = 0;
   Uint8 eventSignal = EVENT_NONE;
@@ -109,9 +109,9 @@ Uint8 Events::handle(Uint8 mode, Uint8 subMode) {
   switch (mode) {
     case MODE_EDITOR:
       if (subMode == SUB_MODE_EDITOR_MAP) {
-        eventSignal = handleEditorMap();
+        eventSignal = getEditorMapSignal();
       } else if (subMode == SUB_MODE_EDITOR_LIST) {
-        eventSignal = handleEditorList();
+        eventSignal = getEditorListSignal();
       }
       break;
     case MODE_GAME:

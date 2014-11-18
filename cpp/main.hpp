@@ -3,19 +3,21 @@
 
 #include "global.hpp"
 #include "screen.hpp"
-#include "events.hpp"
+#include "event/handler.hpp"
 #include "map.hpp"
 
 class Main {
+    bool hasQuitStatus;
     Uint8 maxFPS;
     Uint8 mode;
     Uint8 subMode;
     SDL_Event event;
     Screen screen;
-    Events events;
+    EventHandler eventHandler;
     Map map;
   public:
     Main(Uint8, Uint8, Uint8);
+    void handleEditorEvents();
     void loop();
     void quit();
 };
