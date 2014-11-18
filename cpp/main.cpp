@@ -1,15 +1,16 @@
 #include "main.hpp"
 
-Main::Main(Uint8 m_maxFPS, Uint8 m_mode, Uint8 m_subMode) {
+Main::Main(Uint8 pMaxFPS, Uint8 pMode, Uint8 pSubMode) {
   hasQuitStatus = false;
-  maxFPS = m_maxFPS;
-  mode = m_mode;
-  subMode = m_subMode;
+  maxFPS = pMaxFPS;
+  mode = pMode;
+  subMode = pSubMode;
 
+  map.setNames();
   map.set();
   map.load();
 
-  screen.init(640, 480, 32, mode);
+  screen.init(640, 480, 32, mode, subMode);
   screen.initMap(&map);
 
   eventHandler.init(&event);
@@ -33,6 +34,7 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
     case EVENT_EDITOR_TOGGLE_SUB_MODE:
       subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
         SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
+      screen.setSubMode(subMode);
       break;
     // editor map
     case EVENT_EDITOR_MAP_TOGGLE_GRID:

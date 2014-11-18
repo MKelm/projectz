@@ -1,8 +1,9 @@
 #include "screen.hpp"
 
-void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode) {
+void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 pSubMode) {
   bpp = pBpp;
   mode = pMode;
+  subMode = pSubMode;
 
   string header = "Project Z";
   string footer = "idx.CodeLab 2014";
@@ -26,6 +27,13 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode) {
   headerText.initTTF();
   headerText.set(header);
   footerText.set(footer);
+
+  list.set(surface);
+  list.init(LIST_MODE_EDITOR_TERRAIN);
+}
+
+void Screen::setSubMode(Uint8 pSubMode) {
+  subMode = pSubMode;
 }
 
 void Screen::initMap(Map *pMap) {
@@ -53,9 +61,13 @@ void Screen::update() {
   SDL_FillRect(
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)
   );
-  map.show();
-  map.showGrid();
-  map.showFieldSelection();
+  if (subMode == SUB_MODE_EDITOR_MAP || subMode == SUB_MODE_GAME_MAP) {
+    map.show();
+    map.showGrid();
+    map.showFieldSelection();
+  } else if (subMode == SUB_MODE_EDITOR_LIST) {
+    list.show();
+  }
   apply(0, 0, headerText.get());
   apply(
     width - footerText.getWidth(), height - footerText.getHeight(),
@@ -66,6 +78,7 @@ void Screen::update() {
 
 void Screen::quit() {
   map.unset();
+  list.unset();
   headerText.unset();
   footerText.unset();
   headerText.quitTTF();

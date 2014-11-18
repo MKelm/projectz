@@ -20,6 +20,8 @@ class ScreenText: public Surface {
   public:
     ScreenText();
     void initTTF();
+    void setFontFile(string);
+    void setFontSize(Uint8);
     void set(string);
     void unset();
     void quitTTF();

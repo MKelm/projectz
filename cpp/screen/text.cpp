@@ -12,6 +12,14 @@ ScreenText::ScreenText() {
   hasText = false;
 }
 
+void ScreenText::setFontFile(string pFontFile) {
+  fontFile = pFontFile;
+}
+
+void ScreenText::setFontSize(Uint8 pFontSize) {
+  fontSize = pFontSize;
+}
+
 void ScreenText::initTTF() {
   if (ScreenText::hasTTF != true) {
     TTF_Init();

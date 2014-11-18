@@ -109,7 +109,7 @@ void Map::save() {
   json.save();
 }
 
-void Map::set() {
+void Map::setNames() {
   terrainNamesCount = 5;
   terrainNames = new string[terrainNamesCount];
   terrainNames[0] = "grass";
@@ -127,7 +127,9 @@ void Map::set() {
   itemNames[4] = "gold";
   itemNames[5] = "coal";
   itemNames[6] = "ironore";
+}
 
+void Map::set() {
   int i;
   terrain = (Uint16 **) malloc(rows * sizeof(Uint16 *));
   items = (Uint16 **) malloc(rows * sizeof(Uint16 *));

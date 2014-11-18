@@ -22,6 +22,7 @@ public:
   void load();
   void save();
   void set();
+  void setNames();
   void unset();
   Uint16 getField(Uint16, Uint16, string);
   Uint16 getColumns();
