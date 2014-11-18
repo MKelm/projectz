@@ -43,3 +43,4 @@ screen/text.o : screen/text.cpp global.hpp surface.hpp map.hpp screen/text.hpp
 
 clean :
 	$(RM) *.o
+	$(RM) screen/*.o
