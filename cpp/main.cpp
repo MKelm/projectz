@@ -21,23 +21,29 @@ void Main::loop() {
     frameStart = SDL_GetTicks();
 
     Uint8 eventSignal = events.handle(mode, subMode);
-    if (eventSignal == EVENT_EDITOR_TOGGLE_SUB_MODE) {
-      subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
-        SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
-    }
-    if (eventSignal == EVENT_RESIZE) {
-      screen.resize(events.getLastWidth(), events.getLastHeight());
-    }
-    if (eventSignal == EVENT_QUIT) {
-      quit = true;
-    }
-    if (eventSignal == EVENT_EDITOR_MAP_FIELD_SELECTION) {
-      screen.screenMap.selectField(events.getLastPosX(), events.getLastPosY());
-    }
-    if (eventSignal == EVENT_EDITOR_MAP_MOVE_START) {
-      screen.screenMap.moveSet(events.getLastPosX(), events.getLastPosY());
-    } else if (eventSignal == EVENT_EDITOR_MAP_MOVE_END) {
-      screen.screenMap.resetMove();
+    switch (eventSignal) {
+      // general
+      case EVENT_RESIZE:
+        screen.resize(events.getLastWidth(), events.getLastHeight());
+        break;
+      case EVENT_QUIT:
+        quit = true;
+        break;
+      // editor
+      case EVENT_EDITOR_TOGGLE_SUB_MODE:
+        subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
+          SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
+        break;
+      // editor map
+      case EVENT_EDITOR_MAP_FIELD_SELECTION:
+        screen.map.selectField(events.getLastPosX(), events.getLastPosY());
+        break;
+      case EVENT_EDITOR_MAP_MOVE_START:
+        screen.map.moveSet(events.getLastPosX(), events.getLastPosY());
+        break;
+      case EVENT_EDITOR_MAP_MOVE_END:
+        screen.map.resetMove();
+        break;
     }
 
     screen.update();

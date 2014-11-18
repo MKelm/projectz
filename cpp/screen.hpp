@@ -14,7 +14,7 @@ class Screen: public Surface {
     ScreenText headerText;
     ScreenText footerText;
   public:
-    ScreenMap screenMap;
+    ScreenMap map;
     void init(Uint16, Uint16, Uint8, Uint8);
     void initMap(Map&);
     void resize(Uint16 s_width, Uint16 s_height);
