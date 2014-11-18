@@ -33,7 +33,6 @@ public:
   void show();
   void showGrid();
   void unset();
-  SDL_Surface *loadImage(string file);
 };
 
 #endif

@@ -15,6 +15,7 @@ enum {
 struct stListEntry {
   ScreenText title;
   ScreenText text;
+  SDL_Surface *image;
 };
 
 struct stListOptions {

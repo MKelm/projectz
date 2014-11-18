@@ -12,6 +12,7 @@ class Surface {
     void apply(Uint16, Uint16, SDL_Surface*);
     void set(SDL_Surface*);
     SDL_Surface *get();
+    SDL_Surface *loadImage(string);
     void unset();
 };
 

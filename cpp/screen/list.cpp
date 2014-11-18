@@ -11,29 +11,32 @@ void ScreenList::init(Uint8 pMode) {
   titleMarginBottom = 1;
   textMarginBottom = 4;
 
-  options.length = 7;
+  options.length = 5;
   options.offsetX = 0.;
   options.offsetY = 0.;
   options.selectetIdx = -1;
 
   // const entries for developement
-  options.selectetIdx = 6;
+  options.selectetIdx = 0;
   string *listEntries = new string[options.length];
-  listEntries[0] = "Entry Empty";
-  listEntries[1] = "Entry Trees";
-  listEntries[2] = "Entry Rocks";
-  listEntries[3] = "Entry Fishes";
-  listEntries[4] = "Entry Gold";
-  listEntries[5] = "Entry Coal";
-  listEntries[6] = "Entry Ironore";
+  listEntries[0] = "grass";
+  listEntries[1] = "sand";
+  listEntries[2] = "dirt";
+  listEntries[3] = "water";
+  listEntries[4] = "rock";
 
   entries = new stListEntry[options.length];
   int i;
+  string imageFile;
   for (i = 0; i < options.length; i++) {
     entries[i].title.setFontSize(18);
     entries[i].title.set(listEntries[i]);
     entries[i].text.setFontSize(16);
     entries[i].text.set(listEntries[i]);
+
+    imageFile = "../images/" + listEntries[i] + "_" +
+      to_string(imageSize) + ".png";
+    entries[i].image = loadImage(imageFile);
   }
 
   options.lengthY = options.length *
@@ -63,14 +66,14 @@ void ScreenList::show() {
       );
     }
 
-    /*todo images ... if (list[i].image != NULL) {
-      offset.y = entry_pos_y + image_margin_top;
-      SDL_BlitSurface(list[i].image, NULL, screen, &offset);
-      offset.x += image_size + image_margin_right;
+    if (entries[i].image != NULL) {
+      offset.y = entryPosY + imageMarginTop;
+      apply(offset.x, offset.y, entries[i].image);
+      offset.x += imageSize + imageMarginRight;
     } else {
-      offset.x = entry_pos_x;
+      offset.x = entryPosX;
     }
-    offset.y = entry_pos_y;*/
+    offset.y = entryPosY;
 
     apply(offset.x, offset.y, entries[i].title.get());
 
