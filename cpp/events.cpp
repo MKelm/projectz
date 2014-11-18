@@ -1,13 +1,10 @@
 #include "events.hpp"
 
-void Events::init() {
+void Events::init(SDL_Event *pEvent) {
   rMouseBtn = false;
   lMouseBtn = false;
   lastPosX = 0;
   lastPosY = 0;
-}
-
-void Events::set(SDL_Event *pEvent) {
   event = pEvent;
 }
 

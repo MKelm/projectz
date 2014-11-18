@@ -11,13 +11,12 @@ Main::Main(Uint8 m_maxFPS, Uint8 m_mode, Uint8 m_subMode) {
   screen.init(640, 480, 32, mode);
   screen.initMap(&map);
 
-  events.init();
+  events.init(&event);
 }
 
 void Main::loop() {
   Uint32 frameStart = 0;
   bool quit = false;
-  events.set(&event);
   while (quit == false) {
     frameStart = SDL_GetTicks();
 
