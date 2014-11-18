@@ -31,24 +31,12 @@ void ScreenText::set(string t_text) {
   surface = TTF_RenderText_Solid(font, text.c_str(), tmpFontColor);
 }
 
-int ScreenText::getWidth() {
-  return surface->w;
-}
-
-int ScreenText::getHeight() {
-  return surface->h;
-}
-
-SDL_Surface *ScreenText::getSurface() {
-  return surface;
-}
-
 void ScreenText::unset() {
   text = "";
   #ifdef DEBUG
     cout << "Close font" << endl;
   #endif
-  SDL_FreeSurface(surface);
+  Surface::unset();
   TTF_CloseFont(font);
 }
 

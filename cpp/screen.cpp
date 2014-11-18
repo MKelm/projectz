@@ -41,13 +41,6 @@ void Screen::resize(Uint16 s_width, Uint16 s_height) {
   );
 }
 
-void Screen::applySurface(Uint16 x, Uint16 y, SDL_Surface* source) {
-  SDL_Rect offset;
-  offset.x = x;
-  offset.y = y;
-  SDL_BlitSurface(source, NULL, surface, &offset);
-}
-
 void Screen::update() {
   SDL_FillRect(
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)

@@ -2,11 +2,11 @@
 #define _INCLUDE_SCREEN_TEXT_HPP
 
 #include "../global.hpp"
+#include "../surface.hpp"
 
-class ScreenText {
+class ScreenText: public Surface {
     static bool hasTTF;
     string text;
-    SDL_Surface *surface;
     TTF_Font *font;
     Uint8 fontSize;
     string fontFile;
@@ -20,9 +20,6 @@ class ScreenText {
     ScreenText();
     void initTTF();
     void set(string);
-    int getWidth();
-    int getHeight();
-    SDL_Surface *getSurface();
     void unset();
     void quitTTF();
 };
