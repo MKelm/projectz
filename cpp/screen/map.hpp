@@ -30,6 +30,7 @@ public:
   void resetFieldSelection();
   void selectField(Uint16, Uint16);
   void showFieldSelection();
+  void show();
   void showGrid();
   void unset();
   SDL_Surface *loadImage(string file);

@@ -53,6 +53,7 @@ void Screen::update() {
   SDL_FillRect(
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)
   );
+  map.show();
   map.showGrid();
   map.showFieldSelection();
   apply(0, 0, headerText.get());

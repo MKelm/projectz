@@ -12,6 +12,8 @@ void Map::increaseSize(Uint8 value) {
   #ifdef DEBUG
     cout << "map rows/cols " << rows << "/" << columns << endl;
   #endif
+  unset();
+  set();
 }
 
 void Map::decreaseSize(Uint8 value) {
@@ -20,6 +22,8 @@ void Map::decreaseSize(Uint8 value) {
   #ifdef DEBUG
     cout << "map rows/cols " << rows << "/" << columns << endl;
   #endif
+  unset();
+  set();
 }
 
 void Map::load() {
@@ -137,12 +141,22 @@ void Map::set() {
   int row, col;
   for (row = 0; row < rows; row++) {
     for (col = 0; col < columns; col++) {
-      terrain[row][col] = -1;
-      items[row][col] = -1;
-      resources[row][col] = -1;
+      terrain[row][col] = 0;
+      items[row][col] = 0;
+      resources[row][col] = 0;
     }
   }
 }
+
+Uint16 Map::getField(Uint16 row, Uint16 column, string type) {
+  if (type == "terrain")
+    return terrain[row][column];
+  else if (type == "item")
+    return items[row][column];
+  else if (type == "resource")
+    return resources[row][column];
+}
+
 
 Uint16 Map::getColumns() {
   return columns;

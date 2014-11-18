@@ -4,6 +4,7 @@ void ScreenMap::init(Map *p_map) {
   map = p_map;
   hasGrid = true;
   imageSize = 64;
+  imagesFolder = "images";
   updateSize();
 
   resetFieldSelection();
@@ -94,6 +95,28 @@ void ScreenMap::showFieldSelection() {
   }
 }
 
+void ScreenMap::show() {
+  int row, col, x, y;
+  Uint16 terrain, item, resource;
+  y = rect.y;
+  for (row = 0; row < rows; row++) {
+    x = rect.x;
+    for (col = 0; col < columns; col++) {
+      if (x + imageSize > 0 && y + imageSize > 0 &&
+          x < surface->w && y < surface->h) {
+        terrain = map->getField(row, col, "terrain");
+        apply(x, y, terrainSurfaces[terrain]);
+        item = map->getField(row, col, "item");
+        if (item > 0) {
+          apply(x, y, itemSurfaces[item]);
+        }
+      }
+      x += imageSize;
+    }
+    y += imageSize;
+  }
+}
+
 void ScreenMap::showGrid() {
   if (hasGrid == true) {
     int row, col, x, y;
@@ -143,8 +166,13 @@ SDL_Surface *ScreenMap::loadImage(string file) {
   SDL_Surface* optimizedImage = NULL;
 
   loadedImage = IMG_Load(file.c_str());
+  #ifdef DEBUG
+    cout << "try to load image " << file << endl;
+  #endif
   if (loadedImage != NULL) {
-
+    #ifdef DEBUG
+      cout << "loaded image " << file << endl;
+    #endif
     optimizedImage = SDL_DisplayFormat(loadedImage);
     SDL_FreeSurface(loadedImage);
     if (optimizedImage != NULL) {
