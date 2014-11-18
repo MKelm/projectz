@@ -12,9 +12,11 @@ struct stListEntry {
 
 class Lists {
   string file;
+public:
+  Uint16 terrainLength;
+  Uint16 itemsLength;
   stListEntry *terrain;
   stListEntry *items;
-public:
   Lists();
   void load();
   void unset();

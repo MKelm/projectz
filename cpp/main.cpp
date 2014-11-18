@@ -6,11 +6,11 @@ Main::Main(Uint8 pMaxFPS, Uint8 pMode, Uint8 pSubMode) {
   mode = pMode;
   subMode = pSubMode;
 
-  map.setNames();
+  lists.load();
+
+  map.setNames(&lists);
   map.set();
   map.load();
-
-  lists.load();
 
   screen.init(640, 480, 32, mode, subMode);
   screen.initMap(&map);

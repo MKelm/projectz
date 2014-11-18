@@ -3,6 +3,7 @@
 
 #include "global.hpp"
 #include "json.hpp"
+#include "lists.hpp"
 
 class Map {
   string file;
@@ -22,7 +23,7 @@ public:
   void load();
   void save();
   void set();
-  void setNames();
+  void setNames(Lists *);
   void unset();
   Uint16 getField(Uint16, Uint16, string);
   Uint16 getColumns();

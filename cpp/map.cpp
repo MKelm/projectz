@@ -109,24 +109,19 @@ void Map::save() {
   json.save();
 }
 
-void Map::setNames() {
-  terrainNamesCount = 5;
+void Map::setNames(Lists *lists) {
+  int i;
+  terrainNamesCount = lists->terrainLength;
   terrainNames = new string[terrainNamesCount];
-  terrainNames[0] = "grass";
-  terrainNames[1] = "sand";
-  terrainNames[2] = "dirt";
-  terrainNames[3] = "water";
-  terrainNames[4] = "rock";
+  for (i = 0; i < terrainNamesCount; i++) {
+    terrainNames[i] = lists->terrain[i].name;
+  }
 
-  itemNamesCount = 7;
+  itemNamesCount = lists->itemsLength;
   itemNames = new string[itemNamesCount];
-  itemNames[0] = "empty";
-  itemNames[1] = "trees";
-  itemNames[2] = "rocks";
-  itemNames[3] = "fishes";
-  itemNames[4] = "gold";
-  itemNames[5] = "coal";
-  itemNames[6] = "ironore";
+  for (i = 0; i < terrainNamesCount; i++) {
+    itemNames[i] = lists->items[i].name;
+  }
 }
 
 void Map::set() {

@@ -28,9 +28,11 @@ void Lists::load() {
                 i++;
                 token = json.getToken(i);
                 if (token == "terrain") {
-                  terrain = new stListEntry[stoi(json.getToken(i+1))];
+                  terrainLength = stoi(json.getToken(i+1));
+                  terrain = new stListEntry[terrainLength];
                 } else if (token == "items") {
-                  items = new stListEntry[stoi(json.getToken(i+1))];
+                  itemsLength = stoi(json.getToken(i+1));
+                  items = new stListEntry[itemsLength];
                 }
               }
             }
