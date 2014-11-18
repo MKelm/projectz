@@ -47,6 +47,7 @@ void Screen::update() {
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)
   );
   screenMap.showGrid();
+  screenMap.showFieldSelection();
   apply(0, 0, headerText.get());
   apply(
     width - footerText.getWidth(), height - footerText.getHeight(),

@@ -14,8 +14,15 @@ class ScreenMap: public Surface {
   string imagesFolder;
   SDL_Surface **terrainSurfaces;
   SDL_Surface **itemSurfaces;
+  struct stFieldSelection {
+    int column;
+    int row;
+  } fieldSelection;
 public:
   void init(Map&);
+  void resetFieldSelection();
+  void selectField(Uint16, Uint16);
+  void showFieldSelection();
   void showGrid();
   void unset();
   SDL_Surface *loadImage(string file);

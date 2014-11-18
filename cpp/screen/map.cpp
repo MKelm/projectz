@@ -10,6 +10,8 @@ void ScreenMap::init(Map& p_map) {
   rect.w = rows * imageSize;
   rect.h = columns * imageSize;
 
+  resetFieldSelection();
+
   Uint16 terrainNamesCount = map.getTerrainNamesCount();
   Uint16 itemNamesCount = map.getItemNamesCount();
 
@@ -32,6 +34,32 @@ void ScreenMap::init(Map& p_map) {
       imagesFolder.c_str(), map.getItemName(i).c_str(), imageSize
     );
     itemSurfaces[i] = loadImage(file);
+  }
+}
+
+void ScreenMap::resetFieldSelection() {
+  fieldSelection.row = -1;
+  fieldSelection.column = -1;
+}
+
+void ScreenMap::selectField(Uint16 screenX, Uint16 screenY) {
+  fieldSelection.column = -1 * (rect.x - screenX) / imageSize;
+  fieldSelection.row = -1 * (rect.y - screenY) / imageSize;
+  if (fieldSelection.column >= columns || fieldSelection.row >= rows) {
+    resetFieldSelection();
+  }
+}
+
+void ScreenMap::showFieldSelection() {
+  if (fieldSelection.column > -1 && fieldSelection.row > -1) {
+    rectangleRGBA(
+      surface,
+      rect.x + fieldSelection.column * imageSize,
+      rect.y + fieldSelection.row * imageSize,
+      rect.x + fieldSelection.column * imageSize + imageSize,
+      rect.y + fieldSelection.row * imageSize + imageSize,
+      255, 0, 0, 255
+    );
   }
 }
 

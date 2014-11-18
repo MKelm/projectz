@@ -29,6 +29,10 @@ void Main::loop() {
     if (eventSignal == EVENT_QUIT) {
       quit = true;
     }
+    if (eventSignal == EVENT_EDITOR_MAP_FIELD_SELECTION) {
+      screen.screenMap.selectField(events.getLastPosX(), events.getLastPosY());
+    }
+
     screen.update();
 
     if ((SDL_GetTicks() - frameStart) < (1000 / maxFPS)) {

@@ -13,8 +13,8 @@ class Screen: public Surface {
     Uint8 mode;
     ScreenText headerText;
     ScreenText footerText;
-    ScreenMap screenMap;
   public:
+    ScreenMap screenMap;
     void init(Uint16, Uint16, Uint8, Uint8);
     void initMap(Map&);
     void resize(Uint16 s_width, Uint16 s_height);
