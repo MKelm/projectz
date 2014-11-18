@@ -21,7 +21,7 @@ class ScreenMap: public Surface {
     int row;
   } fieldSelection;
 public:
-  void init(Map *);
+  void init(Map *, bool);
   void updateSize();
   string getSizeString();
   void toggleGrid();

@@ -1,8 +1,8 @@
 #include "map.hpp"
 
-void ScreenMap::init(Map *p_map) {
-  map = p_map;
-  hasGrid = true;
+void ScreenMap::init(Map *pMap, bool pHasGrid) {
+  map = pMap;
+  hasGrid = pHasGrid;
   imageSize = 64;
   imagesFolder = "images";
   updateSize();

@@ -1,8 +1,8 @@
 #include "screen.hpp"
 
-void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
-  bpp = s_bpp;
-  mode = s_mode;
+void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode) {
+  bpp = pBpp;
+  mode = pMode;
 
   string header = "Project Z";
   string footer = "idx.CodeLab 2014";
@@ -20,7 +20,7 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
     cout << "Set Screen" << endl;
   #endif
 
-  resize(s_width, s_height);
+  resize(pWidth, pHeight);
   SDL_WM_SetCaption(header.c_str(), NULL);
 
   headerText.initTTF();
@@ -28,8 +28,8 @@ void Screen::init(Uint16 s_width, Uint16 s_height, Uint8 s_bpp, Uint8 s_mode) {
   footerText.set(footer);
 }
 
-void Screen::initMap(Map *p_map) {
-  map.init(p_map);
+void Screen::initMap(Map *pMap) {
+  map.init(pMap, (mode == MODE_EDITOR) ? true : false);
   map.set(surface);
   updateFooterText();
 }

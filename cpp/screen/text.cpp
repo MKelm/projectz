@@ -22,14 +22,14 @@ void ScreenText::initTTF() {
   }
 }
 
-void ScreenText::set(string t_text) {
+void ScreenText::set(string pText) {
   if (hasText == true)
     unset();
   #ifdef DEBUG
     cout << "Open font" << endl;
   #endif
   font = TTF_OpenFont(fontFile.c_str(), fontSize);
-  text = t_text;
+  text = pText;
   SDL_Color tmpFontColor = { fontColor.r, fontColor.g, fontColor.b, fontColor.a };
   surface = TTF_RenderText_Solid(font, text.c_str(), tmpFontColor);
   hasText = true;

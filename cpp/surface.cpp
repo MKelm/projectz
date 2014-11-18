@@ -8,8 +8,8 @@ int Surface::getHeight() {
   return surface->h;
 }
 
-void Surface::set(SDL_Surface *p_surface) {
-  surface = p_surface;
+void Surface::set(SDL_Surface *pSurface) {
+  surface = pSurface;
 }
 
 SDL_Surface *Surface::get() {
