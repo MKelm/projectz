@@ -33,6 +33,7 @@ class Events {
     Uint16 lastWidth;
     Uint16 lastHeight;
   public:
+    void init();
     Uint16 getLastPosX();
     Uint16 getLastPosY();
     Uint16 getLastWidth();

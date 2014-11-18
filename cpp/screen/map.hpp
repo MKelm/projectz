@@ -8,6 +8,7 @@
 class ScreenMap: public Surface {
   Map map;
   SDL_Rect rect;
+  SDL_Rect moveRect;
   Uint16 rows;
   Uint16 columns;
   Uint16 imageSize;
@@ -20,6 +21,8 @@ class ScreenMap: public Surface {
   } fieldSelection;
 public:
   void init(Map&);
+  void resetMove();
+  void moveSet(Uint16, Uint16);
   void resetFieldSelection();
   void selectField(Uint16, Uint16);
   void showFieldSelection();

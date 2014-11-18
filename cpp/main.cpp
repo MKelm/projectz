@@ -10,6 +10,8 @@ Main::Main(Uint8 m_maxFPS, Uint8 m_mode, Uint8 m_subMode) {
 
   screen.init(640, 480, 32, mode);
   screen.initMap(map);
+
+  events.init();
 }
 
 void Main::loop() {
@@ -31,6 +33,11 @@ void Main::loop() {
     }
     if (eventSignal == EVENT_EDITOR_MAP_FIELD_SELECTION) {
       screen.screenMap.selectField(events.getLastPosX(), events.getLastPosY());
+    }
+    if (eventSignal == EVENT_EDITOR_MAP_MOVE_START) {
+      screen.screenMap.moveSet(events.getLastPosX(), events.getLastPosY());
+    } else if (eventSignal == EVENT_EDITOR_MAP_MOVE_END) {
+      screen.screenMap.resetMove();
     }
 
     screen.update();

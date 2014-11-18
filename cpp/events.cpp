@@ -1,5 +1,10 @@
 #include "events.hpp"
 
+void Events::init() {
+  rMouseBtn = false;
+  lMouseBtn = false;
+}
+
 Uint16 Events::getLastPosX() {
   return lastPosX;
 }
@@ -29,13 +34,21 @@ Uint8 Events::handleEditorMap() {
     }
   }
   if (event.type == SDL_MOUSEBUTTONDOWN) {
-    if (event.button.button == SDL_BUTTON_RIGHT)
+    if (event.button.button == SDL_BUTTON_RIGHT) {
       rMouseBtn = true;
-    else if (event.button.button == SDL_BUTTON_LEFT) {
+    } else if (event.button.button == SDL_BUTTON_LEFT) {
       lMouseBtn = true;
       lastPosX = event.button.x;
       lastPosY = event.button.y;
       return EVENT_EDITOR_MAP_FIELD_SELECTION;
+    }
+  }
+  if (event.type == SDL_MOUSEBUTTONUP) {
+    if (event.button.button == SDL_BUTTON_RIGHT) {
+      rMouseBtn = false;
+      return EVENT_EDITOR_MAP_MOVE_END;
+    } else if (event.button.button == SDL_BUTTON_LEFT) {
+      lMouseBtn = false;
     }
   }
   if (event.type == SDL_MOUSEMOTION) {
@@ -47,14 +60,6 @@ Uint8 Events::handleEditorMap() {
       lastPosX = event.button.x;
       lastPosY = event.button.y;
       return EVENT_EDITOR_MAP_MOVE_START;
-    }
-  }
-  if (event.type == SDL_MOUSEBUTTONUP) {
-    if (event.button.button == SDL_BUTTON_RIGHT) {
-      rMouseBtn = true;
-      return EVENT_EDITOR_MAP_MOVE_END;
-    } else if (event.button.button == SDL_BUTTON_LEFT) {
-      lMouseBtn = false;
     }
   }
   return EVENT_NONE;
@@ -76,11 +81,6 @@ Uint8 Events::handleEditorList() {
     lastPosY = event.button.y;
     return EVENT_EDITOR_LIST_SELECT_ENTRY;
   }
-  if (event.type == SDL_MOUSEMOTION && lMouseBtn == true) {
-    lastPosX = event.motion.x;
-    lastPosY = event.motion.y;
-    return EVENT_EDITOR_LIST_MOVE_SLIDER;
-  }
   if (event.type == SDL_MOUSEBUTTONUP) {
     if (event.button.button == SDL_BUTTON_WHEELUP) {
       return EVENT_EDITOR_LIST_WHEELUP;
@@ -89,6 +89,11 @@ Uint8 Events::handleEditorList() {
     } else {
       lMouseBtn = false;
     }
+  }
+  if (event.type == SDL_MOUSEMOTION && lMouseBtn == true) {
+    lastPosX = event.motion.x;
+    lastPosY = event.motion.y;
+    return EVENT_EDITOR_LIST_MOVE_SLIDER;
   }
   return EVENT_NONE;
 }
