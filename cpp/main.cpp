@@ -35,6 +35,15 @@ void Main::loop() {
           SUB_MODE_EDITOR_LIST : SUB_MODE_EDITOR_MAP;
         break;
       // editor map
+      case EVENT_EDITOR_MAP_TOGGLE_GRID:
+        screen.map.toggleGrid();
+        break;
+      case EVENT_EDITOR_MAP_INCREASE_SIZE:
+        // todo ...
+        break;
+      case EVENT_EDITOR_MAP_DECREASE_SIZE:
+        // todo ...
+        break;
       case EVENT_EDITOR_MAP_FIELD_SELECTION:
         screen.map.selectField(events.getLastPosX(), events.getLastPosY());
         break;

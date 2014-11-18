@@ -2,6 +2,7 @@
 
 void ScreenMap::init(Map& p_map) {
   map = p_map;
+  hasGrid = true;
   rows = map.getRows();
   columns = map.getRows();
   imageSize = 64;
@@ -36,6 +37,10 @@ void ScreenMap::init(Map& p_map) {
     );
     itemSurfaces[i] = loadImage(file);
   }
+}
+
+void ScreenMap::toggleGrid() {
+  hasGrid = (hasGrid == true) ? false : true;
 }
 
 void ScreenMap::resetMove() {
@@ -79,9 +84,7 @@ void ScreenMap::showFieldSelection() {
 }
 
 void ScreenMap::showGrid() {
-  bool mapShowGrid = true;
-
-  if (mapShowGrid == true) {
+  if (hasGrid == true) {
     int row, col, x, y;
     y = rect.y;
     for (row = 0; row < rows; row++) {

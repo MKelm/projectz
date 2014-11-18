@@ -7,6 +7,7 @@
 
 class ScreenMap: public Surface {
   Map map;
+  bool hasGrid;
   SDL_Rect rect;
   SDL_Rect moveRect;
   Uint16 rows;
@@ -21,6 +22,7 @@ class ScreenMap: public Surface {
   } fieldSelection;
 public:
   void init(Map&);
+  void toggleGrid();
   void resetMove();
   void moveSet(Uint16, Uint16);
   void resetFieldSelection();
