@@ -13,15 +13,15 @@ class Screen: public Surface {
     Uint8 bpp;
     Uint8 mode;
     Uint8 subMode;
-    ScreenText headerText;
-    ScreenText footerText;
+    ScreenText footerLeftText;
+    ScreenText footerRightText;
   public:
     ScreenMap map;
     ScreenList list;
     void init(Uint16, Uint16, Uint8, Uint8, Uint8);
     void setSubMode(Uint8);
     void initMap(Map *);
-    void updateFooterText();
+    void updateFooterRightText();
     void resize(Uint16 s_width, Uint16 s_height);
     void update();
     void quit();

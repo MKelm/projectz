@@ -5,11 +5,12 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
   mode = pMode;
   subMode = pSubMode;
 
-  string header = "Project Z";
-  string footer = "idx.CodeLab 2014";
+  string windowTitleStr = "Project Z";
+  string footerLeftStr = "idx.CodeLab 2014";
+  string footerRightStr = "";
   if (mode == MODE_EDITOR) {
-    header = header + " - Editor";
-    footer = "0/0";
+    windowTitleStr = windowTitleStr + " - Editor";
+    footerRightStr = "0/0";
   }
 
   #ifdef DEBUG
@@ -22,11 +23,11 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
   #endif
 
   resize(pWidth, pHeight);
-  SDL_WM_SetCaption(header.c_str(), NULL);
+  SDL_WM_SetCaption(windowTitleStr.c_str(), NULL);
 
-  headerText.initTTF();
-  headerText.set(header);
-  footerText.set(footer);
+  footerLeftText.initTTF();
+  footerLeftText.set(footerLeftStr);
+  footerRightText.set(footerRightStr);
 
   list.set(surface);
   list.init(LIST_MODE_EDITOR_TERRAIN);
@@ -39,12 +40,12 @@ void Screen::setSubMode(Uint8 pSubMode) {
 void Screen::initMap(Map *pMap) {
   map.init(pMap, (mode == MODE_EDITOR) ? true : false);
   map.set(surface);
-  updateFooterText();
+  updateFooterRightText();
 }
 
-void Screen::updateFooterText() {
+void Screen::updateFooterRightText() {
   if (mode == MODE_EDITOR) {
-    footerText.set(map.getSizeString());
+    footerRightText.set(map.getSizeString());
   }
 }
 
@@ -68,10 +69,10 @@ void Screen::update() {
   } else if (subMode == SUB_MODE_EDITOR_LIST) {
     list.show();
   }
-  apply(0, 0, headerText.get());
+  apply(0, height - footerLeftText.getHeight(), footerLeftText.get());
   apply(
-    width - footerText.getWidth(), height - footerText.getHeight(),
-    footerText.get()
+    width - footerRightText.getWidth(), height - footerRightText.getHeight(),
+    footerRightText.get()
   );
   SDL_Flip(surface);
 }
@@ -79,9 +80,9 @@ void Screen::update() {
 void Screen::quit() {
   map.unset();
   list.unset();
-  headerText.unset();
-  footerText.unset();
-  headerText.quitTTF();
+  footerLeftText.unset();
+  footerRightText.unset();
+  footerLeftText.quitTTF();
   #ifdef DEBUG
     cout << "Unset SDL" << endl;
   #endif
