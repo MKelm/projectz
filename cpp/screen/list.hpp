@@ -41,6 +41,7 @@ class ScreenList: public Surface {
   public:
     void init(Uint8);
     void show();
+    void selectEntry(Uint16 screenY);
     void unset();
 };
 

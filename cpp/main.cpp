@@ -65,6 +65,10 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
     case EVENT_EDITOR_MAP_MOVE_END:
       screen.map.resetMove();
       break;
+    // editor list
+    case EVENT_EDITOR_LIST_SELECT_ENTRY:
+      screen.list.selectEntry(eventHandler.getLastPosY());
+      break;
   }
 }
 

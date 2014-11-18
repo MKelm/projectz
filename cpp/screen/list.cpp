@@ -17,7 +17,6 @@ void ScreenList::init(Uint8 pMode) {
   options.selectetIdx = -1;
 
   // const entries for developement
-  options.selectetIdx = 0;
   string *listEntries = new string[options.length];
   listEntries[0] = "grass";
   listEntries[1] = "sand";
@@ -85,6 +84,12 @@ void ScreenList::show() {
     entryPosY += entries[i].text.getHeight() + textMarginBottom;
     offset.y = entryPosY;
   }
+}
+
+void ScreenList::selectEntry(Uint16 screenY) {
+  Uint16 entryHeight = entries[0].title.getHeight() + titleMarginBottom +
+    entries[0].text.getHeight() + textMarginBottom;
+  options.selectetIdx = (-1 * options.offsetY + screenY) / entryHeight;
 }
 
 void ScreenList::unset() {
