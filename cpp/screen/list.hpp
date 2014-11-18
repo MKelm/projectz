@@ -3,6 +3,7 @@
 
 #include "../global.hpp"
 #include "../surface.hpp"
+#include "../lists.hpp"
 #include "text.hpp"
 
 enum {
@@ -40,6 +41,8 @@ class ScreenList: public Surface {
     stScreenListOptions options;
   public:
     void init(Uint8);
+    void setMode(Uint8);
+    void setEntries(Lists *);
     void show();
     void selectEntry(Uint16 screenY);
     void unset();

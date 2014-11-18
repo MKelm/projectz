@@ -1,7 +1,7 @@
 #include "list.hpp"
 
 void ScreenList::init(Uint8 pMode) {
-  mode = pMode;
+  setMode(pMode);
 
   scrollbarActive = false;
 
@@ -11,38 +11,46 @@ void ScreenList::init(Uint8 pMode) {
   titleMarginBottom = 1;
   textMarginBottom = 4;
 
-  options.length = 5;
+  options.length = 0;
   options.offsetX = 0.;
   options.offsetY = 0.;
   options.selectetIdx = -1;
+}
 
-  // const entries for developement
-  string *listEntries = new string[options.length];
-  listEntries[0] = "grass";
-  listEntries[1] = "sand";
-  listEntries[2] = "dirt";
-  listEntries[3] = "water";
-  listEntries[4] = "rock";
+void ScreenList::setMode(Uint8 pMode) {
+  mode = pMode;
+}
+
+void ScreenList::setEntries(Lists *lists) {
+  if (mode == LIST_MODE_EDITOR_TERRAIN) {
+    options.length = lists->terrainLength;
+  } else if (mode == LIST_MODE_EDITOR_ITEMS) {
+    options.length = lists->itemsLength;
+  }
 
   entries = new stScreenListEntry[options.length];
   int i;
   string imageFile;
   for (i = 0; i < options.length; i++) {
     entries[i].title.setFontSize(18);
-    entries[i].title.set(listEntries[i]);
     entries[i].text.setFontSize(16);
-    entries[i].text.set(listEntries[i]);
-
-    imageFile = "../images/" + listEntries[i] + "_" +
-      to_string(imageSize) + ".png";
+    if (mode == LIST_MODE_EDITOR_TERRAIN) {
+      entries[i].title.set(lists->terrain[i].title);
+      entries[i].text.set(lists->terrain[i].description);
+      imageFile = "../images/" + lists->terrain[i].name + "_" +
+        to_string(imageSize) + ".png";
+    } else if (mode == LIST_MODE_EDITOR_ITEMS) {
+       entries[i].title.set(lists->items[i].title);
+       entries[i].text.set(lists->items[i].description);
+       imageFile = "../images/" + lists->items[i].name + "_" +
+         to_string(imageSize) + ".png";
+    }
     entries[i].image = loadImage(imageFile);
   }
 
   options.lengthY = options.length *
     (entries[0].title.getHeight() + titleMarginBottom +
      entries[0].text.getHeight() + textMarginBottom);
-
-  delete[] listEntries;
 }
 
 void ScreenList::show() {

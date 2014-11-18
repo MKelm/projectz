@@ -30,7 +30,11 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
   footerRightText.set(footerRightStr);
 
   list.set(surface);
-  list.init(LIST_MODE_EDITOR_TERRAIN);
+  if (mode == MODE_EDITOR) {
+    list.init(LIST_MODE_EDITOR_TERRAIN);
+  } else if (mode == MODE_GAME) {
+    // no game lists currently
+  }
 }
 
 void Screen::setSubMode(Uint8 pSubMode) {

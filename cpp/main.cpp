@@ -15,6 +15,8 @@ Main::Main(Uint8 pMaxFPS, Uint8 pMode, Uint8 pSubMode) {
   screen.init(640, 480, 32, mode, subMode);
   screen.initMap(&map);
 
+  screen.list.setEntries(&lists);
+
   eventHandler.init(&event);
 }
 
@@ -68,6 +70,16 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
       screen.map.resetMove();
       break;
     // editor list
+    case EVENT_EDITOR_LIST_SWITCH_TERRAIN:
+      screen.list.unset();
+      screen.list.setMode(LIST_MODE_EDITOR_TERRAIN);
+      screen.list.setEntries(&lists);
+      break;
+    case EVENT_EDITOR_LIST_SWITCH_ITEMS:
+      screen.list.unset();
+      screen.list.setMode(LIST_MODE_EDITOR_ITEMS);
+      screen.list.setEntries(&lists);
+      break;
     case EVENT_EDITOR_LIST_SELECT_ENTRY:
       screen.list.selectEntry(eventHandler.getLastPosY());
       break;
