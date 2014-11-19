@@ -24,7 +24,7 @@ class Screen: public Surface {
     void setSubMode(Uint8);
     void initMap(Map *);
     void updateFooterRightText();
-    void resize(Uint16 s_width, Uint16 s_height);
+    void resize(Uint16 s_width, Uint16 s_height, bool);
     void update();
     void quit();
 };

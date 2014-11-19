@@ -23,7 +23,7 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
     cout << "Set Screen" << endl;
   #endif
 
-  resize(pWidth, pHeight);
+  resize(pWidth, pHeight, true);
   SDL_WM_SetCaption(windowTitleStr.c_str(), NULL);
 
   footerLeftText.initTTF();
@@ -58,13 +58,16 @@ void Screen::updateFooterRightText() {
   }
 }
 
-void Screen::resize(Uint16 s_width, Uint16 s_height) {
+void Screen::resize(Uint16 s_width, Uint16 s_height, bool isInit) {
   width = s_width;
   height = s_height;
   // SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE
   surface = SDL_SetVideoMode(
     width, height, bpp, SDL_SWSURFACE | SDL_RESIZABLE
   );
+  if (isInit == false && mode == MODE_EDITOR) {
+    input.resize();
+  }
 }
 
 void Screen::update() {

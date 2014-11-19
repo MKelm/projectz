@@ -23,7 +23,9 @@ void Main::handleGeneralEventSignal(Uint8 eventSignal) {
   switch (eventSignal) {
     // general
     case EVENT_RESIZE:
-      screen.resize(eventHandler.getLastWidth(), eventHandler.getLastHeight());
+      screen.resize(
+        eventHandler.getLastWidth(), eventHandler.getLastHeight(), false
+      );
       break;
     case EVENT_QUIT:
       hasQuitStatus = true;

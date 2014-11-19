@@ -9,6 +9,10 @@ void ScreenInput::init(string titleStr) {
   titleText.setFontSize(textFontSize);
   titleText.set(titleStr);
 
+  resize();
+}
+
+void ScreenInput::resize() {
   rectBox.w = surface->w * 0.5;
   rectBox.h = surface->h * 0.2;
   rectBox.x = surface->w / 2 - rectBox.w / 2;
