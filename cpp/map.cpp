@@ -124,7 +124,7 @@ void Map::setNames(Lists *lists) {
 
   itemNamesCount = lists->itemsLength;
   itemNames = new string[itemNamesCount];
-  for (i = 0; i < terrainNamesCount; i++) {
+  for (i = 0; i < itemNamesCount; i++) {
     itemNames[i] = lists->items[i].name;
   }
 }
