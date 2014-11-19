@@ -3,6 +3,7 @@
 
 #include "global.hpp"
 #include "screen.hpp"
+#include "screen/map.hpp"
 #include "event/handler.hpp"
 #include "map.hpp"
 #include "lists.hpp"

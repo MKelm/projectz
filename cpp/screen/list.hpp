@@ -42,9 +42,11 @@ class ScreenList: public Surface {
   public:
     void init(Uint8);
     void setMode(Uint8);
+    Uint8 getMode();
     void setEntries(Lists *);
     void show();
     void selectEntry(Uint16 screenY);
+    Uint16 getSelectedIdx();
     void unset();
 };
 

@@ -145,6 +145,15 @@ void Map::set() {
   }
 }
 
+void Map::setField(Uint16 column, Uint16 row, Uint16 value, string type) {
+  if (type == "terrain")
+    terrain[row][column] = value;
+  else if (type == "item")
+    items[row][column] = value;
+  else if (type == "resource")
+    resources[row][column] = value;
+}
+
 Uint16 Map::getField(Uint16 row, Uint16 column, string type) {
   if (type == "terrain")
     return terrain[row][column];
@@ -171,11 +180,11 @@ Uint16 Map::getTerrainNamesCount() {
 }
 
 string Map::getItemName(int index) {
-  return terrainNames[index];
+  return itemNames[index];
 }
 
 Uint16 Map::getItemNamesCount() {
-  return terrainNamesCount;
+  return itemNamesCount;
 }
 
 void Map::unset() {

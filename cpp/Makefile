@@ -29,7 +29,7 @@ editor.o : editor.cpp global.hpp main.hpp
 game.o : game.cpp global.hpp main.hpp
 	$(GCC) $(CFLAGS) -c game.cpp
 
-main.o : main.cpp global.hpp main.hpp screen.hpp lists.hpp event/handler.hpp
+main.o : main.cpp global.hpp main.hpp screen.hpp lists.hpp screen/map.hpp event/handler.hpp
 	$(GCC) $(CFLAGS) -c main.cpp
 
 screen.o : screen.cpp global.hpp surface.hpp screen.hpp screen/text.hpp screen/map.hpp screen/list.hpp

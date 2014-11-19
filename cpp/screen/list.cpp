@@ -14,11 +14,15 @@ void ScreenList::init(Uint8 pMode) {
   options.length = 0;
   options.offsetX = 0.;
   options.offsetY = 0.;
-  options.selectetIdx = -1;
+  options.selectetIdx = 0;
 }
 
 void ScreenList::setMode(Uint8 pMode) {
   mode = pMode;
+}
+
+Uint8 ScreenList::getMode() {
+  return mode;
 }
 
 void ScreenList::setEntries(Lists *lists) {
@@ -98,6 +102,10 @@ void ScreenList::selectEntry(Uint16 screenY) {
   Uint16 entryHeight = entries[0].title.getHeight() + titleMarginBottom +
     entries[0].text.getHeight() + textMarginBottom;
   options.selectetIdx = (-1 * options.offsetY + screenY) / entryHeight;
+}
+
+Uint16 ScreenList::getSelectedIdx() {
+  return options.selectetIdx;
 }
 
 void ScreenList::unset() {

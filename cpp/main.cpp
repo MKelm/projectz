@@ -60,6 +60,13 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
       screen.map.selectField(
         eventHandler.getLastPosX(), eventHandler.getLastPosY()
       );
+      {
+        stMapFieldSelection fs = screen.map.getSelectedFieldPos();
+        map.setField(
+          fs.column, fs.row, screen.list.getSelectedIdx(),
+          screen.list.getMode() == LIST_MODE_EDITOR_TERRAIN ? "terrain" : "item"
+        );
+      }
       break;
     case EVENT_EDITOR_MAP_MOVE_START:
       screen.map.moveSet(

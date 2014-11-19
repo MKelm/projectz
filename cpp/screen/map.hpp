@@ -5,6 +5,11 @@
 #include "../surface.hpp"
 #include "../map.hpp"
 
+struct stMapFieldSelection {
+  int column;
+  int row;
+};
+
 class ScreenMap: public Surface {
   Map *map;
   bool hasGrid;
@@ -16,10 +21,7 @@ class ScreenMap: public Surface {
   string imagesFolder;
   SDL_Surface **terrainSurfaces;
   SDL_Surface **itemSurfaces;
-  struct stFieldSelection {
-    int column;
-    int row;
-  } fieldSelection;
+  stMapFieldSelection fieldSelection;
 public:
   void init(Map *, bool);
   void updateSize();
@@ -29,6 +31,7 @@ public:
   void moveSet(Uint16, Uint16);
   void resetFieldSelection();
   void selectField(Uint16, Uint16);
+  stMapFieldSelection getSelectedFieldPos();
   void showFieldSelection();
   void show();
   void showGrid();

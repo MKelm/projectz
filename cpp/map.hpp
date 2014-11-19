@@ -25,6 +25,7 @@ public:
   void set();
   void setNames(Lists *);
   void unset();
+  void setField(Uint16, Uint16, Uint16, string);
   Uint16 getField(Uint16, Uint16, string);
   Uint16 getColumns();
   Uint16 getRows();

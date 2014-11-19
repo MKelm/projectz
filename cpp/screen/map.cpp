@@ -82,6 +82,10 @@ void ScreenMap::selectField(Uint16 screenX, Uint16 screenY) {
   }
 }
 
+stMapFieldSelection ScreenMap::getSelectedFieldPos() {
+  return fieldSelection;
+}
+
 void ScreenMap::showFieldSelection() {
   if (fieldSelection.column > -1 && fieldSelection.row > -1) {
     rectangleRGBA(
