@@ -185,6 +185,7 @@ void ScreenList::unset() {
   for (i = 0; i < options.length; i++) {
     entries[i].title.unset();
     entries[i].text.unset();
+    free(entries[i].image);
   }
   delete[] entries;
 }
