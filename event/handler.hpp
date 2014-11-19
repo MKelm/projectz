@@ -25,9 +25,14 @@ enum {
   EVENT_EDITOR_LIST_MOVE_SLIDER,
   EVENT_EDITOR_LIST_WHEELUP,
   EVENT_EDITOR_LIST_WHEELDOWN,
+  EVENT_GAME_TOGGLE_SUB_MODE, // game
   EVENT_GAME_MAP_FIELD_SELECTION, // game map events
   EVENT_GAME_MAP_MOVE_START,
-  EVENT_GAME_MAP_MOVE_END
+  EVENT_GAME_MAP_MOVE_END,
+  EVENT_GAME_LIST_SELECT_ENTRY,
+  EVENT_GAME_LIST_MOVE_SLIDER,
+  EVENT_GAME_LIST_WHEELUP,
+  EVENT_GAME_LIST_WHEELDOWN
 };
 
 class EventHandler {
@@ -49,6 +54,7 @@ class EventHandler {
     Uint8 getEditorMapSignal(Uint8);
     Uint8 getEditorListSignal();
     Uint8 getGameMapSignal();
+    Uint8 getGameListSignal();
     string getInputStr();
 };
 

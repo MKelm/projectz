@@ -122,6 +122,12 @@ Uint8 EventHandler::getEditorListSignal() {
 }
 
 Uint8 EventHandler::getGameMapSignal() {
+  if (event->type == SDL_KEYDOWN) {
+    switch (event->key.keysym.sym) {
+      case SDLK_TAB: return EVENT_GAME_TOGGLE_SUB_MODE; break;
+      default: ;
+    }
+  }
   if (event->type == SDL_MOUSEBUTTONDOWN) {
     if (event->button.button == SDL_BUTTON_RIGHT) {
       rMouseBtn = true;
@@ -150,6 +156,37 @@ Uint8 EventHandler::getGameMapSignal() {
   return EVENT_NONE;
 }
 
+Uint8 EventHandler::getGameListSignal() {
+  if (event->type == SDL_KEYDOWN) {
+    switch (event->key.keysym.sym) {
+      case SDLK_TAB: return EVENT_GAME_TOGGLE_SUB_MODE; break;
+      default: ;
+    }
+  }
+  if (event->type == SDL_MOUSEBUTTONDOWN &&
+      event->button.button == SDL_BUTTON_LEFT) {
+    lMouseBtn = true;
+    lastPosX = event->button.x;
+    lastPosY = event->button.y;
+    return EVENT_GAME_LIST_SELECT_ENTRY;
+  }
+  if (event->type == SDL_MOUSEBUTTONUP) {
+    if (event->button.button == SDL_BUTTON_WHEELUP) {
+      return EVENT_GAME_LIST_WHEELUP;
+    } else if (event->button.button == SDL_BUTTON_WHEELDOWN) {
+      return EVENT_GAME_LIST_WHEELDOWN;
+    } else {
+      lMouseBtn = false;
+    }
+  }
+  if (event->type == SDL_MOUSEMOTION && lMouseBtn == true) {
+    lastPosX = event->motion.x;
+    lastPosY = event->motion.y;
+    return EVENT_GAME_LIST_MOVE_SLIDER;
+  }
+  return EVENT_NONE;
+}
+
 Uint8 EventHandler::getSignal(Uint8 mode, Uint8 subMode) {
   lastPosX = 0;
   lastPosY = 0;
@@ -166,6 +203,8 @@ Uint8 EventHandler::getSignal(Uint8 mode, Uint8 subMode) {
     case MODE_GAME:
       if (subMode == SUB_MODE_GAME_MAP) {
         eventSignal = getGameMapSignal();
+      } else if (subMode == SUB_MODE_GAME_LIST) {
+        eventSignal = getGameListSignal();
       }
       break;
   }

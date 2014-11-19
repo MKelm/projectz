@@ -94,6 +94,8 @@ void ScreenList::setEntries(Lists *lists) {
     options.length = lists->terrainLength;
   } else if (mode == LIST_MODE_EDITOR_ITEMS) {
     options.length = lists->itemsLength;
+  } else if (mode == LIST_MODE_GAME_BUILDINGS) {
+    options.length = lists->buildingsLength;
   }
 
   entries = new stScreenListEntry[options.length];
@@ -111,6 +113,11 @@ void ScreenList::setEntries(Lists *lists) {
        entries[i].title.set(lists->items[i].title);
        entries[i].text.set(lists->items[i].description);
        imageFile = "images/" + lists->items[i].name + "_" +
+         to_string(imageSize) + ".png";
+    } else if (mode == LIST_MODE_GAME_BUILDINGS) {
+       entries[i].title.set(lists->buildings[i].title);
+       entries[i].text.set(lists->buildings[i].description);
+       imageFile = "images/buildings/" + lists->buildings[i].name + "_" +
          to_string(imageSize) + ".png";
     }
     entries[i].image = loadImage(imageFile);

@@ -8,8 +8,8 @@ void Lists::load() {
   Json json(file);
   int r = json.load();
   if (r > 0) {
-    Uint16 terrainIdx, itemsIdx;
-    terrainIdx = itemsIdx = 0;
+    Uint16 terrainIdx, itemsIdx, buildingsIdx;
+    terrainIdx = itemsIdx = buildingsIdx = 0;
     int i = 0, j, j_max, k, k_max, l, l_max;
     string token;
     string itemType;
@@ -33,11 +33,14 @@ void Lists::load() {
                 } else if (token == "items") {
                   itemsLength = stoi(json.getToken(i+1));
                   items = new stListEntry[itemsLength];
+                } else if (token == "buildings") {
+                  buildingsLength = stoi(json.getToken(i+1));
+                  buildings = new stListEntry[buildingsLength];
                 }
               }
             }
             i--;
-          } else if (token == "terrain" || token == "items") {
+          } else if (token == "terrain" || token == "items" || token == "buildings") {
             i++;
             if (json.getTokenType(i) == JSMN_ARRAY) {
               itemType = token;
@@ -54,18 +57,24 @@ void Lists::load() {
                         terrain[terrainIdx].name = token;
                       } else if (itemType == "items") {
                         items[itemsIdx].name = token;
+                      } else if (itemType == "buildings") {
+                        buildings[buildingsIdx].name = token;
                       }
                     } else if (l == 1) {
                       if (itemType == "terrain") {
                         terrain[terrainIdx].title = token;
                       } else if (itemType == "items") {
                         items[itemsIdx].title = token;
+                      } else if (itemType == "buildings") {
+                        buildings[buildingsIdx].title = token;
                       }
                     } else if (l == 2) {
                       if (itemType == "terrain") {
                         terrain[terrainIdx].description = token;
                       } else if (itemType == "items") {
                         items[itemsIdx].description = token;
+                      } else if (itemType == "buildings") {
+                        buildings[buildingsIdx].description = token;
                       }
                     }
                   }
@@ -73,6 +82,8 @@ void Lists::load() {
                     terrainIdx++;
                   } else if (itemType == "items") {
                     itemsIdx++;
+                  } else if (itemType == "buildings") {
+                    buildingsIdx++;
                   }
                 }
               }
@@ -87,6 +98,7 @@ void Lists::load() {
 }
 
 void Lists::unset() {
+  delete[] buildings;
   delete[] terrain;
   delete[] items;
 }

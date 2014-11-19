@@ -34,7 +34,7 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
   if (mode == MODE_EDITOR) {
     list.init(LIST_MODE_EDITOR_TERRAIN);
   } else if (mode == MODE_GAME) {
-    list.init(LIST_MODE_EDITOR_TERRAIN); // todo buildings list
+    list.init(LIST_MODE_GAME_BUILDINGS);
   }
   if (mode == MODE_EDITOR) {
     input.set(surface);
@@ -79,7 +79,7 @@ void Screen::update() {
     map.show();
     map.showGrid();
     map.showFieldSelection();
-  } else if (subMode == SUB_MODE_EDITOR_LIST) {
+  } else if (subMode == SUB_MODE_EDITOR_LIST || subMode == SUB_MODE_GAME_LIST) {
     list.show();
     list.showScrollbar();
   }

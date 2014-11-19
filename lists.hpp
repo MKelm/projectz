@@ -15,8 +15,10 @@ class Lists {
 public:
   Uint16 terrainLength;
   Uint16 itemsLength;
+  Uint16 buildingsLength;
   stListEntry *terrain;
   stListEntry *items;
+  stListEntry *buildings;
   Lists();
   void load();
   void unset();

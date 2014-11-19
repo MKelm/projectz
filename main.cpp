@@ -14,9 +14,7 @@ Main::Main(Uint8 pMaxFPS, Uint8 pMode, Uint8 pSubMode) {
   screen.init(640, 480, 32, mode, subMode);
   screen.initMap(&map);
 
-  if (mode == MODE_EDITOR) {
-    screen.list.setEntries(&lists);
-  }
+  screen.list.setEntries(&lists);
 
   eventHandler.init(&event);
 }
@@ -152,6 +150,13 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
 
 void Main::handleGameEventSignal(Uint8 eventSignal) {
   switch (eventSignal) {
+    // game
+    case EVENT_GAME_TOGGLE_SUB_MODE:
+      subMode = (subMode == SUB_MODE_GAME_MAP) ?
+        SUB_MODE_GAME_LIST : SUB_MODE_GAME_MAP;
+      screen.setSubMode(subMode);
+      break;
+    // game map
     case EVENT_GAME_MAP_FIELD_SELECTION:
       screen.map.selectField(
         eventHandler.getLastPosX(), eventHandler.getLastPosY()
@@ -164,6 +169,25 @@ void Main::handleGameEventSignal(Uint8 eventSignal) {
       break;
     case EVENT_GAME_MAP_MOVE_END:
       screen.map.resetMove();
+      break;
+    // buildings list
+    case EVENT_GAME_LIST_SELECT_ENTRY:
+      if (screen.list.sliderActive(
+            eventHandler.getLastPosX(), eventHandler.getLastPosY()
+          ) == false)
+        screen.list.selectEntry(eventHandler.getLastPosY());
+      break;
+    case EVENT_GAME_LIST_MOVE_SLIDER:
+      if (screen.list.sliderActive(
+            eventHandler.getLastPosX(), eventHandler.getLastPosY()
+          ) == true)
+        screen.list.moveSlider(eventHandler.getLastPosY());
+      break;
+    case EVENT_GAME_LIST_WHEELUP:
+      screen.list.scroll(true, 10.f);
+      break;
+    case EVENT_GAME_LIST_WHEELDOWN:
+      screen.list.scroll(false, 10.f);
       break;
   }
 }
