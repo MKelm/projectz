@@ -20,7 +20,7 @@ class Screen: public Surface {
     void init(Uint16, Uint16, Uint8, Uint8, Uint8);
     void setSubMode(Uint8);
     void initMap(Map *);
-    void updateFooterRightText();
+    void updateFooterText();
     void resize(Uint16 s_width, Uint16 s_height, bool);
     void update();
     void quit();

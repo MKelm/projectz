@@ -6,11 +6,11 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
   subMode = pSubMode;
 
   string windowTitleStr = "Project Z";
-  string footerLeftStr = "idx.CodeLab 2014";
-  string footerRightStr = "";
+  string footerLeftStr = "IDX.codelab";
+  string footerRightStr = "IDX.codelab";
   if (mode == MODE_EDITOR) {
     windowTitleStr = windowTitleStr + " - Editor";
-    footerRightStr = "0/0";
+    footerLeftStr = "0/0";
   }
 
   #ifdef DEBUG
@@ -49,12 +49,12 @@ void Screen::setSubMode(Uint8 pSubMode) {
 void Screen::initMap(Map *pMap) {
   map.init(pMap, (mode == MODE_EDITOR) ? true : false);
   map.set(surface);
-  updateFooterRightText();
+  updateFooterText();
 }
 
-void Screen::updateFooterRightText() {
+void Screen::updateFooterText() {
   if (mode == MODE_EDITOR) {
-    footerRightText.set(map.getSizeString());
+    footerLeftText.set(map.getSizeString());
   }
 }
 
@@ -89,13 +89,14 @@ void Screen::update() {
   if (subMode == SUB_MODE_EDITOR_MAP_INPUT) {
     input.show();
   }
-  apply(0, height - footerLeftText.getHeight(), footerLeftText.get());
   if (mode == MODE_EDITOR) {
-    apply(
-      width - footerRightText.getWidth(), height - footerRightText.getHeight(),
-      footerRightText.get()
-    );
+    apply(0, height - footerLeftText.getHeight(), footerLeftText.get());
   }
+  apply(
+    width - footerRightText.getWidth(), height - footerRightText.getHeight(),
+    footerRightText.get()
+  );
+
   SDL_Flip(surface);
 }
 

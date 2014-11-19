@@ -53,13 +53,13 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
       map.increaseSize(1);
       screen.map.resetFieldSelection();
       screen.map.updateSize();
-      screen.updateFooterRightText();
+      screen.updateFooterText();
       break;
     case EVENT_EDITOR_MAP_DECREASE_SIZE:
       map.decreaseSize(1);
       screen.map.resetFieldSelection();
       screen.map.updateSize();
-      screen.updateFooterRightText();
+      screen.updateFooterText();
       break;
     case EVENT_EDITOR_MAP_FIELD_SELECTION:
       if (screen.map.selectField(
