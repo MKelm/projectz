@@ -50,3 +50,4 @@ screen/list.o : screen/list.cpp global.hpp surface.hpp screen/list.hpp
 clean :
 	$(RM) *.o
 	$(RM) screen/*.o
+	$(RM) event/*.o
