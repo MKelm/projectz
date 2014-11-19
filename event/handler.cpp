@@ -121,6 +121,35 @@ Uint8 EventHandler::getEditorListSignal() {
   return EVENT_NONE;
 }
 
+Uint8 EventHandler::getGameMapSignal() {
+  if (event->type == SDL_MOUSEBUTTONDOWN) {
+    if (event->button.button == SDL_BUTTON_RIGHT) {
+      rMouseBtn = true;
+    } else if (event->button.button == SDL_BUTTON_LEFT) {
+      lMouseBtn = true;
+      lastPosX = event->button.x;
+      lastPosY = event->button.y;
+      return EVENT_GAME_MAP_FIELD_SELECTION;
+    }
+  }
+  if (event->type == SDL_MOUSEBUTTONUP) {
+    if (event->button.button == SDL_BUTTON_RIGHT) {
+      rMouseBtn = false;
+      return EVENT_GAME_MAP_MOVE_END;
+    } else if (event->button.button == SDL_BUTTON_LEFT) {
+      lMouseBtn = false;
+    }
+  }
+  if (event->type == SDL_MOUSEMOTION) {
+    if (rMouseBtn == true) {
+      lastPosX = event->button.x;
+      lastPosY = event->button.y;
+      return EVENT_GAME_MAP_MOVE_START;
+    }
+  }
+  return EVENT_NONE;
+}
+
 Uint8 EventHandler::getSignal(Uint8 mode, Uint8 subMode) {
   lastPosX = 0;
   lastPosY = 0;
@@ -135,7 +164,9 @@ Uint8 EventHandler::getSignal(Uint8 mode, Uint8 subMode) {
       }
       break;
     case MODE_GAME:
-      // todo...
+      if (subMode == SUB_MODE_GAME_MAP) {
+        eventSignal = getGameMapSignal();
+      }
       break;
   }
 

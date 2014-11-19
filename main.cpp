@@ -14,7 +14,9 @@ Main::Main(Uint8 pMaxFPS, Uint8 pMode, Uint8 pSubMode) {
   screen.init(640, 480, 32, mode, subMode);
   screen.initMap(&map);
 
-  screen.list.setEntries(&lists);
+  if (mode == MODE_EDITOR) {
+    screen.list.setEntries(&lists);
+  }
 
   eventHandler.init(&event);
 }
@@ -148,6 +150,24 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
   }
 }
 
+void Main::handleGameEventSignal(Uint8 eventSignal) {
+  switch (eventSignal) {
+    case EVENT_GAME_MAP_FIELD_SELECTION:
+      screen.map.selectField(
+        eventHandler.getLastPosX(), eventHandler.getLastPosY()
+      );
+      break;
+    case EVENT_GAME_MAP_MOVE_START:
+      screen.map.moveSet(
+        eventHandler.getLastPosX(), eventHandler.getLastPosY()
+      );
+      break;
+    case EVENT_GAME_MAP_MOVE_END:
+      screen.map.resetMove();
+      break;
+  }
+}
+
 void Main::loop() {
   Uint32 frameStart = 0;
   Uint8 eventSignal;
@@ -163,7 +183,7 @@ void Main::loop() {
           handleEditorEventSignal(eventSignal);
           break;
         case MODE_GAME:
-          //handleGameEventSignal(eventSignal); todo ...
+          handleGameEventSignal(eventSignal);
           break;
       }
     }
@@ -176,7 +196,9 @@ void Main::loop() {
 }
 
 void Main::quit() {
-  map.save();
+  if (mode = MODE_EDITOR) {
+    map.save();
+  }
   map.unset();
   lists.unset();
   screen.quit();

@@ -21,6 +21,7 @@ class Main {
     Main(Uint8, Uint8, Uint8);
     void handleGeneralEventSignal(Uint8);
     void handleEditorEventSignal(Uint8);
+    void handleGameEventSignal(Uint8);
     void loop();
     void quit();
 };

@@ -34,7 +34,7 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
   if (mode == MODE_EDITOR) {
     list.init(LIST_MODE_EDITOR_TERRAIN);
   } else if (mode == MODE_GAME) {
-    // no game lists currently
+    list.init(LIST_MODE_EDITOR_TERRAIN); // todo buildings list
   }
   if (mode == MODE_EDITOR) {
     input.set(surface);
@@ -87,10 +87,12 @@ void Screen::update() {
     input.show();
   }
   apply(0, height - footerLeftText.getHeight(), footerLeftText.get());
-  apply(
-    width - footerRightText.getWidth(), height - footerRightText.getHeight(),
-    footerRightText.get()
-  );
+  if (mode == MODE_EDITOR) {
+    apply(
+      width - footerRightText.getWidth(), height - footerRightText.getHeight(),
+      footerRightText.get()
+    );
+  }
   SDL_Flip(surface);
 }
 
