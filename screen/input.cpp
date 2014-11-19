@@ -16,11 +16,11 @@ void ScreenInput::init(string titleStr) {
 }
 
 string ScreenInput::getTextStr() {
-  return textStr;
+  return (textStr == "") ? "0" : textStr;
 }
 
 void ScreenInput::setTextStr(string pTextStr) {
-  textStr = pTextStr;
+  textStr = (pTextStr == "0") ? "" : pTextStr;
   text.set(textStr);
 }
 
