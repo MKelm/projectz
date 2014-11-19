@@ -1,5 +1,11 @@
 #include "surface.hpp"
 
+void Surface::setProperties(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp) {
+  width = pWidth;
+  height = pHeight;
+  bpp = pBpp;
+}
+
 int Surface::getWidth() {
   return surface->w;
 }
@@ -17,10 +23,6 @@ SDL_Surface *Surface::get() {
 }
 
 void Surface::apply(Uint16 x, Uint16 y, SDL_Surface* source) {
-  /*SDL_Rect offset;
-  offset.x = x;
-  offset.y = y;
-  SDL_BlitSurface(source, NULL, (dest == NULL) ? surface : dest, &offset);*/
   applyDest(x, y, source, surface);
 }
 

@@ -1,7 +1,7 @@
 #include "screen.hpp"
 
 void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 pSubMode) {
-  bpp = pBpp;
+  setProperties(pWidth, pHeight, pBpp);
   mode = pMode;
   subMode = pSubMode;
 
@@ -65,6 +65,7 @@ void Screen::resize(Uint16 s_width, Uint16 s_height, bool isInit) {
   surface = SDL_SetVideoMode(
     width, height, bpp, SDL_SWSURFACE | SDL_RESIZABLE
   );
+  list.setProperties(width, height, bpp);
   if (isInit == false && mode == MODE_EDITOR) {
     input.resize();
   }

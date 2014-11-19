@@ -9,9 +9,6 @@
 #include "screen/input.hpp"
 
 class Screen: public Surface {
-    Uint16 width;
-    Uint16 height;
-    Uint8 bpp;
     Uint8 mode;
     Uint8 subMode;
     ScreenText footerLeftText;

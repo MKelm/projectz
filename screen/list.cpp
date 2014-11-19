@@ -9,17 +9,19 @@ void ScreenList::init(Uint8 pMode) {
   titleMarginBottom = 1;
   textMarginBottom = 4;
 
-  rectFrame.w = surface->w * 0.5;
-  rectFrame.h = surface->h * 0.5;
-  rectFrame.x = surface->w / 2 - rectFrame.w / 2;
-  rectFrame.y = surface->h / 2 - rectFrame.h / 2;
+  rectFrame.w = width * 0.5;
+  rectFrame.h = height * 0.5;
+  rectFrame.x = width / 2 - rectFrame.w / 2;
+  rectFrame.y = height / 2 - rectFrame.h / 2;
 
   options.length = 0;
   options.offsetX = 0.;
   options.offsetY = 0.;
   options.selectetIdx = 0;
 
-  listSurface = SDL_CreateRGBSurface(0, surface->w, surface->h, 32, 0, 0, 0, 0);
+  listSurface = SDL_CreateRGBSurface(
+    0, width, height, bpp, 0, 0, 0, 0
+  );
 
   calcScrollbar();
 }
