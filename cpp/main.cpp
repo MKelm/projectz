@@ -57,15 +57,15 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
       screen.updateFooterRightText();
       break;
     case EVENT_EDITOR_MAP_FIELD_SELECTION:
-      screen.map.selectField(
-        eventHandler.getLastPosX(), eventHandler.getLastPosY()
-      );
+      if (screen.map.selectField(
+            eventHandler.getLastPosX(), eventHandler.getLastPosY()
+          ) == true)
       {
         stMapFieldSelection fs = screen.map.getSelectedFieldPos();
-        map.setField(
-          fs.column, fs.row, screen.list.getSelectedIdx(),
-          screen.list.getMode() == LIST_MODE_EDITOR_TERRAIN ? "terrain" : "item"
-        );
+          map.setField(
+            fs.column, fs.row, screen.list.getSelectedIdx(),
+            screen.list.getMode() == LIST_MODE_EDITOR_TERRAIN ? "terrain" : "item"
+          );
       }
       break;
     case EVENT_EDITOR_MAP_MOVE_START:

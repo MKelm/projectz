@@ -30,7 +30,7 @@ public:
   void resetMove();
   void moveSet(Uint16, Uint16);
   void resetFieldSelection();
-  void selectField(Uint16, Uint16);
+  bool selectField(Uint16, Uint16);
   stMapFieldSelection getSelectedFieldPos();
   void showFieldSelection();
   void show();

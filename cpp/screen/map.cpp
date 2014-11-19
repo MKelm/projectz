@@ -74,12 +74,14 @@ void ScreenMap::resetFieldSelection() {
   fieldSelection.column = -1;
 }
 
-void ScreenMap::selectField(Uint16 screenX, Uint16 screenY) {
+bool ScreenMap::selectField(Uint16 screenX, Uint16 screenY) {
   fieldSelection.column = -1 * (rect.x - screenX) / imageSize;
   fieldSelection.row = -1 * (rect.y - screenY) / imageSize;
   if (fieldSelection.column >= columns || fieldSelection.row >= rows) {
     resetFieldSelection();
+    return false;
   }
+  return true;
 }
 
 stMapFieldSelection ScreenMap::getSelectedFieldPos() {
