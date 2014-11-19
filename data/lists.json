@@ -8,7 +8,7 @@
     [ "sand", "Sand", "..." ],
     [ "dirt", "Dirt", "..." ],
     [ "water", "Water", "..." ],
-    [ "rock", "Rock", "..." ],
+    [ "rock", "Rock", "..." ]
   ],
   "items" : [
     [ "empty", "Empty", "..." ],
@@ -17,6 +17,6 @@
     [ "fishes", "Fishes", "..." ],
     [ "gold", "Gold", "..." ],
     [ "coal", "Coal", "..." ],
-    [ "ironore", "Iron ore", "..." ],
+    [ "ironore", "Iron ore", "..." ]
   ]
 }
