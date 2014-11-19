@@ -142,7 +142,7 @@ void Map::set() {
 }
 
 void Map::setField(Uint16 column, Uint16 row, Uint16 value, string type) {
-  if (type == "terrain")
+  if (type == "terrain" && value > 0)
     terrain[row][column] = value;
   else if (type == "item")
     items[row][column] = value;

@@ -1,9 +1,10 @@
 {
   "length" : {
-    "terrain" : 5,
+    "terrain" : 6,
     "items" : 7
   },
   "terrain" : [
+    [ "empty", "Empty", "..." ],
     [ "grass", "Grass", "..." ],
     [ "sand", "Sand", "..." ],
     [ "dirt", "Dirt", "..." ],
