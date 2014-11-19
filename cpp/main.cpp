@@ -93,7 +93,10 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
         screen.list.selectEntry(eventHandler.getLastPosY());
       break;
     case EVENT_EDITOR_LIST_MOVE_SLIDER:
-      screen.list.moveSlider(eventHandler.getLastPosY());
+      if (screen.list.sliderActive(
+            eventHandler.getLastPosX(), eventHandler.getLastPosY()
+          ) == true)
+        screen.list.moveSlider(eventHandler.getLastPosY());
       break;
     case EVENT_EDITOR_LIST_WHEELUP:
       screen.list.scroll(true, 10.f);
