@@ -19,6 +19,8 @@ void ScreenList::init(Uint8 pMode) {
   options.offsetY = 0.;
   options.selectetIdx = 0;
 
+  listSurface = SDL_CreateRGBSurface(0, surface->w, surface->h, 32, 0, 0, 0, 0);
+
   calcScrollbar();
 }
 
@@ -44,13 +46,13 @@ void ScreenList::showScrollbar() {
   calcScrollbar();
 
   rectangleRGBA(
-    surface, rectScrollBar.x, rectScrollBar.y,
+    listSurface, rectScrollBar.x, rectScrollBar.y,
     rectScrollBar.x + rectScrollBar.w, rectScrollBar.y + rectScrollBar.h,
     255, 255, 255, 255
   );
 
   boxRGBA(
-    surface,
+    listSurface,
     rectScrollBarSlider.x, rectScrollBarSlider.y,
     rectScrollBarSlider.x + rectScrollBarSlider.w,
     rectScrollBarSlider.y + rectScrollBarSlider.h,
@@ -134,6 +136,10 @@ void ScreenList::setEntries(Lists *lists) {
 }
 
 void ScreenList::show() {
+  SDL_FillRect(
+    listSurface, &listSurface->clip_rect, SDL_MapRGB(listSurface->format, 0, 0, 0)
+  );
+
   Uint16 i;
   int entryPosX, entryPosY;
   entryPosX = rectFrame.x + options.offsetX;
@@ -146,7 +152,7 @@ void ScreenList::show() {
 
     if (options.selectetIdx == i) {
       boxRGBA(
-        surface,
+        listSurface,
         offset.x, offset.y,
         offset.x + rectFrame.w - 22,
         offset.y + entries[i].title.getHeight() + entries[i].text.getHeight(),
@@ -156,30 +162,33 @@ void ScreenList::show() {
 
     if (entries[i].image != NULL) {
       offset.y = entryPosY + imageMarginTop;
-      apply(offset.x, offset.y, entries[i].image);
+      applyDest(offset.x, offset.y, entries[i].image, listSurface);
       offset.x += imageSize + imageMarginRight;
     } else {
       offset.x = entryPosX;
     }
     offset.y = entryPosY;
 
-    apply(offset.x, offset.y, entries[i].title.get());
+    applyDest(offset.x, offset.y, entries[i].title.get(), listSurface);
 
     entryPosY += entries[i].title.getHeight() + titleMarginBottom;
     offset.y = entryPosY;
 
-    apply(offset.x, offset.y, entries[i].text.get());
+    applyDest(offset.x, offset.y, entries[i].text.get(), listSurface);
 
     entryPosY += entries[i].text.getHeight() + textMarginBottom;
     offset.y = entryPosY;
   }
 
+  showScrollbar();
+
   rectangleRGBA(
-    surface,
+    listSurface,
     rectFrame.x, rectFrame.y,
-    rectFrame.x + rectFrame.w, rectFrame.y + rectFrame.h,
+    rectFrame.x + rectFrame.w - 1, rectFrame.y + rectFrame.h - 1,
     255, 255, 255, 255
   );
+  applyFrame(rectFrame.x, rectFrame.y, listSurface, rectFrame);
 }
 
 void ScreenList::selectEntry(Uint16 screenY) {
@@ -197,7 +206,8 @@ void ScreenList::unset() {
   for (i = 0; i < options.length; i++) {
     entries[i].title.unset();
     entries[i].text.unset();
-    free(entries[i].image);
+    SDL_FreeSurface(entries[i].image);
   }
   delete[] entries;
+  SDL_FreeSurface(listSurface);
 }

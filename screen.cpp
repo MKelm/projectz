@@ -81,7 +81,6 @@ void Screen::update() {
     map.showFieldSelection();
   } else if (subMode == SUB_MODE_EDITOR_LIST || subMode == SUB_MODE_GAME_LIST) {
     list.show();
-    list.showScrollbar();
   }
   if (subMode == SUB_MODE_EDITOR_MAP_INPUT) {
     input.show();

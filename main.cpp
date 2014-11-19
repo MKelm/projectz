@@ -119,12 +119,12 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
     // editor list
     case EVENT_EDITOR_LIST_SWITCH_TERRAIN:
       screen.list.unset();
-      screen.list.setMode(LIST_MODE_EDITOR_TERRAIN);
+      screen.list.init(LIST_MODE_EDITOR_TERRAIN);
       screen.list.setEntries(&lists);
       break;
     case EVENT_EDITOR_LIST_SWITCH_ITEMS:
       screen.list.unset();
-      screen.list.setMode(LIST_MODE_EDITOR_ITEMS);
+      screen.list.init(LIST_MODE_EDITOR_ITEMS);
       screen.list.setEntries(&lists);
       break;
     case EVENT_EDITOR_LIST_SELECT_ENTRY:

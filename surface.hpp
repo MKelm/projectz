@@ -10,6 +10,8 @@ class Surface {
     int getWidth();
     int getHeight();
     void apply(Uint16, Uint16, SDL_Surface*);
+    void applyDest(Uint16, Uint16, SDL_Surface*, SDL_Surface*);
+    void applyFrame(Uint16, Uint16, SDL_Surface*, SDL_Rect);
     void set(SDL_Surface*);
     SDL_Surface *get();
     SDL_Surface *loadImage(string);
