@@ -88,7 +88,19 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
       screen.list.setEntries(&lists);
       break;
     case EVENT_EDITOR_LIST_SELECT_ENTRY:
-      screen.list.selectEntry(eventHandler.getLastPosY());
+      if (screen.list.sliderActive(
+            eventHandler.getLastPosX(), eventHandler.getLastPosY()
+          ) == false)
+        screen.list.selectEntry(eventHandler.getLastPosY());
+      break;
+    case EVENT_EDITOR_LIST_MOVE_SLIDER:
+      screen.list.moveSlider(eventHandler.getLastPosY());
+      break;
+    case EVENT_EDITOR_LIST_WHEELUP:
+      screen.list.scroll(true, 10.f);
+      break;
+    case EVENT_EDITOR_LIST_WHEELDOWN:
+      screen.list.scroll(false, 10.f);
       break;
   }
 }

@@ -31,7 +31,6 @@ class ScreenList: public Surface {
     Uint8 mode;
     SDL_Rect rectScrollBar;
     SDL_Rect rectScrollBarSlider;
-    bool scrollbarActive;
     Uint8 imageSize;
     Uint8 imageMarginTop;
     Uint8 imageMarginRight;
@@ -41,6 +40,11 @@ class ScreenList: public Surface {
     stScreenListOptions options;
   public:
     void init(Uint8);
+    void calcScrollbar();
+    void showScrollbar();
+    void scroll(bool, float);
+    bool sliderActive(Uint16, Uint16);
+    void moveSlider(Uint16);
     void setMode(Uint8);
     Uint8 getMode();
     void setEntries(Lists *);

@@ -72,6 +72,7 @@ void Screen::update() {
     map.showFieldSelection();
   } else if (subMode == SUB_MODE_EDITOR_LIST) {
     list.show();
+    list.showScrollbar();
   }
   apply(0, height - footerLeftText.getHeight(), footerLeftText.get());
   apply(
