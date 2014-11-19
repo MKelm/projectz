@@ -67,6 +67,7 @@ void Screen::resize(Uint16 s_width, Uint16 s_height, bool isInit) {
   );
   list.setProperties(width, height, bpp);
   if (isInit == false && mode == MODE_EDITOR) {
+    list.resize(false);
     input.resize();
   }
 }

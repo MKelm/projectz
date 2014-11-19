@@ -43,6 +43,7 @@ class ScreenList: public Surface {
     stScreenListOptions options;
   public:
     void init(Uint8);
+    void resize(bool);
     void calcScrollbar();
     void showScrollbar();
     void scroll(bool, float);
