@@ -9,6 +9,11 @@ void ScreenList::init(Uint8 pMode) {
   titleMarginBottom = 1;
   textMarginBottom = 4;
 
+  rectFrame.w = surface->w * 0.5;
+  rectFrame.h = surface->h * 0.5;
+  rectFrame.x = surface->w / 2 - rectFrame.w / 2;
+  rectFrame.y = surface->h / 2 - rectFrame.h / 2;
+
   options.length = 0;
   options.offsetX = 0.;
   options.offsetY = 0.;
@@ -20,19 +25,19 @@ void ScreenList::init(Uint8 pMode) {
 void ScreenList::calcScrollbar() {
   Uint8 sliderWidth = 16;
   Uint8 sliderHeight = 16;
-  float rangeStepSize = (surface->h - (5 + sliderHeight)) /
-    (options.lengthY - surface->h);
+  float rangeStepSize = (rectFrame.h - (5 + sliderHeight)) /
+    (options.lengthY - rectFrame.h);
   float stepPos = rangeStepSize * options.offsetY * -1;
 
-  rectScrollBarSlider.x = surface->w - 19;
-  rectScrollBarSlider.y = 2 + (int)stepPos;
+  rectScrollBarSlider.x = rectFrame.x + rectFrame.w - 19;
+  rectScrollBarSlider.y = rectFrame.y + 2 + (int)stepPos;
   rectScrollBarSlider.w = sliderWidth;
   rectScrollBarSlider.h = sliderHeight;
 
-  rectScrollBar.x = surface->w - 21;
-  rectScrollBar.y = 0;
+  rectScrollBar.x = rectFrame.x + rectFrame.w - 21;
+  rectScrollBar.y = rectFrame.y;
   rectScrollBar.w = 20;
-  rectScrollBar.h = surface->h - 1;
+  rectScrollBar.h = rectFrame.h - 1;
 }
 
 void ScreenList::showScrollbar() {
@@ -60,10 +65,10 @@ void ScreenList::scroll(bool up, float valY) {
     else
       options.offsetY = 0;
   } else {
-    if (options.offsetY - valY >= -1 * (options.lengthY - surface->h))
+    if (options.offsetY - valY >= -1 * (options.lengthY - rectFrame.h))
       options.offsetY -= valY;
     else
-      options.offsetY = -1 * (options.lengthY - surface->h);
+      options.offsetY = -1 * (options.lengthY - rectFrame.h);
   }
 }
 
@@ -77,8 +82,8 @@ bool ScreenList::sliderActive(Uint16 x, Uint16 y) {
 }
 
 void ScreenList::moveSlider(Uint16 screenY) {
-  float rangeStepSize = surface->h / (options.lengthY - surface->h);
-  options.offsetY = screenY / rangeStepSize * -1;
+  float rangeStepSize = rectFrame.h / (options.lengthY - rectFrame.h);
+  options.offsetY = (screenY - rectFrame.y) / rangeStepSize * -1;
 }
 
 void ScreenList::setMode(Uint8 pMode) {
@@ -131,8 +136,8 @@ void ScreenList::setEntries(Lists *lists) {
 void ScreenList::show() {
   Uint16 i;
   int entryPosX, entryPosY;
-  entryPosX = options.offsetX;
-  entryPosY = options.offsetY;
+  entryPosX = rectFrame.x + options.offsetX;
+  entryPosY = rectFrame.y + options.offsetY;
 
   SDL_Rect offset;
   for (i = 0; i < options.length; i++) {
@@ -143,7 +148,7 @@ void ScreenList::show() {
       boxRGBA(
         surface,
         offset.x, offset.y,
-        offset.x + surface->w - 22,
+        offset.x + rectFrame.w - 22,
         offset.y + entries[i].title.getHeight() + entries[i].text.getHeight(),
         0, 120, 180, 255
       );
@@ -168,12 +173,19 @@ void ScreenList::show() {
     entryPosY += entries[i].text.getHeight() + textMarginBottom;
     offset.y = entryPosY;
   }
+
+  rectangleRGBA(
+    surface,
+    rectFrame.x, rectFrame.y,
+    rectFrame.x + rectFrame.w, rectFrame.y + rectFrame.h,
+    255, 255, 255, 255
+  );
 }
 
 void ScreenList::selectEntry(Uint16 screenY) {
   Uint16 entryHeight = entries[0].title.getHeight() + titleMarginBottom +
     entries[0].text.getHeight() + textMarginBottom;
-  options.selectetIdx = (-1 * options.offsetY + screenY) / entryHeight;
+  options.selectetIdx = (-1 * options.offsetY + (screenY - rectFrame.y)) / entryHeight;
 }
 
 Uint16 ScreenList::getSelectedIdx() {

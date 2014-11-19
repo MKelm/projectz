@@ -30,6 +30,7 @@ struct stScreenListOptions {
 
 class ScreenList: public Surface {
     Uint8 mode;
+    SDL_Rect rectFrame;
     SDL_Rect rectScrollBar;
     SDL_Rect rectScrollBarSlider;
     Uint8 imageSize;
