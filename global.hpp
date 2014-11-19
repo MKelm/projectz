@@ -12,9 +12,6 @@ using namespace std;
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_gfxPrimitives.h"
 
-// json parser
-#include "../jsmn/jsmn.h"
-
 #define FALSE 0
 #define TRUE 1
 

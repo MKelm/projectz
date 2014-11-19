@@ -3,7 +3,7 @@
 bool ScreenText::hasTTF = false;
 
 ScreenText::ScreenText() {
-  fontFile = "../fonts/beyourself.ttf";
+  fontFile = "fonts/beyourself.ttf";
   fontSize = 24;
   fontColor.r = 255;
   fontColor.g = 255;

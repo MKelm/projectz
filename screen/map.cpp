@@ -20,7 +20,7 @@ void ScreenMap::init(Map *pMap, bool pHasGrid) {
   for (i = 0; i < terrainNamesCount; i++) {
     char file[256];
     sprintf(
-      file, "../%s/%s_%d.png",
+      file, "%s/%s_%d.png",
       imagesFolder.c_str(), map->getTerrainName(i).c_str(), imageSize
     );
     terrainSurfaces[i] = loadImage(file);
@@ -28,7 +28,7 @@ void ScreenMap::init(Map *pMap, bool pHasGrid) {
   for (i = 0; i < itemNamesCount; i++) {
     char file[256];
     sprintf(
-      file, "../%s/%s_%d.png",
+      file, "%s/%s_%d.png",
       imagesFolder.c_str(), map->getItemName(i).c_str(), imageSize
     );
     itemSurfaces[i] = loadImage(file);

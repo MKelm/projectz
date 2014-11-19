@@ -2,6 +2,7 @@
 #define _INCLUDE_JSON_HPP
 
 #include "global.hpp"
+#include "jsmn/jsmn.h"
 #include <cstring>
 
 class Json {

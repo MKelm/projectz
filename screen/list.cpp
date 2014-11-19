@@ -105,12 +105,12 @@ void ScreenList::setEntries(Lists *lists) {
     if (mode == LIST_MODE_EDITOR_TERRAIN) {
       entries[i].title.set(lists->terrain[i].title);
       entries[i].text.set(lists->terrain[i].description);
-      imageFile = "../images/" + lists->terrain[i].name + "_" +
+      imageFile = "images/" + lists->terrain[i].name + "_" +
         to_string(imageSize) + ".png";
     } else if (mode == LIST_MODE_EDITOR_ITEMS) {
        entries[i].title.set(lists->items[i].title);
        entries[i].text.set(lists->items[i].description);
-       imageFile = "../images/" + lists->items[i].name + "_" +
+       imageFile = "images/" + lists->items[i].name + "_" +
          to_string(imageSize) + ".png";
     }
     entries[i].image = loadImage(imageFile);

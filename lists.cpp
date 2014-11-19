@@ -1,7 +1,7 @@
 #include "lists.hpp"
 
 Lists::Lists() {
-  file = "../data/lists.json";
+  file = "data/lists.json";
 }
 
 void Lists::load() {

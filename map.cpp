@@ -1,7 +1,7 @@
 #include "map.hpp"
 
 Map::Map() {
-  file = "../data/map.json";
+  file = "data/map.json";
   rows = 12;
   columns = 12;
 }
