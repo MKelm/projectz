@@ -32,6 +32,7 @@ Uint8 EventHandler::getEditorMapSignal() {
       case SDLK_MINUS: return EVENT_EDITOR_MAP_DECREASE_SIZE; break;
       case SDLK_l: return EVENT_EDITOR_MAP_LOAD; break;
       case SDLK_s: return EVENT_EDITOR_MAP_SAVE; break;
+      case SDLK_r: return EVENT_EDITOR_MAP_SET_RESOURCE; break;
       case SDLK_TAB: return EVENT_EDITOR_TOGGLE_SUB_MODE; break;
       default: ;
     }
@@ -108,7 +109,7 @@ Uint8 EventHandler::getSignal(Uint8 mode, Uint8 subMode) {
 
   switch (mode) {
     case MODE_EDITOR:
-      if (subMode == SUB_MODE_EDITOR_MAP) {
+      if (subMode == SUB_MODE_EDITOR_MAP || subMode == SUB_MODE_EDITOR_MAP_INPUT) {
         eventSignal = getEditorMapSignal();
       } else if (subMode == SUB_MODE_EDITOR_LIST) {
         eventSignal = getEditorListSignal();

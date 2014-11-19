@@ -35,6 +35,10 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
   } else if (mode == MODE_GAME) {
     // no game lists currently
   }
+  if (mode == MODE_EDITOR) {
+    input.set(surface);
+    input.init("Set resource value");
+  }
 }
 
 void Screen::setSubMode(Uint8 pSubMode) {
@@ -66,13 +70,17 @@ void Screen::update() {
   SDL_FillRect(
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)
   );
-  if (subMode == SUB_MODE_EDITOR_MAP || subMode == SUB_MODE_GAME_MAP) {
+  if (subMode == SUB_MODE_EDITOR_MAP || subMode == SUB_MODE_GAME_MAP ||
+      subMode == SUB_MODE_EDITOR_MAP_INPUT) {
     map.show();
     map.showGrid();
     map.showFieldSelection();
   } else if (subMode == SUB_MODE_EDITOR_LIST) {
     list.show();
     list.showScrollbar();
+  }
+  if (subMode == SUB_MODE_EDITOR_MAP_INPUT) {
+    input.show();
   }
   apply(0, height - footerLeftText.getHeight(), footerLeftText.get());
   apply(
@@ -83,6 +91,9 @@ void Screen::update() {
 }
 
 void Screen::quit() {
+  if (mode == MODE_EDITOR) {
+    input.unset();
+  }
   map.unset();
   list.unset();
   footerLeftText.unset();

@@ -6,6 +6,7 @@
 #include "screen/text.hpp"
 #include "screen/map.hpp"
 #include "screen/list.hpp"
+#include "screen/input.hpp"
 
 class Screen: public Surface {
     Uint16 width;
@@ -18,6 +19,7 @@ class Screen: public Surface {
   public:
     ScreenMap map;
     ScreenList list;
+    ScreenInput input;
     void init(Uint16, Uint16, Uint8, Uint8, Uint8);
     void setSubMode(Uint8);
     void initMap(Map *);

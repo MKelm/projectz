@@ -5,11 +5,11 @@ GCC = g++
 CFLAGS = -std=c++0x
 LDFLAGS = -lSDL -lSDL_image -lSDL_gfx -lSDL_ttf
 
-editor : editor.o map.o main.o lists.o json.o event/handler.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o
-	$(GCC) editor.o map.o main.o lists.o json.o event/handler.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
+editor : editor.o map.o main.o lists.o json.o event/handler.o screen/input.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o
+	$(GCC) editor.o map.o main.o lists.o json.o event/handler.o screen/input.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o -o editor.$(ARCH) $(LDFLAGS)
 
-game : game.o main.o map.o lists.o json.o event/handler.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o
-	$(GCC) game.o main.o map.o lists.o json.o event/handler.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
+game : game.o main.o map.o lists.o json.o event/handler.o screen/input.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o
+	$(GCC) game.o main.o map.o lists.o json.o event/handler.o screen/input.o screen/list.o surface.o screen.o screen/text.o screen/map.o jsmn/jsmn.o -o game.$(ARCH) $(LDFLAGS)
 
 map.o : map.cpp global.hpp map.hpp json.hpp
 	$(GCC) $(CFLAGS) -c map.cpp
@@ -32,7 +32,7 @@ game.o : game.cpp global.hpp main.hpp
 main.o : main.cpp global.hpp main.hpp screen.hpp lists.hpp screen/map.hpp event/handler.hpp
 	$(GCC) $(CFLAGS) -c main.cpp
 
-screen.o : screen.cpp global.hpp surface.hpp screen.hpp screen/text.hpp screen/map.hpp screen/list.hpp
+screen.o : screen.cpp global.hpp surface.hpp screen.hpp screen/input.hpp screen/text.hpp screen/map.hpp screen/list.hpp
 	$(GCC) $(CFLAGS) -c screen.cpp
 
 surface.o : surface.cpp global.hpp surface.hpp

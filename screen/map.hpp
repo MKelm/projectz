@@ -31,7 +31,8 @@ public:
   void moveSet(Uint16, Uint16);
   void resetFieldSelection();
   bool selectField(Uint16, Uint16);
-  stMapFieldSelection getSelectedFieldPos();
+  int getFieldSelectionColumn();
+  int getFieldSelectionRow();
   void showFieldSelection();
   void show();
   void showGrid();

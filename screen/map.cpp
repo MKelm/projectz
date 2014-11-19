@@ -84,8 +84,12 @@ bool ScreenMap::selectField(Uint16 screenX, Uint16 screenY) {
   return true;
 }
 
-stMapFieldSelection ScreenMap::getSelectedFieldPos() {
-  return fieldSelection;
+int ScreenMap::getFieldSelectionColumn() {
+  return fieldSelection.column;
+}
+
+int ScreenMap::getFieldSelectionRow() {
+  return fieldSelection.row;
 }
 
 void ScreenMap::showFieldSelection() {

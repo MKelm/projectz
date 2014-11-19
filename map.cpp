@@ -159,6 +159,10 @@ Uint16 Map::getField(Uint16 row, Uint16 column, string type) {
     return resources[row][column];
 }
 
+bool Map::fieldHasItem(Uint16 column, Uint16 row) {
+  return items[row][column] > 0;
+}
+
 Uint16 Map::getColumns() {
   return columns;
 }

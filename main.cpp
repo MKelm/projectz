@@ -58,13 +58,12 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
     case EVENT_EDITOR_MAP_FIELD_SELECTION:
       if (screen.map.selectField(
             eventHandler.getLastPosX(), eventHandler.getLastPosY()
-          ) == true)
-      {
-        stMapFieldSelection fs = screen.map.getSelectedFieldPos();
-          map.setField(
-            fs.column, fs.row, screen.list.getSelectedIdx(),
-            screen.list.getMode() == LIST_MODE_EDITOR_TERRAIN ? "terrain" : "item"
-          );
+          ) == true) {
+        map.setField(
+          screen.map.getFieldSelectionColumn(), screen.map.getFieldSelectionRow(),
+          screen.list.getSelectedIdx(),
+          screen.list.getMode() == LIST_MODE_EDITOR_TERRAIN ? "terrain" : "item"
+        );
       }
       break;
     case EVENT_EDITOR_MAP_MOVE_START:
@@ -74,6 +73,17 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
       break;
     case EVENT_EDITOR_MAP_MOVE_END:
       screen.map.resetMove();
+      break;
+    case EVENT_EDITOR_MAP_SET_RESOURCE:
+      if (screen.map.getFieldSelectionColumn() > -1 &&
+          screen.map.getFieldSelectionRow() > -1) {
+        if (map.fieldHasItem(screen.map.getFieldSelectionColumn(),
+              screen.map.getFieldSelectionRow()) == true) {
+          subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
+            SUB_MODE_EDITOR_MAP_INPUT : SUB_MODE_EDITOR_MAP;
+          screen.setSubMode(subMode);
+        }
+      }
       break;
     // editor list
     case EVENT_EDITOR_LIST_SWITCH_TERRAIN:
