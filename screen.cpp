@@ -17,6 +17,7 @@ void Screen::init(Uint16 pWidth, Uint16 pHeight, Uint8 pBpp, Uint8 pMode, Uint8 
     cout << "Set SDL" << endl;
   #endif
   SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_EnableUNICODE(SDL_ENABLE);
 
   #ifdef DEBUG
     cout << "Set Screen" << endl;
@@ -102,5 +103,6 @@ void Screen::quit() {
   #ifdef DEBUG
     cout << "Unset SDL" << endl;
   #endif
+  SDL_EnableUNICODE(SDL_DISABLE);
   SDL_Quit();
 }

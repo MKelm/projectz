@@ -6,6 +6,7 @@ void EventHandler::init(SDL_Event *pEvent) {
   lastPosX = 0;
   lastPosY = 0;
   event = pEvent;
+  inputStr = "";
 }
 
 Uint16 EventHandler::getLastPosX() {
@@ -24,7 +25,11 @@ Uint16 EventHandler::getLastHeight() {
   return lastHeight;
 }
 
-Uint8 EventHandler::getEditorMapSignal() {
+string EventHandler::getInputStr() {
+  return inputStr;
+}
+
+Uint8 EventHandler::getEditorMapSignal(Uint8 subMode) {
   if (event->type == SDL_KEYDOWN) {
     switch (event->key.keysym.sym) {
       case SDLK_g: return EVENT_EDITOR_MAP_TOGGLE_GRID; break;
@@ -36,6 +41,20 @@ Uint8 EventHandler::getEditorMapSignal() {
       case SDLK_TAB: return EVENT_EDITOR_TOGGLE_SUB_MODE; break;
       default: ;
     }
+
+    if (subMode == SUB_MODE_EDITOR_MAP_INPUT) {
+      inputStr = "";
+      if (event->key.keysym.unicode >= (Uint16)'0' &&
+          event->key.keysym.unicode <= (Uint16)'9') {
+        char inputCStr[4];
+        sprintf(inputCStr, "%c", event->key.keysym.unicode);
+        inputStr = inputCStr;
+        return EVENT_EDITOR_MAP_INPUT_APPEND_CHAR;
+      } else if (event->key.keysym.sym == SDLK_BACKSPACE) {
+        return EVENT_EDITOR_MAP_INPUT_REMOVE_CHAR;
+      }
+    }
+
   }
   if (event->type == SDL_MOUSEBUTTONDOWN) {
     if (event->button.button == SDL_BUTTON_RIGHT) {
@@ -110,7 +129,7 @@ Uint8 EventHandler::getSignal(Uint8 mode, Uint8 subMode) {
   switch (mode) {
     case MODE_EDITOR:
       if (subMode == SUB_MODE_EDITOR_MAP || subMode == SUB_MODE_EDITOR_MAP_INPUT) {
-        eventSignal = getEditorMapSignal();
+        eventSignal = getEditorMapSignal(subMode);
       } else if (subMode == SUB_MODE_EDITOR_LIST) {
         eventSignal = getEditorListSignal();
       }

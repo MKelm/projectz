@@ -85,6 +85,16 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
         }
       }
       break;
+    case EVENT_EDITOR_MAP_INPUT_APPEND_CHAR:
+      if (subMode == SUB_MODE_EDITOR_MAP_INPUT) {
+        screen.input.appendChar(eventHandler.getInputStr());
+      }
+      break;
+    case EVENT_EDITOR_MAP_INPUT_REMOVE_CHAR:
+      if (subMode == SUB_MODE_EDITOR_MAP_INPUT) {
+        screen.input.removeChar();
+      }
+      break;
     // editor list
     case EVENT_EDITOR_LIST_SWITCH_TERRAIN:
       screen.list.unset();

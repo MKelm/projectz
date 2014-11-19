@@ -17,6 +17,8 @@ enum {
   EVENT_EDITOR_MAP_MOVE_START,
   EVENT_EDITOR_MAP_MOVE_END,
   EVENT_EDITOR_MAP_SET_RESOURCE,
+  EVENT_EDITOR_MAP_INPUT_APPEND_CHAR,
+  EVENT_EDITOR_MAP_INPUT_REMOVE_CHAR,
   EVENT_EDITOR_LIST_SWITCH_TERRAIN, // editor list events
   EVENT_EDITOR_LIST_SWITCH_ITEMS,
   EVENT_EDITOR_LIST_SELECT_ENTRY,
@@ -33,6 +35,7 @@ class EventHandler {
     Uint16 lastPosY;
     Uint16 lastWidth;
     Uint16 lastHeight;
+    string inputStr;
   public:
     void init(SDL_Event *);
     Uint16 getLastPosX();
@@ -40,8 +43,9 @@ class EventHandler {
     Uint16 getLastWidth();
     Uint16 getLastHeight();
     Uint8 getSignal(Uint8, Uint8);
-    Uint8 getEditorMapSignal();
+    Uint8 getEditorMapSignal(Uint8);
     Uint8 getEditorListSignal();
+    string getInputStr();
 };
 
 #endif

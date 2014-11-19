@@ -44,14 +44,16 @@ void ScreenInput::show() {
   );
 }
 
-void ScreenInput::appendChar(string cStr) {
-  textStr += cStr;
+void ScreenInput::appendChar(string pStr) {
+  textStr += pStr;
   text.set(textStr);
 }
 
 void ScreenInput::removeChar() {
-  textStr = textStr.substr(0, textStr.length() - 1);
-  text.set(textStr);
+  if (textStr.length() > 0) {
+    textStr = textStr.substr(0, textStr.length() - 1);
+    text.set(textStr);
+  }
 }
 
 void ScreenInput::unset() {
