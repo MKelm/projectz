@@ -66,9 +66,11 @@ void Screen::resize(Uint16 s_width, Uint16 s_height, bool isInit) {
     width, height, bpp, SDL_SWSURFACE | SDL_RESIZABLE
   );
   list.setProperties(width, height, bpp);
-  if (isInit == false && mode == MODE_EDITOR) {
+  if (isInit == false) {
     list.resize(false);
-    input.resize();
+    if (mode == MODE_EDITOR) {
+      input.resize();
+    }
   }
 }
 
@@ -76,12 +78,12 @@ void Screen::update() {
   SDL_FillRect(
     surface, &surface->clip_rect, SDL_MapRGB(surface->format, 0, 0, 0)
   );
-  if (subMode == SUB_MODE_EDITOR_MAP || subMode == SUB_MODE_GAME_MAP ||
-      subMode == SUB_MODE_EDITOR_MAP_INPUT) {
+  if (subMode != SUB_MODE_GAME_MENU) {
     map.show();
     map.showGrid();
     map.showFieldSelection();
-  } else if (subMode == SUB_MODE_EDITOR_LIST || subMode == SUB_MODE_GAME_LIST) {
+  }
+  if (subMode == SUB_MODE_EDITOR_LIST || subMode == SUB_MODE_GAME_LIST) {
     list.show();
   }
   if (subMode == SUB_MODE_EDITOR_MAP_INPUT) {
