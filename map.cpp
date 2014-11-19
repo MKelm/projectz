@@ -13,7 +13,7 @@ void Map::increaseSize(Uint8 value) {
     cout << "map rows/cols " << rows << "/" << columns << endl;
   #endif
   unset();
-  set();
+  set(true);
 }
 
 void Map::decreaseSize(Uint8 value) {
@@ -23,14 +23,14 @@ void Map::decreaseSize(Uint8 value) {
     cout << "map rows/cols " << rows << "/" << columns << endl;
   #endif
   unset();
-  set();
+  set(true);
 }
 
 void Map::load() {
   Json json(file);
   int r = json.load();
   if (r > 0) {
-    bool mapInitialized = false;
+    bool mapHasValues = false;
     int i = 0, j, j_max, k, k_max, l, l_max;
     string token;
     string fieldsType;
@@ -46,9 +46,9 @@ void Map::load() {
           } else if (token == "rows") {
             rows = atoi(json.getToken(i+1).c_str());
           } else if (token == "terrain" || token == "items" || token == "resources") {
-            if (mapInitialized == false) {
-              set();
-              mapInitialized = true;
+            if (mapHasValues == false) {
+              set(true);
+              mapHasValues = true;
             }
             i++;
             if (json.getTokenType(i) == JSMN_ARRAY) {
@@ -129,7 +129,7 @@ void Map::setNames(Lists *lists) {
   }
 }
 
-void Map::set() {
+void Map::set(bool setNewValues) {
   int i;
   terrain = (Uint16 **) malloc(rows * sizeof(Uint16 *));
   items = (Uint16 **) malloc(rows * sizeof(Uint16 *));
@@ -138,6 +138,17 @@ void Map::set() {
     terrain[i] = (Uint16 *) malloc(columns * sizeof(Uint16));
     items[i] = (Uint16 *) malloc(columns * sizeof(Uint16));
     resources[i] = (Uint16 *) malloc(columns * sizeof(Uint16));
+  }
+
+  if (setNewValues == true) {
+    int row, col;
+    for (row = 0; row < rows; row++) {
+      for (col = 0; col < columns; col++) {
+        terrain[row][col] = 0;
+        items[row][col] = 0;
+        resources[row][col] = 0;
+      }
+    }
   }
 }
 

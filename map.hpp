@@ -22,7 +22,7 @@ public:
   void decreaseSize(Uint8);
   void load();
   void save();
-  void set();
+  void set(bool);
   void setNames(Lists *);
   void unset();
   void setField(Uint16, Uint16, Uint16, string);
