@@ -15,6 +15,15 @@ void ScreenInput::init(string titleStr) {
   rectBox.y = surface->h / 2 - rectBox.h / 2;
 }
 
+string ScreenInput::getTextStr() {
+  return textStr;
+}
+
+void ScreenInput::setTextStr(string pTextStr) {
+  textStr = pTextStr;
+  text.set(textStr);
+}
+
 void ScreenInput::show() {
   boxRGBA(
     surface,

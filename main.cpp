@@ -82,6 +82,25 @@ void Main::handleEditorEventSignal(Uint8 eventSignal) {
           subMode = (subMode == SUB_MODE_EDITOR_MAP) ?
             SUB_MODE_EDITOR_MAP_INPUT : SUB_MODE_EDITOR_MAP;
           screen.setSubMode(subMode);
+
+          if (subMode == SUB_MODE_EDITOR_MAP) {
+            map.setField(
+              screen.map.getFieldSelectionColumn(),
+              screen.map.getFieldSelectionRow(),
+              stoi(screen.input.getTextStr()),
+              "resource"
+            );
+          } else {
+            screen.input.setTextStr(
+              to_string(
+                map.getField(
+                  screen.map.getFieldSelectionRow(),
+                  screen.map.getFieldSelectionColumn(),
+                  "resource"
+                )
+              )
+            );
+          }
         }
       }
       break;

@@ -13,6 +13,8 @@ class ScreenInput: public Surface {
     SDL_Rect rectBox;
   public:
     void init(string);
+    string getTextStr();
+    void setTextStr(string);
     void show();
     void appendChar(string);
     void removeChar();

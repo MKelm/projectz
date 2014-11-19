@@ -41,6 +41,9 @@ surface.o : surface.cpp global.hpp surface.hpp
 screen/map.o : screen/map.cpp global.hpp screen.hpp screen/map.hpp
 	$(GCC) $(CFLAGS) -c screen/map.cpp -o screen/map.o
 
+screen/input.o : screen/input.cpp global.hpp surface.hpp screen/text.hpp screen/input.hpp
+	$(GCC) $(CFLAGS) -c screen/input.cpp -o screen/input.o
+
 screen/text.o : screen/text.cpp global.hpp surface.hpp map.hpp screen/text.hpp
 	$(GCC) $(CFLAGS) -c screen/text.cpp -o screen/text.o
 
