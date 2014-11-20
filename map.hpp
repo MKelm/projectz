@@ -5,13 +5,18 @@
 #include "json.hpp"
 #include "lists.hpp"
 
+struct stMapField {
+  Uint16 terrain;
+  Uint16 item;
+  Uint16 resources;
+  Uint16 building;
+};
+
 class Map {
   string file;
   Uint16 columns;
   Uint16 rows;
-  Uint16 **terrain;
-  Uint16 **items;
-  Uint16 **resources;
+  stMapField **fields;
   Uint16 terrainNamesCount;
   Uint16 itemNamesCount;
   string *terrainNames;

@@ -61,11 +61,11 @@ void Map::load() {
                   for (l = 0; l < l_max; l++) {
                     i++;
                     if (fieldsType == "terrain")
-                      terrain[k][l] = atoi(json.getToken(i).c_str());
+                      fields[k][l].terrain = atoi(json.getToken(i).c_str());
                     else if (fieldsType == "items")
-                      items[k][l] = atoi(json.getToken(i).c_str());
+                      fields[k][l].item = atoi(json.getToken(i).c_str());
                     else if (fieldsType == "resources")
-                      resources[k][l] = atoi(json.getToken(i).c_str());
+                      fields[k][l].resources = atoi(json.getToken(i).c_str());
                   }
                 }
               }
@@ -88,18 +88,18 @@ void Map::save() {
 
   for (typeIdx = 0; typeIdx < 3; typeIdx++) {
     jsonStr += "\"" + types[typeIdx] + "\" : [ \n";
-    int row, col;
+    int row, column;
     for (row = 0; row < rows; row++) {
       jsonStr += " [ ";
-      for (col = 0; col < columns; col++) {
+      for (column = 0; column < columns; column++) {
         if (types[typeIdx] == "terrain")
-          jsonStr += to_string(terrain[row][col]);
+          jsonStr += to_string(fields[row][column].terrain);
         else if (types[typeIdx] == "items")
-          jsonStr += to_string(items[row][col]);
+          jsonStr += to_string(fields[row][column].item);
         else if (types[typeIdx] == "resources")
-          jsonStr += to_string(resources[row][col]);
+          jsonStr += to_string(fields[row][column].resources);
 
-        jsonStr += (col + 1 < columns) ? ", " : "";
+        jsonStr += (column + 1 < columns) ? ", " : "";
       }
       jsonStr += " ]";
       jsonStr += (row + 1 < rows) ? ", \n" : " \n";
@@ -131,22 +131,19 @@ void Map::setNames(Lists *lists) {
 
 void Map::set(bool setNewValues) {
   int i;
-  terrain = (Uint16 **) malloc(rows * sizeof(Uint16 *));
-  items = (Uint16 **) malloc(rows * sizeof(Uint16 *));
-  resources = (Uint16 **) malloc(rows * sizeof(Uint16 *));
-  for (i = 0; i < rows; i++) {
-    terrain[i] = (Uint16 *) malloc(columns * sizeof(Uint16));
-    items[i] = (Uint16 *) malloc(columns * sizeof(Uint16));
-    resources[i] = (Uint16 *) malloc(columns * sizeof(Uint16));
+  fields = new stMapField*[rows];
+  for (i = 0; i < rows; ++i) {
+    fields[i] = new stMapField[columns];
   }
 
   if (setNewValues == true) {
-    int row, col;
+    int row, column;
     for (row = 0; row < rows; row++) {
-      for (col = 0; col < columns; col++) {
-        terrain[row][col] = 0;
-        items[row][col] = 0;
-        resources[row][col] = 0;
+      for (column = 0; column < columns; column++) {
+        fields[row][column].terrain = 0;
+        fields[row][column].item = 0;
+        fields[row][column].resources = 0;
+        fields[row][column].building = 0;
       }
     }
   }
@@ -154,24 +151,28 @@ void Map::set(bool setNewValues) {
 
 void Map::setField(Uint16 column, Uint16 row, Uint16 value, string type) {
   if (type == "terrain" && value > 0)
-    terrain[row][column] = value;
+    fields[row][column].terrain = value;
   else if (type == "item")
-    items[row][column] = value;
+    fields[row][column].item = value;
   else if (type == "resource")
-    resources[row][column] = value;
+    fields[row][column].resources = value;
+  else if (type == "building")
+    fields[row][column].building = value;
 }
 
 Uint16 Map::getField(Uint16 row, Uint16 column, string type) {
   if (type == "terrain")
-    return terrain[row][column];
+    return fields[row][column].terrain;
   else if (type == "item")
-    return items[row][column];
+    return fields[row][column].item;
   else if (type == "resource")
-    return resources[row][column];
+    return fields[row][column].resources;
+  else if (type == "building")
+    return fields[row][column].building;
 }
 
 bool Map::fieldHasItem(Uint16 column, Uint16 row) {
-  return items[row][column] > 0;
+  return fields[row][column].item > 0;
 }
 
 Uint16 Map::getColumns() {
@@ -199,7 +200,8 @@ Uint16 Map::getItemNamesCount() {
 }
 
 void Map::unset() {
-  free(terrain);
-  free(items);
-  free(resources);
+  for (int i = 0; i < rows; ++i) {
+    delete[] fields[i];
+  }
+  delete[] fields;
 }
