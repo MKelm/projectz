@@ -12,7 +12,7 @@ Main::Main(Uint8 pMaxFPS, Uint8 pMode, Uint8 pSubMode) {
 
   lists.load();
 
-  map.setNames(&lists);
+  map.setLists(&lists);
   map.load();
 
   screen.init(width, height, bpp, mode, subMode);
@@ -162,9 +162,15 @@ void Main::handleGameEventSignal(Uint8 eventSignal) {
       break;
     // game map
     case EVENT_GAME_MAP_FIELD_SELECTION:
-      screen.map.selectField(
-        eventHandler.getLastPosX(), eventHandler.getLastPosY()
-      );
+      if (screen.map.selectField(
+            eventHandler.getLastPosX(), eventHandler.getLastPosY()
+          ) == true) {
+        map.setField(
+          screen.map.getFieldSelectionColumn(), screen.map.getFieldSelectionRow(),
+          screen.list.getSelectedIdx(),
+          "building"
+        );
+      }
       break;
     case EVENT_GAME_MAP_MOVE_START:
       screen.map.moveSet(

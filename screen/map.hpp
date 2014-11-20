@@ -13,6 +13,7 @@ struct stMapFieldSelection {
 class ScreenMap: public Surface {
   Map *map;
   bool hasGrid;
+  bool hasBuildings;
   SDL_Rect rect;
   SDL_Rect moveRect;
   Uint16 rows;
@@ -21,9 +22,10 @@ class ScreenMap: public Surface {
   string imagesFolder;
   SDL_Surface **terrainSurfaces;
   SDL_Surface **itemSurfaces;
+  SDL_Surface **buildingSurfaces;
   stMapFieldSelection fieldSelection;
 public:
-  void init(Map *, bool);
+  void init(Map *, bool, bool);
   void updateSize();
   string getSizeString();
   void toggleGrid();

@@ -1,8 +1,9 @@
 #include "map.hpp"
 
-void ScreenMap::init(Map *pMap, bool pHasGrid) {
+void ScreenMap::init(Map *pMap, bool pHasGrid, bool pHasBuildings) {
   map = pMap;
   hasGrid = pHasGrid;
+  hasBuildings = pHasBuildings;
   imageSize = 64;
   imagesFolder = "images";
   updateSize();
@@ -16,22 +17,30 @@ void ScreenMap::init(Map *pMap, bool pHasGrid) {
   terrainSurfaces = new SDL_Surface*[terrainNamesCount];
   itemSurfaces = new SDL_Surface*[itemNamesCount];
 
+  Uint16 buildingNamesCount = 0;
+  if (hasBuildings == true) {
+    buildingNamesCount = map->getBuildingNamesCount();
+    buildingSurfaces = new SDL_Surface*[buildingNamesCount];
+  }
+
   int i;
+  string file;
   for (i = 0; i < terrainNamesCount; i++) {
-    char file[256];
-    sprintf(
-      file, "%s/terrain/%s_%d.png",
-      imagesFolder.c_str(), map->getTerrainName(i).c_str(), imageSize
-    );
+    file = imagesFolder + "/terrain/" + map->getTerrainName(i) + "_"
+      + to_string(imageSize) + ".png";
     terrainSurfaces[i] = loadImage(file);
   }
   for (i = 0; i < itemNamesCount; i++) {
-    char file[256];
-    sprintf(
-      file, "%s/items/%s_%d.png",
-      imagesFolder.c_str(), map->getItemName(i).c_str(), imageSize
-    );
+    file = imagesFolder + "/items/" + map->getItemName(i) + "_"
+      + to_string(imageSize) + ".png";
     itemSurfaces[i] = loadImage(file);
+  }
+  if (buildingNamesCount > 0) {
+    for (i = 0; i < buildingNamesCount; i++) {
+      file = imagesFolder + "/buildings/" + map->getBuildingName(i) + "_"
+        + to_string(imageSize) + ".png";
+      buildingSurfaces[i] = loadImage(file);
+    }
   }
 }
 
@@ -107,7 +116,7 @@ void ScreenMap::showFieldSelection() {
 
 void ScreenMap::show() {
   int row, col, x, y;
-  Uint16 terrain, item, resource;
+  Uint16 terrain, item, resource, building;
   y = rect.y;
   for (row = 0; row < rows; row++) {
     x = rect.x;
@@ -117,8 +126,12 @@ void ScreenMap::show() {
         terrain = map->getField(row, col, "terrain");
         apply(x, y, terrainSurfaces[terrain]);
         item = map->getField(row, col, "item");
-        if (item > 0) {
+        if (item > 0)
           apply(x, y, itemSurfaces[item]);
+        if (hasBuildings == true) {
+          building = map->getField(row, col, "building");
+          if (building > 0)
+            apply(x, y, buildingSurfaces[building]);
         }
       }
       x += imageSize;
@@ -169,4 +182,7 @@ void ScreenMap::showGrid() {
 void ScreenMap::unset() {
   delete[] terrainSurfaces;
   delete[] itemSurfaces;
+  if (hasBuildings == true) {
+    delete[] buildingSurfaces;
+  }
 }

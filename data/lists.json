@@ -2,7 +2,7 @@
   "length" : {
     "terrain" : 6,
     "items" : 7,
-    "buildings" : 3
+    "buildings" : 4
   },
   "terrain" : [
     [ "empty", "Empty", "..." ],
@@ -22,6 +22,7 @@
     [ "ironore", "Iron ore", "..." ]
   ],
   "buildings" : [
+    [ "empty", "Empty", "..." ],
     [ "fisher", "Fisher", "..." ],
     [ "smallhouse", "Small House", "..." ],
     [ "bighouse", "Big House", "..." ]

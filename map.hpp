@@ -17,10 +17,7 @@ class Map {
   Uint16 columns;
   Uint16 rows;
   stMapField **fields;
-  Uint16 terrainNamesCount;
-  Uint16 itemNamesCount;
-  string *terrainNames;
-  string *itemNames;
+  Lists *lists;
 public:
   Map();
   void increaseSize(Uint8);
@@ -28,7 +25,7 @@ public:
   void load();
   void save();
   void set(bool);
-  void setNames(Lists *);
+  void setLists(Lists *);
   void unset();
   void setField(Uint16, Uint16, Uint16, string);
   Uint16 getField(Uint16, Uint16, string);
@@ -39,6 +36,8 @@ public:
   string getTerrainName(int);
   Uint16 getItemNamesCount();
   string getItemName(int);
+  Uint16 getBuildingNamesCount();
+  string getBuildingName(int);
 };
 
 #endif

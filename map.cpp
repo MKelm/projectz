@@ -114,19 +114,8 @@ void Map::save() {
   json.save();
 }
 
-void Map::setNames(Lists *lists) {
-  int i;
-  terrainNamesCount = lists->terrainLength;
-  terrainNames = new string[terrainNamesCount];
-  for (i = 0; i < terrainNamesCount; i++) {
-    terrainNames[i] = lists->terrain[i].name;
-  }
-
-  itemNamesCount = lists->itemsLength;
-  itemNames = new string[itemNamesCount];
-  for (i = 0; i < itemNamesCount; i++) {
-    itemNames[i] = lists->items[i].name;
-  }
+void Map::setLists(Lists *pLists) {
+  lists = pLists;
 }
 
 void Map::set(bool setNewValues) {
@@ -184,19 +173,27 @@ Uint16 Map::getRows() {
 }
 
 string Map::getTerrainName(int index) {
-  return terrainNames[index];
+  return lists->terrain[index].name;
 }
 
 Uint16 Map::getTerrainNamesCount() {
-  return terrainNamesCount;
+  return lists->terrainLength;
 }
 
 string Map::getItemName(int index) {
-  return itemNames[index];
+  return lists->items[index].name;
 }
 
 Uint16 Map::getItemNamesCount() {
-  return itemNamesCount;
+  return lists->itemsLength;
+}
+
+string Map::getBuildingName(int index) {
+  return lists->buildings[index].name;
+}
+
+Uint16 Map::getBuildingNamesCount() {
+  return lists->buildingsLength;
 }
 
 void Map::unset() {

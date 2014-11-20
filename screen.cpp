@@ -47,7 +47,9 @@ void Screen::setSubMode(Uint8 pSubMode) {
 }
 
 void Screen::initMap(Map *pMap) {
-  map.init(pMap, (mode == MODE_EDITOR) ? true : false);
+  map.init(
+    pMap, (mode == MODE_EDITOR) ? true : false, (mode == MODE_GAME) ? true : false
+  );
   map.set(surface);
   updateFooterText();
 }
