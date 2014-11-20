@@ -141,9 +141,11 @@ void Map::set(bool setNewValues) {
 void Map::setField(Uint16 column, Uint16 row, Uint16 value, string type) {
   if (type == "terrain" && value > 0)
     fields[row][column].terrain = value;
-  else if (type == "item")
+  else if (type == "item") {
+    if (value == 0 && fields[row][column].resources > 0)
+      fields[row][column].resources = 0;
     fields[row][column].item = value;
-  else if (type == "resource")
+  } else if (type == "resource")
     fields[row][column].resources = value;
   else if (type == "building")
     fields[row][column].building = value;
