@@ -52,6 +52,8 @@ Uint8 EventHandler::getEditorMapSignal(Uint8 subMode) {
         return EVENT_EDITOR_MAP_INPUT_APPEND_CHAR;
       } else if (event->key.keysym.sym == SDLK_BACKSPACE) {
         return EVENT_EDITOR_MAP_INPUT_REMOVE_CHAR;
+      } else if (event->key.keysym.sym == SDLK_RETURN) {
+        return EVENT_EDITOR_MAP_SET_RESOURCE;
       }
     }
 
