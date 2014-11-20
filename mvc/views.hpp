@@ -6,8 +6,9 @@
 class View {
   public:
     SDL_Surface *screen;
-    void event(SDL_Event *);
-    void update();
+    virtual void addBg(Uint8, Uint8, Uint8);
+    virtual void event(SDL_Event *);
+    virtual void update();
     virtual ~View() {};
 };
 

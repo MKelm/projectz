@@ -9,8 +9,8 @@ class Controller {
   public:
     Model *model;
     View *view;
-    void event(SDL_Event *);
-    void update();
+    virtual void event(SDL_Event *);
+    virtual void update();
     virtual ~Controller();
 };
 

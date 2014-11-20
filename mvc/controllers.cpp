@@ -20,5 +20,5 @@ Controller::~Controller() {
 MapController::MapController() {
   model = new MapModel(16, 16);
   view = new MapView();
-  cout << "controller constructor" << endl;
+  cout << "map controller constructor" << endl;
 }
